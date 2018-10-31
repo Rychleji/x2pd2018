@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1217.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas12018.nyč.FXMLRozvrhoveAkceController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1217.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas22018.FXMLPredmetyController">
    <top>
       <FlowPane alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Rozvrhové akce" textFill="#100365">
+            <Label text="Předměty" textFill="#100365">
                <font>
                   <Font name="Arial" size="47.0" />
                </font>
@@ -50,23 +50,24 @@
    <center>
       <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <columns>
-            <TableColumn fx:id="idCol" prefWidth="70.00003051757812" text="ID" />
-            <TableColumn fx:id="zkratkaCol" prefWidth="85.0" text="Zkratka" />
-            <TableColumn fx:id="predmetCol" prefWidth="233.0" text="Předmět" />
-            <TableColumn fx:id="vyucujiciCol" prefWidth="233.0" text="Vyučující" />
-            <TableColumn fx:id="roleCol" minWidth="0.0" prefWidth="89.0" text="Role vyučujícího" />
-            <TableColumn fx:id="zacatekCol" minWidth="0.0" prefWidth="68.0" text="Začíná v" />
-            <TableColumn fx:id="maHodinCol" prefWidth="108.0" text="Má hodin" />
-            <TableColumn fx:id="zpusobCol" prefWidth="134.0" text="Způsob" />
+            <TableColumn fx:id="zkratkaCol" prefWidth="142.00003051757812" text="Zkratka předemětu" />
+            <TableColumn fx:id="nazevCol" minWidth="8.0" prefWidth="264.0" text="Název předmětu" />
+            <TableColumn fx:id="rocnikCol" prefWidth="147.0" text="Doporučený ročník" />
+            <TableColumn fx:id="semestrCol" minWidth="0.0" prefWidth="65.0" text="Semestr" />
+            <TableColumn fx:id="formaCol" minWidth="0.0" prefWidth="69.0" text="Forma" />
+            <TableColumn fx:id="zakonceniCol" prefWidth="83.0" text="Zakončení" />
+            <TableColumn fx:id="pocetStudentuCol" prefWidth="248.0" text="Očekávaný počet studentů" />
          </columns>
       </TableView>
    </center>
    <right>
       <VBox alignment="TOP_CENTER" prefHeight="509.0" prefWidth="196.0" spacing="3.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#pridejButtonClick" prefHeight="31.0" prefWidth="160.0" text="Přidej" />
-            <Button mnemonicParsing="false" onAction="#upravButtonClick" prefHeight="31.0" prefWidth="139.0" text="Uprav" />
-            <Button mnemonicParsing="false" onAction="#odeberButtonClick" prefHeight="31.0" prefWidth="127.0" text="Odeber" />
+            <Button mnemonicParsing="false" onAction="#pridejButtonClick" text="Přidej" />
+            <Button mnemonicParsing="false" onAction="#upravButtonClick" text="Uprav" />
+            <Button mnemonicParsing="false" onAction="#odeberButtonClick" text="Odeber" />
+            <Button mnemonicParsing="false" onAction="#oboryButtonClick" text="Obory" />
+            <Button mnemonicParsing="false" onAction="#raButtonClick" text="Rozvrhové akce" />
          </children>
       </VBox>
    </right>

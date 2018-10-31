@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1217.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas12018.nyč.FXMLOboryController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1217.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas22018.FXMLPracovisteController">
    <top>
       <FlowPane alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Obory" textFill="#100365">
+            <Label text="Pracoviště" textFill="#100365">
                <font>
                   <Font name="Arial" size="47.0" />
                </font>
@@ -50,9 +50,10 @@
    <center>
       <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <columns>
-            <TableColumn fx:id="zkratkaCol" prefWidth="123.00003051757812" text="Zkratka oboru" />
-            <TableColumn fx:id="nazevCol" prefWidth="304.0" text="Název oboru" />
+            <TableColumn fx:id="zkKatedraCol" prefWidth="123.00003051757812" text="Zkratka katedry" />
+            <TableColumn fx:id="katedraCol" prefWidth="304.0" text="Název katedry" />
             <TableColumn fx:id="zkFakultaCol" minWidth="0.0" prefWidth="116.0" text="Zkratka fakulty" />
+            <TableColumn fx:id="fakultaCol" prefWidth="257.0" text="Název fakulty" />
          </columns>
       </TableView>
    </center>
@@ -62,7 +63,7 @@
             <Button mnemonicParsing="false" onAction="#pridejButtonClick" text="Přidej" />
             <Button mnemonicParsing="false" onAction="#upravButtonClick" text="Uprav" />
             <Button mnemonicParsing="false" onAction="#odeberButtonClick" text="Odeber" />
-            <Button mnemonicParsing="false" onAction="#predmetyButtonClick" text="Předměty" />
+            <Button mnemonicParsing="false" onAction="#vyucujiciButtonClick" text="Vyučující katedry" />
          </children>
       </VBox>
    </right>

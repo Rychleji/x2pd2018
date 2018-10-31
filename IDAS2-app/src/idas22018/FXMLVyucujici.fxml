@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1217.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas12018.nyč.FXMLPracovisteController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1217.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas22018.FXMLVyucujiciController">
    <top>
       <FlowPane alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Pracoviště" textFill="#100365">
+            <Label text="Vyučující" textFill="#100365">
                <font>
                   <Font name="Arial" size="47.0" />
                </font>
@@ -49,21 +49,28 @@
    </bottom>
    <center>
       <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <columns>
-            <TableColumn fx:id="zkKatedraCol" prefWidth="123.00003051757812" text="Zkratka katedry" />
-            <TableColumn fx:id="katedraCol" prefWidth="304.0" text="Název katedry" />
-            <TableColumn fx:id="zkFakultaCol" minWidth="0.0" prefWidth="116.0" text="Zkratka fakulty" />
-            <TableColumn fx:id="fakultaCol" prefWidth="257.0" text="Název fakulty" />
-         </columns>
+        <columns>
+          <TableColumn fx:id="idCol" prefWidth="60.0" text="ID" />
+          <TableColumn fx:id="jmenoCol" prefWidth="111.0" text="Jméno" />
+            <TableColumn fx:id="prijmeniCol" prefWidth="95.0" text="Příjmení" />
+            <TableColumn fx:id="titulPredCol" prefWidth="78.0" text="Titul před" />
+            <TableColumn fx:id="titulZaCol" prefWidth="69.0" text="Titul za" />
+            <TableColumn fx:id="telefonCol" prefWidth="102.0" text="Telefon" />
+            <TableColumn fx:id="mobilCol" prefWidth="121.0" text="Mobil" />
+            <TableColumn fx:id="emailCol" prefWidth="237.0" text="E-mail" />
+            <TableColumn fx:id="katedraCol" prefWidth="73.0" text="Katedra" />
+            <TableColumn fx:id="fakultaCol" prefWidth="73.0" text="Fakulta" />
+        </columns>
       </TableView>
    </center>
    <right>
       <VBox alignment="TOP_CENTER" prefHeight="509.0" prefWidth="196.0" spacing="3.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#pridejButtonClick" text="Přidej" />
-            <Button mnemonicParsing="false" onAction="#upravButtonClick" text="Uprav" />
-            <Button mnemonicParsing="false" onAction="#odeberButtonClick" text="Odeber" />
-            <Button mnemonicParsing="false" onAction="#vyucujiciButtonClick" text="Vyučující katedry" />
+            <Button mnemonicParsing="false" onAction="#pridejButtonClick" prefHeight="31.0" prefWidth="160.0" text="Přidej" />
+            <Button mnemonicParsing="false" onAction="#upravButtonClick" prefHeight="31.0" prefWidth="139.0" text="Uprav" />
+            <Button mnemonicParsing="false" onAction="#odeberButtonClick" prefHeight="31.0" prefWidth="127.0" text="Odeber" />
+            <Button mnemonicParsing="false" onAction="#akceButtonClick" text="Rozvrhové akce" />
+            <Button mnemonicParsing="false" onAction="#predmetyButtonClick" text="Vyučované předměty" />
          </children>
       </VBox>
    </right>
