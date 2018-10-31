@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="semPraceNyc" id="450BF93D-4A22-224D-7DE5-74D511A2550B" version="3.5">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 19:31:51 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>450BF93D-4A22-224D-7DE5-74D511A2550B</designId>
+</OSDM_Design>

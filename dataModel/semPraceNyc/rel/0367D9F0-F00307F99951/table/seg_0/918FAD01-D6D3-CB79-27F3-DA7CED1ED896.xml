@@ -1,0 +1,108 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="918FAD01-D6D3-CB79-27F3-DA7CED1ED896" name="OBOR_PREDMET">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>7B351FC6-51AF-1EC9-CEE3-49BF15C61352</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="OBOR_zkratka_oboru" id="50C19324-AB7D-47DA-348A-5FD5D347971C">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>C3431CE6-DF65-52E0-4FA0-F41E60460AF4</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>8</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="678E0F49-03A2-08D9-0AB3-22D26CD307CD" referredColumn="EC2D996D-CD96-2B54-92E9-69BC9A79DBE6"/>
+</associations>
+</Column>
+<Column name="PREDMET_zkratka_predmetu" id="B4488C2D-9858-E777-16F7-909174EFABEC">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>BC5BCFEC-2305-794E-FE66-2B427318B846</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>8</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="3DABA4AB-A9CE-7B2A-5458-47049C358C38" referredColumn="38C20A19-157D-DE9F-4614-C50148D77FB2"/>
+</associations>
+</Column>
+<Column name="KATEGORIE_PREDMETU_kategorie" id="D73703D0-D9B0-6855-19CD-485E873A06F8">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>35816EFA-FA25-3DCE-CE84-FE6530EED940</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="33007BE2-FD53-2C2F-039D-7327A257F555" referredColumn="C73FA940-EA88-04D9-C6B5-E9E94065FB58"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="D2E896E4-4A37-BCF7-6038-A523E6ECEB61" name="OBOR_PREDMET_PK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>648F0E48-5DFC-BECC-99F4-2D9EC30F886C</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="50C19324-AB7D-47DA-348A-5FD5D347971C"/>
+<colUsage columnID="B4488C2D-9858-E777-16F7-909174EFABEC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1AC202A2-F958-2557-2BFF-85422EEEE7FC" name="OBOR_PREDMET_OBOR_FK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:20 UTC</createdTime>
+<generatorID>48BC40C0-EC0A-9B2C-980F-2EDE9E3C0C72</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="50C19324-AB7D-47DA-348A-5FD5D347971C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="FFEE19DF-B856-268F-9799-8EBF0A8C7ABB" name="OBOR_PREDMET_PREDMET_FK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:20 UTC</createdTime>
+<generatorID>5A5EBA36-412E-8FD3-DE75-DEB1E0B5E165</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B4488C2D-9858-E777-16F7-909174EFABEC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A12003F5-1672-1FBE-1FAA-8B048AAA789F" name="OBOR_PREDMET_KATEGORIE_PREDMETU_FK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:20 UTC</createdTime>
+<generatorID>B4C4F3AA-B78F-79D8-DCF2-9730833B7373</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D73703D0-D9B0-6855-19CD-485E873A06F8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

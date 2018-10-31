@@ -1,0 +1,49 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="A2FA5F1F-B861-692F-775C-E1627EB4B6CB" name="SEMESTR">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>5B7D9D8A-D711-28C2-9637-36586B8286E0</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_semestr" id="79B5F824-23CB-046E-4A4B-9DFB268F52F0">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>F00D29EE-5CEE-63AE-387C-2D0308EF52FB</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="sem" id="B07F7EA1-C285-B17E-2C35-1CA71AAF7A96">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>D8260AD2-E72A-BD93-33E5-2FC0BA58CA95</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="455FC7F7-6446-40FC-F42B-34528CE8F113" name="SEMESTR_PK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>444BDE81-B965-59F4-3C4B-0AD1E1AD485B</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="79B5F824-23CB-046E-4A4B-9DFB268F52F0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,74 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="404E9964-5EC2-3B69-5D85-5EF1388FFBB2" name="KATEDRA">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:22:39 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="zkratka_katedry" id="6AE6DFB0-6C8B-1A5F-87D2-462946C96660">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:22:52 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nazev_katedry" id="6621A1A8-96EF-65A4-C76C-5F88BF1B785F">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:23:20 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>60</dataTypeSize>
+<ownDataTypeParameters>60,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="zkratka_fakulty" id="A4DCE838-A71B-7CA9-8985-60C7699CF4EC">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:26:43 UTC</createdTime>
+<generatorID>C67DD185-725A-0D25-8CD7-9F2B8623F8CF</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<referedAttribute>CC4D8B85-761C-F8EE-3D13-650B598E99EB</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="7D669B02-0BC6-B3D0-B013-B835EFEF935B" name="KATEDRA PK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:23:16 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>6AE6DFB0-6C8B-1A5F-87D2-462946C96660</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

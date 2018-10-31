@@ -1,0 +1,74 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="5BE0616B-E259-A9C8-96F1-4B4D406F0D11" name="OBOR">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 20:58:17 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="zkratka_oboru" id="E6A783DA-D502-C77D-00E9-43FF8E8F2C28">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 20:58:28 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>8</dataTypeSize>
+<ownDataTypeParameters>8,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nazev_oboru" id="3112ADC2-3A15-053C-8FE1-3A0286D01EBF">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 20:59:01 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="zkratka_fakulty" id="B713529C-1E78-43C5-3361-B0B9FA9641B8">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:30:19 UTC</createdTime>
+<generatorID>69A3BB64-AE08-8DC4-2A12-472EBEEBBDF3</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<referedAttribute>CC4D8B85-761C-F8EE-3D13-650B598E99EB</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="CCACDD5B-DDF3-FA9F-32AE-5BFF87A06424" name="OBOR PK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 20:58:54 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>E6A783DA-D502-C77D-00E9-43FF8E8F2C28</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

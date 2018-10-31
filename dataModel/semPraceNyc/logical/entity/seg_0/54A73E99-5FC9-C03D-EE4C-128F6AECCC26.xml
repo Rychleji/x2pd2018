@@ -1,0 +1,171 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="54A73E99-5FC9-C03D-EE4C-128F6AECCC26" name="VYUCUJICI">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 19:46:43 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id_vyucujiciho" id="9FBF1353-6AD4-40E0-0B72-28D2CB5BDA6D">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 19:46:59 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="jmeno" id="1313CCBD-A389-F965-8EB9-D3C0A1EAC201">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 19:47:53 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="prijmeni" id="0CCA3D8D-6A00-9D42-F903-74AEDAB3BEFE">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 20:04:28 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="titul_pred" id="CA17B485-08EC-B9BD-093F-B2E24A0828A5">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 20:04:57 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="titul_za" id="73531C3B-7D58-D4A3-33B4-A9B82BBE23F6">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 20:07:15 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>15</dataTypeSize>
+<ownDataTypeParameters>15,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="telefon" id="77B57731-1C1F-2E00-DA32-C808F72F3B30">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 20:07:40 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>13</dataTypeSize>
+<ownDataTypeParameters>13,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="mobil" id="5B43BCB5-6E1C-DC8B-A9BC-CB4B7342B2D8">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 20:33:38 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>13</dataTypeSize>
+<ownDataTypeParameters>13,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="email" id="F5182569-A258-B9CC-79C0-F2C4469DF062">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 20:32:43 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_pracoviste" id="28F20E70-D6F9-DAE5-B9CA-7573DBB8B2EA">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 21:24:31 UTC</createdTime>
+<generatorID>52335494-6FB8-7B96-BE22-AB1643C51A6E</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="false"/>
+</engineerTo>
+<referedAttribute>0959041B-76DB-3D70-F04E-B38B01AEEEC8</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="zkratka_katedry" id="3AD0E26B-FC25-D8B0-3035-FA4CC3E5A068">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:26:18 UTC</createdTime>
+<generatorID>E35D4483-BB68-604B-3501-F5A7773DF50F</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<referedAttribute>6AE6DFB0-6C8B-1A5F-87D2-462946C96660</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="14E1F3FB-95EC-0076-717A-A8AADFB24286" name="VYUCUJICI PK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 19:47:49 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>9FBF1353-6AD4-40E0-0B72-28D2CB5BDA6D</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

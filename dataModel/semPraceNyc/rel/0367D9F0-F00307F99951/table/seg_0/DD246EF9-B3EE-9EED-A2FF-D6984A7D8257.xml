@@ -1,0 +1,77 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="DD246EF9-B3EE-9EED-A2FF-D6984A7D8257" name="OBOR">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>5BE0616B-E259-A9C8-96F1-4B4D406F0D11</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="zkratka_oboru" id="EC2D996D-CD96-2B54-92E9-69BC9A79DBE6">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>E6A783DA-D502-C77D-00E9-43FF8E8F2C28</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>8</dataTypeSize>
+<ownDataTypeParameters>8,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nazev_oboru" id="8439950C-141A-51E9-ED64-526CC4559A43">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>3112ADC2-3A15-053C-8FE1-3A0286D01EBF</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FAKULTA_zkratka_fakulty" id="4D2DBFF5-4559-DAAE-0F17-6EAA893181F7">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>B713529C-1E78-43C5-3361-B0B9FA9641B8</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1D0D071D-9AEA-42CB-1143-59E94ED767AC" referredColumn="1B7851A2-1D27-40F0-8BA9-D446297244C3"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B9FCEFF9-8DDC-2325-FF79-B1BCAF94A8EC" name="OBOR_PK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>CCACDD5B-DDF3-FA9F-32AE-5BFF87A06424</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EC2D996D-CD96-2B54-92E9-69BC9A79DBE6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0EC9B5A8-D61D-3CE9-6E5D-5C6455E4A135" name="OBOR_FAKULTA_FK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:20 UTC</createdTime>
+<generatorID>69A3BB64-AE08-8DC4-2A12-472EBEEBBDF3</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4D2DBFF5-4559-DAAE-0F17-6EAA893181F7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

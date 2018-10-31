@@ -1,0 +1,126 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="5CA66672-0837-C9D0-FEB5-576D107A343D" name="PREDMET">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 20:43:14 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="zkratka_predmetu" id="294F2764-4C52-7877-859B-F91124CE2068">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 20:43:34 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>8</dataTypeSize>
+<ownDataTypeParameters>8,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nazev_predmetu" id="ADA6B639-7366-E1BF-8A45-D053E0333C27">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 20:44:04 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="rozsah_hodin" id="2FC2A640-C6B8-B48E-CC43-1CEFE34A9804">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 20:46:07 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="doporuceny_rocnik" id="0EC8011A-295C-FDD7-0E21-A5D3EE727E2F">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 20:47:09 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_semestr" id="50FA5E3B-51A9-3081-4575-C380C9B092C0">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 20:51:46 UTC</createdTime>
+<generatorID>BF9B6293-67B5-34FE-6872-5DC29D978DCE</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<referedAttribute>F00D29EE-5CEE-63AE-387C-2D0308EF52FB</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_zz" id="74CF8B25-D662-CD4E-D624-8CF97C84D20F">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 20:53:40 UTC</createdTime>
+<generatorID>677EAC2C-DB55-7D1A-49A1-BBABFD8EB5B9</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<referedAttribute>6F2DC85D-E145-5856-3DDC-365434B58D39</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_fv" id="00CBFF59-06D9-9861-34C9-E3E41CE1DFB5">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 20:55:45 UTC</createdTime>
+<generatorID>9D012733-842B-C48B-B00E-05FA163B61F2</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<referedAttribute>DEDC8DEE-BC24-C3E9-5DC1-8B642325C2B8</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="CBD270A8-A7CC-688F-B07D-CC46BC1B8CFC" name="PREDMET PK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 20:45:59 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>294F2764-4C52-7877-859B-F91124CE2068</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

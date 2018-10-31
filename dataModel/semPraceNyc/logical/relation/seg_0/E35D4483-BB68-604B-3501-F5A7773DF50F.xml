@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Relation_22" directorySegmentName="seg_0" id="E35D4483-BB68-604B-3501-F5A7773DF50F">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:26:18 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<sourcePk>7D669B02-0BC6-B3D0-B013-B835EFEF935B</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>404E9964-5EC2-3B69-5D85-5EF1388FFBB2</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>54A73E99-5FC9-C03D-EE4C-128F6AECCC26</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

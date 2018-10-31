@@ -1,0 +1,50 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="D52FF023-4AC2-CF8D-A7AA-ECAC9D43A6D2" name="FAKULTA">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>B5ADB17C-8ACC-F170-90A3-6271F8FD518D</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="zkratka_fakulty" id="1B7851A2-1D27-40F0-8BA9-D446297244C3">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>CC4D8B85-761C-F8EE-3D13-650B598E99EB</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nazev_fakulty" id="E2FE5FB0-4DAC-600F-5F6B-6DE0C294C205">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>033210DD-E76D-91E7-5ED5-682581374988</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>60</dataTypeSize>
+<ownDataTypeParameters>60,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="A5AB8F41-F134-6846-4718-34D66C9F1716" name="FAKULTA_PK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>5DD2D137-7C79-C8A8-AC72-1DFD25FF7A78</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1B7851A2-1D27-40F0-8BA9-D446297244C3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

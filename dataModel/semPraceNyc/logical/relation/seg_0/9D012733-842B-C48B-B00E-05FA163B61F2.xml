@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="formavyuky_predmet" directorySegmentName="seg_0" id="9D012733-842B-C48B-B00E-05FA163B61F2">
+<createdBy>Radim</createdBy>
+<createdTime>2018-04-19 20:55:45 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="636373D4-CA37-F319-025E-685228178DE0" value="true"/>
+</engineerTo>
+<sourcePk>11280FA1-A7CA-2C94-68CF-5D6AFAC6326B</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>92B2D4CB-C77E-0D12-E75D-72CFC3203049</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>5CA66672-0837-C9D0-FEB5-576D107A343D</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

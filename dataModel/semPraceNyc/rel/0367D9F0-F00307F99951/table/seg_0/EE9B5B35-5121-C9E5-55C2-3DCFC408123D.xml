@@ -1,0 +1,49 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="EE9B5B35-5121-C9E5-55C2-3DCFC408123D" name="ZPUSOB_VYUKY">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:20 UTC</createdTime>
+<generatorID>79C52C94-8533-A411-D2F0-9DA1E05DAB19</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_zv" id="AAE0643D-DD51-4B94-F7D5-6857736FF8E1">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:20 UTC</createdTime>
+<generatorID>3C0E9F54-07AC-5BDE-ED35-2E09E0260411</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="zpusob" id="AFBA23BB-E511-8034-5AC2-4973B49C1A87">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:20 UTC</createdTime>
+<generatorID>BACFC3FF-0A06-4D5C-8448-DCABB91739FD</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="67658B4B-AB57-1D2A-FAC0-D9DDFB6659F5" name="ZPUSOB_VYUKY_PK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:20 UTC</createdTime>
+<generatorID>72628FE9-A129-9632-AD34-493FD0E64A55</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="AAE0643D-DD51-4B94-F7D5-6857736FF8E1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

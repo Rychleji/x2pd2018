@@ -1,0 +1,77 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E049D80E-DE6B-E5BB-714C-E5316B7621E6" name="KATEDRA">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>404E9964-5EC2-3B69-5D85-5EF1388FFBB2</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="zkratka_katedry" id="F8D8F121-56B5-D0FD-0166-CDC91AA07A42">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>6AE6DFB0-6C8B-1A5F-87D2-462946C96660</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nazev_katedry" id="FD085F1A-3C09-AD1A-1CBA-188A172656D3">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>6621A1A8-96EF-65A4-C76C-5F88BF1B785F</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>60</dataTypeSize>
+<ownDataTypeParameters>60,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FAKULTA_zkratka_fakulty" id="9C06264F-C32F-3A94-0C20-74F6F8A800FF">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>A4DCE838-A71B-7CA9-8985-60C7699CF4EC</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="75C1BB50-508B-06BA-1418-A5493704567F" referredColumn="1B7851A2-1D27-40F0-8BA9-D446297244C3"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="F8CD9B52-0253-60C0-D4E0-FC0149A71E43" name="KATEDRA_PK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:19 UTC</createdTime>
+<generatorID>7D669B02-0BC6-B3D0-B013-B835EFEF935B</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F8D8F121-56B5-D0FD-0166-CDC91AA07A42"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C4A37E8B-09AF-601C-B0D7-E0F8C2BB9B01" name="KATEDRA_FAKULTA_FK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 22:32:20 UTC</createdTime>
+<generatorID>C67DD185-725A-0D25-8CD7-9F2B8623F8CF</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9C06264F-C32F-3A94-0C20-74F6F8A800FF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

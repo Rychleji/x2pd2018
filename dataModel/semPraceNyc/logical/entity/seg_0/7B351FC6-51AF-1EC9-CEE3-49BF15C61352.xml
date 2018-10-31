@@ -1,0 +1,79 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="7B351FC6-51AF-1EC9-CEE3-49BF15C61352" name="OBOR_PREDMET">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 12:20:27 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="636373D4-CA37-F319-025E-685228178DE0" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="zkratka_oboru" id="C3431CE6-DF65-52E0-4FA0-F41E60460AF4">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 12:20:52 UTC</createdTime>
+<generatorID>48BC40C0-EC0A-9B2C-980F-2EDE9E3C0C72</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="636373D4-CA37-F319-025E-685228178DE0" value="true"/>
+</engineerTo>
+<referedAttribute>E6A783DA-D502-C77D-00E9-43FF8E8F2C28</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>8</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="zkratka_predmetu" id="BC5BCFEC-2305-794E-FE66-2B427318B846">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 12:21:06 UTC</createdTime>
+<generatorID>5A5EBA36-412E-8FD3-DE75-DEB1E0B5E165</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="636373D4-CA37-F319-025E-685228178DE0" value="true"/>
+</engineerTo>
+<referedAttribute>294F2764-4C52-7877-859B-F91124CE2068</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>8</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="kategorie" id="35816EFA-FA25-3DCE-CE84-FE6530EED940">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 12:26:48 UTC</createdTime>
+<generatorID>B4C4F3AA-B78F-79D8-DCF2-9730833B7373</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="636373D4-CA37-F319-025E-685228178DE0" value="true"/>
+</engineerTo>
+<referedAttribute>32B1A0EF-9463-6E48-5CBC-952C50E02E11</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="648F0E48-5DFC-BECC-99F4-2D9EC30F886C" name="OBOR_PREDMET PK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-05-07 12:20:52 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="636373D4-CA37-F319-025E-685228178DE0" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>C3431CE6-DF65-52E0-4FA0-F41E60460AF4</attributeRef>
+<attributeRef>BC5BCFEC-2305-794E-FE66-2B427318B846</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
