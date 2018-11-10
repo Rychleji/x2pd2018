@@ -11,6 +11,7 @@ import idas22018.dialogy.DialogChyba;
 import idas22018.dialogy.DialogPridejVyucujiciho;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -35,11 +36,10 @@ import javafx.scene.control.TableView;
  */
 public class FXMLVyucujiciController implements Initializable {
 
-    ISkolniDB dataLayer;
     ObservableList<List<String>> seznam = FXCollections.observableArrayList();
-    
+
     String katedraFiltr, predmetFiltr;
-    
+
     @FXML
     private TableView<List<String>> tableView;
     @FXML
@@ -65,11 +65,16 @@ public class FXMLVyucujiciController implements Initializable {
     private Scene predScena;
     private Scene aktScena;
 
+    
+    //Vezmu si datovou vrstvu
+    private ISkolniDB dataLayer;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        dataLayer = GuiFXMLController.getDataLayer();
         idCol.setCellValueFactory((CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
         jmenoCol.setCellValueFactory((CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));
         prijmeniCol.setCellValueFactory((CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(2)));
@@ -107,7 +112,17 @@ public class FXMLVyucujiciController implements Initializable {
     @FXML
     private void cancelButtonClick(ActionEvent event) {
         dataLayer.rollback();
-        close(predScena);
+        Parent root;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GuiFXML.fxml"));
+            root = fxmlLoader.load();
+            GuiFXMLController controller = fxmlLoader.<GuiFXMLController>getController();
+            Scene scena = new Scene(root);
+            stageP.setScene(scena);
+            stageP.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -165,14 +180,14 @@ public class FXMLVyucujiciController implements Initializable {
     private void fillTable() {
         try {
             ResultSet rs = null;
-            if(predmetFiltr!=null){
+            if (predmetFiltr != null) {
                 rs = dataLayer.selectTeachers("", "", predmetFiltr);
-            } else if (katedraFiltr!=null){
+            } else if (katedraFiltr != null) {
                 rs = dataLayer.selectTeachers(katedraFiltr);
-            }else{
+            } else {
                 rs = dataLayer.selectTeachers();
             }
-            
+
             seznam.clear();
 
             while (rs.next()) {
@@ -190,17 +205,66 @@ public class FXMLVyucujiciController implements Initializable {
 
     @FXML
     private void akceButtonClick(ActionEvent event) {
-        String origID = tableView.getSelectionModel().getSelectedItem().get(0);
+        if (tableView.getItems().isEmpty() || tableView.getSelectionModel().getSelectedItem() == null) {
+
+        } else {
+            String origID = tableView.getSelectionModel().getSelectedItem().get(0);
+            Parent root;
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLRozvrhoveAkce.fxml"));
+                root = fxmlLoader.load();
+                FXMLRozvrhoveAkceController controller = fxmlLoader.<FXMLRozvrhoveAkceController>getController();
+                controller.setVyucId(origID);
+
+                Scene scena = new Scene(root);
+                controller.setScenes(aktScena, scena);
+                controller.initialize(null, null);
+                stageP.setScene(scena);
+                stageP.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void predmetyButtonClick(ActionEvent event) {
+        if (tableView.getItems().isEmpty() || tableView.getSelectionModel().getSelectedItem() == null) {
+
+        } else {
+            String origID = tableView.getSelectionModel().getSelectedItem().get(0);
+            Parent root;
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPredmety.fxml"));
+                root = fxmlLoader.load();
+                FXMLPredmetyController controller = fxmlLoader.<FXMLPredmetyController>getController();
+                controller.setVyucId(origID);
+                controller.initialize(null, null);
+                Scene scena = new Scene(root);
+                controller.setScenes(aktScena, scena);
+                stageP.setScene(scena);
+                stageP.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    void setScenes(Scene predScena, Scene aktScena) {
+        this.predScena = predScena;
+        this.aktScena = aktScena;
+    }
+
+    @FXML
+    private void pracovisteButtonClick(ActionEvent event) {
         Parent root;
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLRozvrhoveAkce.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPracoviste.fxml"));
             root = fxmlLoader.load();
-            FXMLRozvrhoveAkceController controller = fxmlLoader.<FXMLRozvrhoveAkceController>getController();
-            controller.setVyucId(origID);
-            
+            FXMLPracovisteController controller = fxmlLoader.<FXMLPracovisteController>getController();
+
             Scene scena = new Scene(root);
             controller.setScenes(aktScena, scena);
-            controller.initialize(null, null);
             stageP.setScene(scena);
             stageP.show();
         } catch (IOException e) {
@@ -209,15 +273,12 @@ public class FXMLVyucujiciController implements Initializable {
     }
 
     @FXML
-    private void predmetyButtonClick(ActionEvent event) {
-        String origID = tableView.getSelectionModel().getSelectedItem().get(0);
+    private void oboryButttonClick(ActionEvent event) {
         Parent root;
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPredmety.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLObory.fxml"));
             root = fxmlLoader.load();
-            FXMLPredmetyController controller = fxmlLoader.<FXMLPredmetyController>getController();
-            controller.setVyucId(origID);
-            controller.initialize(null, null);
+            FXMLOboryController controller = fxmlLoader.<FXMLOboryController>getController();
             Scene scena = new Scene(root);
             controller.setScenes(aktScena, scena);
             stageP.setScene(scena);
@@ -227,8 +288,22 @@ public class FXMLVyucujiciController implements Initializable {
         }
     }
 
-    void setScenes(Scene predScena, Scene aktScena) {
-        this.predScena = predScena;
-        this.aktScena = aktScena;
+    @FXML
+    private void prehledPredmetuButtonClick(ActionEvent event) {
+        Parent root;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPredmety.fxml"));
+            root = fxmlLoader.load();
+            FXMLPredmetyController controller = fxmlLoader.<FXMLPredmetyController>getController();
+
+            Scene scena = new Scene(root);
+            controller.setScenes(aktScena, scena);
+            stageP.setScene(scena);
+            stageP.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+   
 }

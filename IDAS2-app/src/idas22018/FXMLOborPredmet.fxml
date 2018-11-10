@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1217.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas22018.FXMLOborPredmetController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1217.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas22018.FXMLOborPredmetController">
    <top>
       <FlowPane alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -59,11 +59,20 @@
       </TableView>
    </center>
    <right>
-      <VBox alignment="TOP_CENTER" prefHeight="509.0" prefWidth="196.0" spacing="3.0" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="509.0" prefWidth="196.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#pridejButtonClick" text="Přidej" />
-            <Button mnemonicParsing="false" onAction="#upravButtonClick" text="Uprav" />
-            <Button mnemonicParsing="false" onAction="#odeberButtonClick" text="Odeber" />
+            <Button mnemonicParsing="false" onAction="#pridejButtonClick" prefHeight="30.0" prefWidth="140.0" text="Přidej" />
+            <Button mnemonicParsing="false" onAction="#upravButtonClick" prefHeight="30.0" prefWidth="140.0" text="Uprav" />
+            <Button mnemonicParsing="false" onAction="#odeberButtonClick" prefHeight="30.0" prefWidth="140.0" text="Odeber" />
+            <Label text="NAVIGACE" underline="true">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#vyucujiciButtonClick" prefHeight="30.0" prefWidth="140.0" text="Vyučující" />
+            <Button mnemonicParsing="false" onAction="#predmetyButtonClick" prefHeight="30.0" prefWidth="140.0" text="Předměty" />
+            <Button mnemonicParsing="false" onAction="#oboryButtonClick" prefHeight="30.0" prefWidth="140.0" text="Obory" />
+            <Button mnemonicParsing="false" onAction="#pracovisteButtonClick" prefHeight="30.0" prefWidth="140.0" text="Pracoviště" />
          </children>
       </VBox>
    </right>
