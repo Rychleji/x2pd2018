@@ -105,7 +105,7 @@ public class FXMLVyucujiciController implements Initializable {
 
     @FXML
     private void okButtonClick(ActionEvent event) {
-        //dataLayer.commit();
+        dataLayer.commit();
         close(predScena);
     }
 
