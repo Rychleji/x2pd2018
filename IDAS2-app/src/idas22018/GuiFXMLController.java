@@ -28,7 +28,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -45,7 +44,7 @@ import javafx.stage.WindowEvent;
  */
 public class GuiFXMLController implements Initializable {
 
-    ISkolniDB dataLayer = new SkolniDB();
+    private static ISkolniDB dataLayer;
     Connection conn;
     List<String> ciselnikKatPredmetu = new ArrayList<>(3);
     Map<Integer, HelpClass> ciselnikZpusobVyuky = new HashMap<>(3);
@@ -60,6 +59,10 @@ public class GuiFXMLController implements Initializable {
     private VBox disablovatelnyButtonyVBox;
     @FXML
     private Button pripojitButton;
+    
+    public static ISkolniDB getDataLayer(){
+        return dataLayer;
+    }
 
     public List<String> getCiselnikKatPredmetu() {
         return ciselnikKatPredmetu;
@@ -84,17 +87,23 @@ public class GuiFXMLController implements Initializable {
     public Map<Integer, HelpClass> getCiselnikFormaVyuky() {
         return ciselnikFormaVyuky;
     }
+    
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         versionLabel.setText("Verze: " + VERSION);
         stageP.setTitle(PROGRAMNAME);
+        if(dataLayer == null){
+            dataLayer = new SkolniDB();
+        }
         conn = dataLayer.getConnect();
         afterConnect();
         
         stageP.setOnCloseRequest((WindowEvent event) -> {
             Alert closeComf = new Alert(Alert.AlertType.CONFIRMATION, "Opravdu chcete zavřít program?", ButtonType.YES, ButtonType.NO);
 
+            closeComf.setHeaderText("Potvrďte prosím");
             closeComf.initModality(Modality.APPLICATION_MODAL);
 
             Optional<ButtonType> optBtn = closeComf.showAndWait();
@@ -113,10 +122,6 @@ public class GuiFXMLController implements Initializable {
         });
     }
 
-    public ISkolniDB getDataLayer() {
-        return dataLayer;
-    }
-
     @FXML
     private void vyucujiciButtonClick(ActionEvent event) {
         Parent root;
@@ -124,18 +129,17 @@ public class GuiFXMLController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLVyucujici.fxml"));
             root = fxmlLoader.load();
             FXMLVyucujiciController controller = fxmlLoader.<FXMLVyucujiciController>getController();
-            controller.setDataLayer(dataLayer);
             Scene scena = new Scene(root);
-            controller.setScenes(mainScene, scena);
             stageP.setScene(scena);
             stageP.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
+    
     private void afterConnect() {
-        if (conn != null) {//naplnění listů s číselníky
+        //naplnění listů s číselníky
+        if (conn != null) {
             try {
                 ResultSet rs;
                 Statement query = conn.createStatement();
@@ -184,16 +188,17 @@ public class GuiFXMLController implements Initializable {
                 dialog2.showAndWait();
             }
         }
-
-        disablovatelnyButtonyVBox.getChildren().forEach((node) -> {
+        
+        //Není potřeba
+        /*disablovatelnyButtonyVBox.getChildren().forEach((node) -> {
             node.setDisable(conn == null);
         });
 
-        pripojitButton.setDisable(conn != null);
+        pripojitButton.setDisable(conn != null);*/
     }
-
+    
     @FXML
-    private void pracovisteButtonClick(ActionEvent event) {
+    private void pracovisteButtonClick(ActionEvent event) {        
         Parent root;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPracoviste.fxml"));
@@ -201,7 +206,6 @@ public class GuiFXMLController implements Initializable {
             FXMLPracovisteController controller = fxmlLoader.<FXMLPracovisteController>getController();
 
             Scene scena = new Scene(root);
-            controller.setScenes(mainScene, scena);
             stageP.setScene(scena);
             stageP.show();
         } catch (IOException e) {
@@ -233,7 +237,6 @@ public class GuiFXMLController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLObory.fxml"));
             root = fxmlLoader.load();
             FXMLOboryController controller = fxmlLoader.<FXMLOboryController>getController();
-            //controller.setVyucId(origID);
             Scene scena = new Scene(root);
             controller.setScenes(mainScene, scena);
             stageP.setScene(scena);
@@ -241,6 +244,10 @@ public class GuiFXMLController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    void setConnection(Connection conn) {
+        this.conn = conn;
     }
 
     public class HelpClass {
@@ -284,6 +291,8 @@ public class GuiFXMLController implements Initializable {
             afterConnect();
         }
     }
+    
+    
 
     @FXML
     private void exitButtonClick(ActionEvent event) {

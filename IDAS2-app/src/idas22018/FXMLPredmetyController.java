@@ -63,7 +63,7 @@ public class FXMLPredmetyController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        dataLayer = IDAS22018.mainController.getDataLayer();
+        dataLayer = GuiFXMLController.getDataLayer();
 
         zkratkaCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
         nazevCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));
@@ -86,7 +86,17 @@ public class FXMLPredmetyController implements Initializable {
     @FXML
     private void cancelButtonClick(ActionEvent event) {
         dataLayer.rollback();
-        close(predScena);
+        Parent root;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GuiFXML.fxml"));
+            root = fxmlLoader.load();
+            GuiFXMLController controller = fxmlLoader.<GuiFXMLController>getController();
+            Scene scena = new Scene(root);
+            stageP.setScene(scena);
+            stageP.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setVyucId(String vyucId) {
@@ -168,13 +178,61 @@ public class FXMLPredmetyController implements Initializable {
     @FXML
     private void oboryButtonClick(ActionEvent event) {
         Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOborPredmet.fxml"));
-            root = fxmlLoader.load();
-            FXMLOborPredmetController controller = fxmlLoader.<FXMLOborPredmetController>getController();
-            controller.setSubjId(tableView.getSelectionModel().getSelectedItem().get(0));
-            controller.initialize(null, null);
+        if (tableView.getItems().isEmpty() || tableView.getSelectionModel().getSelectedItem() == null) {
+        } else {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOborPredmet.fxml"));
+                root = fxmlLoader.load();
+                FXMLOborPredmetController controller = fxmlLoader.<FXMLOborPredmetController>getController();
 
+                Scene scena = new Scene(root);
+                controller.setSubjId(tableView.getSelectionModel().getSelectedItem().get(0));
+                controller.initialize(null, null);
+                controller.setScenes(aktScena, scena);
+                stageP.setScene(scena);
+                stageP.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void raButtonClick(ActionEvent event) {
+        if (tableView.getItems().isEmpty() || tableView.getSelectionModel().getSelectedItem() == null) {
+
+        } else {
+            String origID = tableView.getSelectionModel().getSelectedItem().get(0);
+            Parent root;
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLRozvrhoveAkce.fxml"));
+                root = fxmlLoader.load();
+                FXMLRozvrhoveAkceController controller = fxmlLoader.<FXMLRozvrhoveAkceController>getController();
+                controller.setSubjId(origID);
+                controller.initialize(null, null);
+                Scene scena = new Scene(root);
+                controller.setScenes(aktScena, scena);
+                stageP.setScene(scena);
+                stageP.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void setScenes(Scene predScena, Scene aktScena) {
+        this.predScena = predScena;
+        this.aktScena = aktScena;
+    }
+
+    @FXML
+    private void vyucujiciButtonClick(ActionEvent event) {
+        Parent root;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLVyucujici.fxml"));
+            root = fxmlLoader.load();
+            FXMLVyucujiciController controller = fxmlLoader.<FXMLVyucujiciController>getController();
+            controller.setDataLayer(dataLayer);
             Scene scena = new Scene(root);
             controller.setScenes(aktScena, scena);
             stageP.setScene(scena);
@@ -185,15 +243,13 @@ public class FXMLPredmetyController implements Initializable {
     }
 
     @FXML
-    private void raButtonClick(ActionEvent event) {
-        String origID = tableView.getSelectionModel().getSelectedItem().get(0);
+    private void pracovisteButtonClick(ActionEvent event) {
         Parent root;
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLRozvrhoveAkce.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPracoviste.fxml"));
             root = fxmlLoader.load();
-            FXMLRozvrhoveAkceController controller = fxmlLoader.<FXMLRozvrhoveAkceController>getController();
-            controller.setSubjId(origID);
-            controller.initialize(null, null);
+            FXMLPracovisteController controller = fxmlLoader.<FXMLPracovisteController>getController();
+
             Scene scena = new Scene(root);
             controller.setScenes(aktScena, scena);
             stageP.setScene(scena);
@@ -201,11 +257,6 @@ public class FXMLPredmetyController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void setScenes(Scene predScena, Scene aktScena) {
-        this.predScena = predScena;
-        this.aktScena = aktScena;
     }
 
 }

@@ -1,0 +1,7 @@
+10.11.
+--------------------------
+a)Pokud se nepøipojíš do databaze hodi to vyjimku, je to už pøipravené na uživatele (zeptam se na cvièení jak to ma presne fungovat)
+b)Upravil jsem navigaci (v zadani stojí, že z každý karty, se musíš dostat všude)
+c)Tlaèítko zruš te od ted prehodi do hlavní nabídky (pøièemž u teto prilezitosti jsem ucelil odkazy na reference dataLayeru)
+d)Opravený druhy výjimek a zachycené další + upravný null hodnoty, aby to hnedka nepadalo do vyjimky 
+(pr. aa.getSelectionModel().SelectedItem() != null ... pak delej ...)

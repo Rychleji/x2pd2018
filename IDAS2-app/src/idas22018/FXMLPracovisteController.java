@@ -9,9 +9,9 @@ import datovavrstva.ISkolniDB;
 import static idas22018.IDAS22018.*;
 import idas22018.dialogy.DialogChyba;
 import idas22018.dialogy.DialogPridejKatedru;
-import idas22018.dialogy.DialogPridejRA;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -37,10 +37,10 @@ public class FXMLPracovisteController implements Initializable {
 
     private Scene predScena;
     private Scene aktScena;
-    
+
     ISkolniDB dataLayer;
     ObservableList<List<String>> seznam = FXCollections.observableArrayList();
-    
+
     @FXML
     private TableView<List<String>> tableView;
     @FXML
@@ -57,7 +57,7 @@ public class FXMLPracovisteController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        dataLayer = mainController.getDataLayer();
+        dataLayer = GuiFXMLController.getDataLayer();
 
         zkKatedraCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
         katedraCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));
@@ -66,7 +66,7 @@ public class FXMLPracovisteController implements Initializable {
 
         tableView.setItems(seznam);
         fillTable();
-    }    
+    }
 
     @FXML
     private void okButtonClick(ActionEvent event) {
@@ -76,8 +76,18 @@ public class FXMLPracovisteController implements Initializable {
 
     @FXML
     private void cancelButtonClick(ActionEvent event) {
-        dataLayer.rollback();
-        close(predScena);
+         dataLayer.rollback();
+        Parent root;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GuiFXML.fxml"));
+            root = fxmlLoader.load();
+            GuiFXMLController controller = fxmlLoader.<GuiFXMLController>getController();
+            Scene scena = new Scene(root);
+            stageP.setScene(scena);
+            stageP.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -117,7 +127,7 @@ public class FXMLPracovisteController implements Initializable {
 
     @FXML
     private void odeberButtonClick(ActionEvent event) {
-        String origID =tableView.getSelectionModel().getSelectedItem().get(0);
+        String origID = tableView.getSelectionModel().getSelectedItem().get(0);
 
         try {
             dataLayer.deleteDepartment(origID);
@@ -148,15 +158,41 @@ public class FXMLPracovisteController implements Initializable {
 
     @FXML
     private void vyucujiciButtonClick(ActionEvent event) {
+        if (tableView.getItems().isEmpty() || tableView.getSelectionModel().getSelectedItem() == null) {
+
+        } else {
+            Parent root;
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLVyucujici.fxml"));
+                root = fxmlLoader.load();
+                FXMLVyucujiciController controller = fxmlLoader.<FXMLVyucujiciController>getController();
+
+                Scene scena = new Scene(root);
+                controller.setKatedraFiltr(tableView.getSelectionModel().getSelectedItem().get(0));
+                controller.setDataLayer(dataLayer);
+                controller.setScenes(aktScena, scena);
+                stageP.setScene(scena);
+                stageP.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void setScenes(Scene predScena, Scene aktScena) {
+        this.predScena = predScena;
+        this.aktScena = aktScena;
+    }
+
+    @FXML
+    private void prehledVyucijiciButtonClick(ActionEvent event) {
         Parent root;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLVyucujici.fxml"));
             root = fxmlLoader.load();
             FXMLVyucujiciController controller = fxmlLoader.<FXMLVyucujiciController>getController();
-            
-            Scene scena = new Scene(root);
-            controller.setKatedraFiltr(tableView.getSelectionModel().getSelectedItem().get(0));
             controller.setDataLayer(dataLayer);
+            Scene scena = new Scene(root);
             controller.setScenes(aktScena, scena);
             stageP.setScene(scena);
             stageP.show();
@@ -164,10 +200,36 @@ public class FXMLPracovisteController implements Initializable {
             e.printStackTrace();
         }
     }
-    
-    public void setScenes(Scene predScena, Scene aktScena) {
-        this.predScena = predScena;
-        this.aktScena = aktScena;
+
+    @FXML
+    private void predmetyButtonClick(ActionEvent event) {
+        Parent root;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPredmety.fxml"));
+            root = fxmlLoader.load();
+            FXMLPredmetyController controller = fxmlLoader.<FXMLPredmetyController>getController();
+            Scene scena = new Scene(root);
+            controller.setScenes(aktScena, scena);
+            stageP.setScene(scena);
+            stageP.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    
+
+    @FXML
+    private void oboryButtonClick(ActionEvent event) {
+        Parent root;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLObory.fxml"));
+            root = fxmlLoader.load();
+            FXMLOboryController controller = fxmlLoader.<FXMLOboryController>getController();
+            Scene scena = new Scene(root);
+            controller.setScenes(aktScena, scena);
+            stageP.setScene(scena);
+            stageP.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
