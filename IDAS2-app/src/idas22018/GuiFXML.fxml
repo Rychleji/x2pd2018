@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="273.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas22018.GuiFXMLController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="273.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas22018.GuiFXMLController">
    <top>
       <Label text="Editor databáze" textFill="#100365" BorderPane.alignment="CENTER">
          <font>
@@ -22,10 +22,10 @@
             <Button fx:id="pripojitButton" defaultButton="true" mnemonicParsing="false" onAction="#pripojeniButtonClick" prefHeight="31.0" prefWidth="180.0" text="Připojit do datababáze" />
             <VBox fx:id="disablovatelnyButtonyVBox" alignment="CENTER" prefHeight="169.0" prefWidth="600.0" spacing="3.0" VBox.vgrow="NEVER">
                <children>
-                  <Button mnemonicParsing="false" onAction="#vyucujiciButtonClick" prefWidth="150.0" text="Vyučující" />
-                  <Button mnemonicParsing="false" onAction="#pracovisteButtonClick" prefWidth="150.0" text="Pracoviště" />
-                  <Button mnemonicParsing="false" onAction="#predmetyButtonClick" prefWidth="150.0" text="Předměty" />
-                  <Button mnemonicParsing="false" onAction="#oborButtonClick" prefWidth="150.0" text="Obory" />
+                  <Button disable="true" mnemonicParsing="false" onAction="#vyucujiciButtonClick" prefWidth="150.0" text="Vyučující" />
+                  <Button disable="true" mnemonicParsing="false" onAction="#pracovisteButtonClick" prefWidth="150.0" text="Pracoviště" />
+                  <Button disable="true" mnemonicParsing="false" onAction="#predmetyButtonClick" prefWidth="150.0" text="Předměty" />
+                  <Button disable="true" mnemonicParsing="false" onAction="#oborButtonClick" prefWidth="150.0" text="Obory" />
                </children>
             </VBox>
             <Button cancelButton="true" mnemonicParsing="false" onAction="#exitButtonClick" prefWidth="180.0" text="Odejít z programu" />

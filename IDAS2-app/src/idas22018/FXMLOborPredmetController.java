@@ -9,7 +9,6 @@ import datovavrstva.ISkolniDB;
 import static idas22018.IDAS22018.*;
 import idas22018.dialogy.DialogChyba;
 import idas22018.dialogy.DialogPridejOborPredmet;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,9 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -59,7 +56,7 @@ public class FXMLOborPredmetController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        dataLayer = GuiFXMLController.getDataLayer();
+        dataLayer = IDAS22018.mainController.getDataLayer();
 
         zkPredmetCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
         predmetCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));
@@ -79,18 +76,8 @@ public class FXMLOborPredmetController implements Initializable {
 
     @FXML
     private void cancelButtonClick(ActionEvent event) {
-         dataLayer.rollback();
-        Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GuiFXML.fxml"));
-            root = fxmlLoader.load();
-            GuiFXMLController controller = fxmlLoader.<GuiFXMLController>getController();
-            Scene scena = new Scene(root);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        dataLayer.rollback();
+        close(predScena);
     }
 
     @FXML
@@ -179,73 +166,5 @@ public class FXMLOborPredmetController implements Initializable {
 
     public void setSubjId(String subjId) {
         this.idPredmetu = subjId;
-    }
-
-    @FXML
-    private void vyucujiciButtonClick(ActionEvent event) {
-         Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLVyucujici.fxml"));
-            root = fxmlLoader.load();
-            FXMLVyucujiciController controller = fxmlLoader.<FXMLVyucujiciController>getController();
-            controller.setDataLayer(dataLayer);
-            Scene scena = new Scene(root);
-            controller.setScenes(aktScena, scena);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void predmetyButtonClick(ActionEvent event) {
-         Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOborPredmet.fxml"));
-            root = fxmlLoader.load();
-            FXMLOborPredmetController controller = fxmlLoader.<FXMLOborPredmetController>getController();
-            
-            Scene scena = new Scene(root);
-            controller.setScenes(aktScena, scena);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void oboryButtonClick(ActionEvent event) {
-         Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOborPredmet.fxml"));
-            root = fxmlLoader.load();
-            FXMLOborPredmetController controller = fxmlLoader.<FXMLOborPredmetController>getController();
-
-            Scene scena = new Scene(root);
-            controller.setScenes(aktScena, scena);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void pracovisteButtonClick(ActionEvent event) {
-        Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPracoviste.fxml"));
-            root = fxmlLoader.load();
-            FXMLPracovisteController controller = fxmlLoader.<FXMLPracovisteController>getController();
-
-            Scene scena = new Scene(root);
-            controller.setScenes(aktScena, scena);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
