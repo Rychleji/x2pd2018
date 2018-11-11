@@ -95,18 +95,8 @@ public class FXMLRozvrhoveAkceController implements Initializable {
 
     @FXML
     private void cancelButtonClick(ActionEvent event) {
-         dataLayer.rollback();
-        Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GuiFXML.fxml"));
-            root = fxmlLoader.load();
-            GuiFXMLController controller = fxmlLoader.<GuiFXMLController>getController();
-            Scene scena = new Scene(root);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        dataLayer.rollback();
+        close(predScena);
     }
 
     @FXML
@@ -203,9 +193,9 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLVyucujici.fxml"));
             root = fxmlLoader.load();
             FXMLVyucujiciController controller = fxmlLoader.<FXMLVyucujiciController>getController();
-            controller.setDataLayer(dataLayer);
+            //controller.setDataLayer(dataLayer);
             Scene scena = new Scene(root);
-            controller.setScenes(aktScena, scena);
+            controller.setScenes(IDAS22018.mainScene, scena);
             stageP.setScene(scena);
             stageP.show();
         } catch (IOException e) {
@@ -221,10 +211,9 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             root = fxmlLoader.load();
             FXMLOborPredmetController controller = fxmlLoader.<FXMLOborPredmetController>getController();
             controller.setFilterId(tableView.getSelectionModel().getSelectedItem().get(0));
-            controller.initialize(null, null);
             
             Scene scena = new Scene(root);
-            controller.setScenes(aktScena, scena);
+            controller.setScenes(IDAS22018.mainScene, scena);
             stageP.setScene(scena);
             stageP.show();
         } catch (IOException e) {
@@ -241,7 +230,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             FXMLOborPredmetController controller = fxmlLoader.<FXMLOborPredmetController>getController();
 
             Scene scena = new Scene(root);
-            controller.setScenes(aktScena, scena);
+            controller.setScenes(IDAS22018.mainScene, scena);
             stageP.setScene(scena);
             stageP.show();
         } catch (IOException e) {
@@ -258,7 +247,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             FXMLPracovisteController controller = fxmlLoader.<FXMLPracovisteController>getController();
 
             Scene scena = new Scene(root);
-            controller.setScenes(aktScena, scena);
+            controller.setScenes(IDAS22018.mainScene, scena);
             stageP.setScene(scena);
             stageP.show();
         } catch (IOException e) {

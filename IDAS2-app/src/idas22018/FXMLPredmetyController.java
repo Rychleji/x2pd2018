@@ -86,17 +86,7 @@ public class FXMLPredmetyController implements Initializable {
     @FXML
     private void cancelButtonClick(ActionEvent event) {
         dataLayer.rollback();
-        Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GuiFXML.fxml"));
-            root = fxmlLoader.load();
-            GuiFXMLController controller = fxmlLoader.<GuiFXMLController>getController();
-            Scene scena = new Scene(root);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        close(predScena);
     }
 
     public void setVyucId(String vyucId) {
@@ -232,9 +222,9 @@ public class FXMLPredmetyController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLVyucujici.fxml"));
             root = fxmlLoader.load();
             FXMLVyucujiciController controller = fxmlLoader.<FXMLVyucujiciController>getController();
-            controller.setDataLayer(dataLayer);
+            //controller.setDataLayer(dataLayer);
             Scene scena = new Scene(root);
-            controller.setScenes(aktScena, scena);
+            controller.setScenes(IDAS22018.mainScene, scena);
             stageP.setScene(scena);
             stageP.show();
         } catch (IOException e) {
@@ -251,7 +241,7 @@ public class FXMLPredmetyController implements Initializable {
             FXMLPracovisteController controller = fxmlLoader.<FXMLPracovisteController>getController();
 
             Scene scena = new Scene(root);
-            controller.setScenes(aktScena, scena);
+            controller.setScenes(IDAS22018.mainScene, scena);
             stageP.setScene(scena);
             stageP.show();
         } catch (IOException e) {

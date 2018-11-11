@@ -72,18 +72,9 @@ public class FXMLOboryController implements Initializable {
 
     @FXML
     private void cancelButtonClick(ActionEvent event) {
-         dataLayer.rollback();
+        dataLayer.rollback();
         Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GuiFXML.fxml"));
-            root = fxmlLoader.load();
-            GuiFXMLController controller = fxmlLoader.<GuiFXMLController>getController();
-            Scene scena = new Scene(root);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        close(predScena);
     }
 
     @FXML
@@ -186,8 +177,8 @@ public class FXMLOboryController implements Initializable {
             FXMLVyucujiciController controller = fxmlLoader.<FXMLVyucujiciController>getController();
 
             Scene scena = new Scene(root);
-            controller.setDataLayer(dataLayer);
-            controller.setScenes(aktScena, scena);
+            //controller.setDataLayer(dataLayer);
+            controller.setScenes(IDAS22018.mainScene, scena);
             stageP.setScene(scena);
             stageP.show();
         } catch (IOException e) {
@@ -204,7 +195,7 @@ public class FXMLOboryController implements Initializable {
             FXMLPracovisteController controller = fxmlLoader.<FXMLPracovisteController>getController();
 
             Scene scena = new Scene(root);
-            controller.setScenes(aktScena, scena);
+            controller.setScenes(IDAS22018.mainScene, scena);
             stageP.setScene(scena);
             stageP.show();
         } catch (IOException e) {
@@ -220,7 +211,7 @@ public class FXMLOboryController implements Initializable {
             root = fxmlLoader.load();
             FXMLPredmetyController controller = fxmlLoader.<FXMLPredmetyController>getController();
             Scene scena = new Scene(root);
-            controller.setScenes(aktScena, scena);
+            controller.setScenes(IDAS22018.mainScene, scena);
             stageP.setScene(scena);
             stageP.show();
         } catch (IOException e) {

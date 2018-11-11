@@ -87,6 +87,7 @@ public class FXMLVyucujiciController implements Initializable {
         fakultaCol.setCellValueFactory((CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(9)));
 
         tableView.setItems(seznam);
+        fillTable();
     }
 
     public void setKatedraFiltr(String katedraFiltr) {
@@ -95,12 +96,6 @@ public class FXMLVyucujiciController implements Initializable {
 
     public void setPredmetFiltr(String predmetFiltr) {
         this.predmetFiltr = predmetFiltr;
-    }
-
-    public void setDataLayer(ISkolniDB dataLayer) {
-        this.dataLayer = dataLayer;
-
-        fillTable();
     }
 
     @FXML
@@ -112,17 +107,7 @@ public class FXMLVyucujiciController implements Initializable {
     @FXML
     private void cancelButtonClick(ActionEvent event) {
         dataLayer.rollback();
-        Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GuiFXML.fxml"));
-            root = fxmlLoader.load();
-            GuiFXMLController controller = fxmlLoader.<GuiFXMLController>getController();
-            Scene scena = new Scene(root);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        close(predScena);
     }
 
     @FXML
@@ -264,7 +249,7 @@ public class FXMLVyucujiciController implements Initializable {
             FXMLPracovisteController controller = fxmlLoader.<FXMLPracovisteController>getController();
 
             Scene scena = new Scene(root);
-            controller.setScenes(aktScena, scena);
+            controller.setScenes(IDAS22018.mainScene, scena);
             stageP.setScene(scena);
             stageP.show();
         } catch (IOException e) {
@@ -280,7 +265,7 @@ public class FXMLVyucujiciController implements Initializable {
             root = fxmlLoader.load();
             FXMLOboryController controller = fxmlLoader.<FXMLOboryController>getController();
             Scene scena = new Scene(root);
-            controller.setScenes(aktScena, scena);
+            controller.setScenes(IDAS22018.mainScene, scena);
             stageP.setScene(scena);
             stageP.show();
         } catch (IOException e) {
@@ -297,7 +282,7 @@ public class FXMLVyucujiciController implements Initializable {
             FXMLPredmetyController controller = fxmlLoader.<FXMLPredmetyController>getController();
 
             Scene scena = new Scene(root);
-            controller.setScenes(aktScena, scena);
+            controller.setScenes(IDAS22018.mainScene, scena);
             stageP.setScene(scena);
             stageP.show();
         } catch (IOException e) {
