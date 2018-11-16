@@ -60,7 +60,7 @@
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
+<logicalDatatype>LOGDT015</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="zkratka_predmetu" id="E50004BE-00BE-9CFB-1662-A84C588FC96F">
@@ -107,7 +107,7 @@
 <dataTypeSize>40</dataTypeSize>
 <ownDataTypeParameters>40,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="id_vyucujiciho" id="46968C7B-F377-1D49-2883-5EE57694278A">
+<Attribute name="id_zamestnanec" id="46968C7B-F377-1D49-2883-5EE57694278A">
 <createdBy>Radim</createdBy>
 <createdTime>2018-05-07 21:33:01 UTC</createdTime>
 <generatorID>44BEC3C3-A648-E345-A384-CBCC5DAF7E0B</generatorID>
@@ -120,6 +120,32 @@
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>7</dataTypeSize>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_ucebna" id="B492BD65-0A06-3E3E-560E-30C31727A205">
+<createdBy>David</createdBy>
+<createdTime>2018-11-14 18:36:41 UTC</createdTime>
+<generatorID>CB1AB0A6-45A1-BF94-6E67-9CBC3CFFF26D</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<referedAttribute>67B64E4B-0093-053C-97B5-343A2E7F4166</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="konciV" id="88F2EDB8-DADC-C1BA-7EA5-3A5F338629BC">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 13:24:17 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
@@ -128,8 +154,9 @@
 <createdBy>Radim</createdBy>
 <createdTime>2018-05-07 10:26:24 UTC</createdTime>
 <ownerDesignName>semPraceNyc</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="false"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

@@ -1,0 +1,109 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="610BAC1D-5FCB-4745-5762-2F3FEF08B53D" name="DATA">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>F1934970-62CE-869A-7ED5-FA44E93A6824</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_data" id="60715888-E783-A419-3876-FC7BBDDEF600">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>C0FA1D77-6E9E-C41C-1586-C6D7A85F6214</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="data" id="00B03670-7888-4514-ABDC-5C7085252680">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>DE2D6514-3132-8FDE-6E51-D63D95625A0A</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT029</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="datumPridani" id="2EFA1430-2DB9-8859-3D4D-5D8CB7AACE7F">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>7DB30FE5-C819-D69F-1A10-A4F10493E1CE</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="datumModifikace" id="124DF916-B39B-D11D-B019-EC7519240959">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>F2695D36-8AE7-B3D0-865F-9D03227F16B4</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ZAMESTNANEC_id_vyucujiciho" id="BADC0E4C-07B9-9AB5-74DF-3907569223FF">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>7C1B60E9-CE6C-E983-EEE5-CC61A53BE3BD</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="30F4F52B-8B3E-0524-C331-FBE21720C7E8" referredColumn="0609893B-F20F-E18D-F2FF-F0504F75A8EB"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="0CC801C7-87E0-6C74-DDAB-AD3EC0A5DDEC" name="DATA_PK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>045D97B1-361A-6004-C256-FCEB689B1591</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="60715888-E783-A419-3876-FC7BBDDEF600"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1A9AD0C4-95A3-F32A-46C9-9C04751CD75D" name="DATA__IDX">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>62CB0021-A8FB-11E6-F6D5-7872813EFEBA</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="BADC0E4C-07B9-9AB5-74DF-3907569223FF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5BA008EF-4AD5-FA20-E21B-E597D9DBB0A0" name="DATA_ZAMESTNANEC_FK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>62CB0021-A8FB-11E6-F6D5-7872813EFEBA</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BADC0E4C-07B9-9AB5-74DF-3907569223FF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

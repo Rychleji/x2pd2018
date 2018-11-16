@@ -1,0 +1,60 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="F5382739-051E-3BF3-5BBB-F920C40A5AB4" name="UCEBNA">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>432712BD-A410-70CE-1A65-1A02232943CC</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_ucebna" id="10122207-444B-1A21-2EC7-9BBE8C113778">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>67B64E4B-0093-053C-97B5-343A2E7F4166</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nazev" id="B4C086D9-6C67-427D-8C04-A770722EAA04">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>FBB28A8B-4B82-C8E7-A84F-AB487A4652C4</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40</dataTypeSize>
+<ownDataTypeParameters>40,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="kapacita" id="1FD3523A-AC5B-23E5-0934-C243B1A1E5A6">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>E20CE827-2AC8-B317-900E-C897ECA753C9</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="82F47B65-AA8F-A44C-429D-BC47310746C9" name="UCEBNA_PK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>506C7BAC-5F8F-978B-8104-D19BFAA5B96B</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="10122207-444B-1A21-2EC7-9BBE8C113778"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

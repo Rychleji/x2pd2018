@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="935FE585-E302-064B-E4F5-CB7E210793A3" containerWithKeyObject="BB6CABA3-89D6-4879-AFA1-B843682CFA07" localFKIndex="E511E28C-A51D-00C2-FE02-D05B62E49353" name="ROZVRHOVA_AKCE_UCEBNA_FK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>CB1AB0A6-45A1-BF94-6E67-9CBC3CFFF26D</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<referredTableLongName>UCEBNA</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>F5382739-051E-3BF3-5BBB-F920C40A5AB4</referredTableID>
+<keyObject>82F47B65-AA8F-A44C-429D-BC47310746C9</keyObject>
+<referredKeyID>82F47B65-AA8F-A44C-429D-BC47310746C9</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id_ucebna</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

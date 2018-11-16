@@ -1,0 +1,99 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="DBC7B3FD-9527-280F-D0A5-99B8D11DFFD9" name="udaje">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>428A9ED2-65D3-24AC-4B17-8F3FBD2C9844</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_udaje" id="44F00720-0F08-5396-D56B-F3E69952C5C3">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>A6BE9CE9-DC84-F464-77A8-726C6CB41D60</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="uzivatelskeJmeno" id="CABB7AA9-DFB7-2F88-373D-533A66990119">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>BBB599ED-51E9-B0CD-3585-C3BDF3DA78C3</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="heslo" id="49926477-54F7-30D8-4137-8382911FD210">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>DE93D202-6EF8-BB33-4E00-5EB631993F2F</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ZAMESTNANEC_id_vyucujiciho" id="D7558BA2-0872-DEB9-6FCC-3701DBF9B763">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>BAB2BE57-B764-07FC-FCA3-5A4A2CC89EFD</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="16EAEEE8-799D-8FB3-ED38-35E756A9067E" referredColumn="0609893B-F20F-E18D-F2FF-F0504F75A8EB"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="01B1EA07-6ABF-BA8E-72DD-E534DAEB1A03" name="udaje_PK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>DFEAC94D-B344-4057-58BC-E503BE9533C2</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="44F00720-0F08-5396-D56B-F3E69952C5C3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="60A1D83E-D21D-9AFD-1CED-1E642DF79506" name="udaje__IDX">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>80C9EDB5-8917-C30B-763D-C8AA779E26C5</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="D7558BA2-0872-DEB9-6FCC-3701DBF9B763"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="99BA2810-FA1F-ADF5-F096-264BF7A77C19" name="udaje_ZAMESTNANEC_FK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 16:07:51 UTC</createdTime>
+<generatorID>80C9EDB5-8917-C30B-763D-C8AA779E26C5</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D7558BA2-0872-DEB9-6FCC-3701DBF9B763"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

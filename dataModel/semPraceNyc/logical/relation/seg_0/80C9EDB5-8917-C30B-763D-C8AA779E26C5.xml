@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="ZAMESTNANEC_UDAJE" directorySegmentName="seg_0" id="80C9EDB5-8917-C30B-763D-C8AA779E26C5">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 13:20:27 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<sourcePk>14E1F3FB-95EC-0076-717A-A8AADFB24286</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>54A73E99-5FC9-C03D-EE4C-128F6AECCC26</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>428A9ED2-65D3-24AC-4B17-8F3FBD2C9844</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

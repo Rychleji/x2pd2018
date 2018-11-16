@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="UCEBNA_RA" directorySegmentName="seg_0" id="CB1AB0A6-45A1-BF94-6E67-9CBC3CFFF26D">
+<createdBy>David</createdBy>
+<createdTime>2018-11-14 18:36:41 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<sourcePk>506C7BAC-5F8F-978B-8104-D19BFAA5B96B</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>432712BD-A410-70CE-1A65-1A02232943CC</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>F2BA23C4-0375-928C-4D3A-649F33ABA8DF</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

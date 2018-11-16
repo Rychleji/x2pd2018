@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="54A73E99-5FC9-C03D-EE4C-128F6AECCC26" name="VYUCUJICI">
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="54A73E99-5FC9-C03D-EE4C-128F6AECCC26" name="ZAMESTNANEC">
 <createdBy>Radim</createdBy>
 <createdTime>2018-04-19 19:46:43 UTC</createdTime>
 <ownerDesignName>semPraceNyc</ownerDesignName>
@@ -15,7 +15,7 @@
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
-<Attribute name="id_vyucujiciho" id="9FBF1353-6AD4-40E0-0B72-28D2CB5BDA6D">
+<Attribute name="id_zamestnanec" id="9FBF1353-6AD4-40E0-0B72-28D2CB5BDA6D">
 <createdBy>Radim</createdBy>
 <createdTime>2018-04-19 19:46:59 UTC</createdTime>
 <ownerDesignName>semPraceNyc</ownerDesignName>
@@ -151,7 +151,21 @@
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>10</dataTypeSize>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="typUzivatele" id="67B361AA-5F75-C98C-07C8-68E193507002">
+<createdBy>David</createdBy>
+<createdTime>2018-11-16 13:29:57 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>60</dataTypeSize>
+<ownDataTypeParameters>60,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
@@ -159,8 +173,9 @@
 <createdBy>Radim</createdBy>
 <createdTime>2018-04-19 19:47:49 UTC</createdTime>
 <ownerDesignName>semPraceNyc</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="false"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>
