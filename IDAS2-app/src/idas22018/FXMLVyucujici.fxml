@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
@@ -88,4 +89,16 @@
          </children>
       </VBox>
    </right>
+   <left>
+      <VBox alignment="CENTER" prefHeight="445.0" prefWidth="190.0" spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Foto:">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="imageView" fitHeight="204.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </VBox>
+   </left>
 </BorderPane>
