@@ -153,20 +153,6 @@
 <dataTypeSize>10</dataTypeSize>
 <ownDataTypeParameters>10,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="typUzivatele" id="67B361AA-5F75-C98C-07C8-68E193507002">
-<createdBy>David</createdBy>
-<createdTime>2018-11-16 13:29:57 UTC</createdTime>
-<ownerDesignName>semPraceNyc</ownerDesignName>
-<engineerTo>
-<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
-</engineerTo>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>60</dataTypeSize>
-<ownDataTypeParameters>60,,</ownDataTypeParameters>
-</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
 <identifier id="14E1F3FB-95EC-0076-717A-A8AADFB24286" name="VYUCUJICI PK">
