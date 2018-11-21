@@ -5,3 +5,7 @@ b)Upravil jsem navigaci (v zadani stojí, že z každý karty, se musíš dostat všude
 c)Tlaèítko zruš te od ted prehodi do hlavní nabídky (pøièemž u teto prilezitosti jsem ucelil odkazy na reference dataLayeru)
 d)Opravený druhy výjimek a zachycené další + upravný null hodnoty, aby to hnedka nepadalo do vyjimky 
 (pr. aa.getSelectionModel().SelectedItem() != null ... pak delej ...)
+21.11.
+-------------------------------
+Udelal jsem to sql na rozsireni databaze s tim ze pocitej jelikoz zmenis databazi
+asi o 1/4 tak ti ta appka logicky nebude fungovat pac delas selecty na neco co je zmenene.
