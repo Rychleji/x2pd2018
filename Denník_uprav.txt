@@ -7,5 +7,7 @@ d)Opravený druhy výjimek a zachycené další + upravný null hodnoty, aby to hnedka
 (pr. aa.getSelectionModel().SelectedItem() != null ... pak delej ...)
 21.11.
 -------------------------------
-Udelal jsem to sql na rozsireni databaze s tim ze pocitej jelikoz zmenis databazi
+a)Udelal jsem to sql na rozsireni databaze s tim ze pocitej jelikoz zmenis databazi
 asi o 1/4 tak ti ta appka logicky nebude fungovat pac delas selecty na neco co je zmenene.
+b)Navrhovej vzor knihovna aby tam nebyly duplikace
+Uprava oken, vytvoreni noveho okna na zamìstnance

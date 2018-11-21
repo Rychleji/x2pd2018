@@ -76,6 +76,7 @@
             <Button mnemonicParsing="false" onAction="#predmetyButtonClick" prefHeight="30.0" prefWidth="140.0" text="Předmět" />
             <Button mnemonicParsing="false" onAction="#oboryButtonClick" prefHeight="30.0" prefWidth="140.0" text="Obory" />
             <Button mnemonicParsing="false" onAction="#pracovisteButtonClick" prefHeight="30.0" prefWidth="140.0" text="Pracoviště" />
+            <Button mnemonicParsing="false" onAction="#zamestnanciButtonClick" prefHeight="30.0" prefWidth="140.0" text="Zaměstnanci" />
          </children>
       </VBox>
    </right>

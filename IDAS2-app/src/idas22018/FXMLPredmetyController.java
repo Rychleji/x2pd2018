@@ -217,36 +217,26 @@ public class FXMLPredmetyController implements Initializable {
 
     @FXML
     private void vyucujiciButtonClick(ActionEvent event) {
-        Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLVyucujici.fxml"));
-            root = fxmlLoader.load();
-            FXMLVyucujiciController controller = fxmlLoader.<FXMLVyucujiciController>getController();
-            //controller.setDataLayer(dataLayer);
-            Scene scena = new Scene(root);
-            controller.setScenes(IDAS22018.mainScene, scena);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLVyucujici.fxml"));
+        KnihovnaZobrazovani.zobrazPredhledUcitelu(fxmlLoader);
     }
 
     @FXML
     private void pracovisteButtonClick(ActionEvent event) {
-        Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPracoviste.fxml"));
-            root = fxmlLoader.load();
-            FXMLPracovisteController controller = fxmlLoader.<FXMLPracovisteController>getController();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPracoviste.fxml"));
+        KnihovnaZobrazovani.zobrazPrehledPracovistBezVyberu(fxmlLoader);
+    }
 
-            Scene scena = new Scene(root);
-            controller.setScenes(IDAS22018.mainScene, scena);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @FXML
+    private void zamestnanciButtonClick(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLZamestnanci.fxml"));
+        KnihovnaZobrazovani.zobrazPrehledZamestnancu(fxmlLoader);
+    }
+
+    @FXML
+    private void prehledOboruButtonClick(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLObory.fxml"));
+        KnihovnaZobrazovani.zobrazPrehledOboruBezVyberu(fxmlLoader);
     }
 
 }

@@ -252,6 +252,22 @@ public class GuiFXMLController implements Initializable {
         this.conn = conn;
     }
 
+    @FXML
+    private void zamestnanciButtonClick(ActionEvent event) {
+        Parent root;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLZamestnanci.fxml"));
+            root = fxmlLoader.load();
+            FXMLZamestnanciController controller = fxmlLoader.<FXMLZamestnanciController>getController();
+            Scene scena = new Scene(root);
+            controller.setScenes(mainScene, scena);
+            stageP.setScene(scena);
+            stageP.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public class HelpClass {
 
         int id;

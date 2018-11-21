@@ -33,11 +33,11 @@ import javafx.scene.control.TableView;
  * @author Radim
  */
 public class FXMLRozvrhoveAkceController implements Initializable {
-
+    
     ISkolniDB dataLayer;
     ObservableList<List<String>> seznam = FXCollections.observableArrayList();
     String vyucId, subjId;
-
+    
     @FXML
     private TableView<List<String>> tableView;
     @FXML
@@ -65,7 +65,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         dataLayer = GuiFXMLController.getDataLayer();
-
+        
         idCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
         zkratkaCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));
         predmetCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(2)));
@@ -74,36 +74,36 @@ public class FXMLRozvrhoveAkceController implements Initializable {
         zacatekCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(5)));
         maHodinCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(6)));
         zpusobCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(7)));
-
+        
         tableView.setItems(seznam);
         fillTable();
     }
-
+    
     public void setVyucId(String vyucId) {
         this.vyucId = vyucId;
     }
     
-    public void setSubjId(String subjId){
+    public void setSubjId(String subjId) {
         this.subjId = subjId;
     }
-
+    
     @FXML
     private void okButtonClick(ActionEvent event) {
         dataLayer.commit();
         close(predScena);
     }
-
+    
     @FXML
     private void cancelButtonClick(ActionEvent event) {
         dataLayer.rollback();
         close(predScena);
     }
-
+    
     @FXML
     private void pridejButtonClick(ActionEvent event) {
         DialogPridejRA dialog2 = new DialogPridejRA(null);
         dialog2.showAndWait();
-
+        
         if (dialog2.isButtonPressed()) {
             try {
                 dataLayer.addSchedule(dialog2.getPocetStudentu(), dialog2.getZacinaV(),
@@ -116,13 +116,13 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             }
         }
     }
-
+    
     @FXML
     private void upravButtonClick(ActionEvent event) {
         int origID = Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0));
         DialogPridejRA dialog2 = new DialogPridejRA(null);
         dialog2.showAndWait();
-
+        
         if (dialog2.isButtonPressed()) {
             try {
                 dataLayer.editSchedule(origID, dialog2.getPocetStudentu(), dialog2.getZacinaV(),
@@ -135,11 +135,11 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             }
         }
     }
-
+    
     @FXML
     private void odeberButtonClick(ActionEvent event) {
         int origID = Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0));
-
+        
         try {
             dataLayer.deleteSchedule(origID);
             fillTable();
@@ -147,13 +147,13 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             DialogChyba dialog = new DialogChyba(null, ex.getMessage());
             dialog.showAndWait();
         }
-
+        
     }
-
+    
     private void fillTable() {
         try {
             ResultSet rs = null;
-
+            
             if (vyucId != null) {
                 rs = dataLayer.selectSchedules_byTeacherId(vyucId);
             } else if (subjId != null) {
@@ -162,15 +162,15 @@ public class FXMLRozvrhoveAkceController implements Initializable {
                 rs = dataLayer.selectSchedules();
             }
             seznam.clear();
-
+            
             while (rs.next()) {
-                String tP = rs.getString("TITUL_PRED")==null?"":rs.getString("TITUL_PRED");
-                String tZ = rs.getString("TITUL_ZA")==null?"":rs.getString("TITUL_ZA");
+                String tP = rs.getString("TITUL_PRED") == null ? "" : rs.getString("TITUL_PRED");
+                String tZ = rs.getString("TITUL_ZA") == null ? "" : rs.getString("TITUL_ZA");
                 
                 List<String> list = FXCollections.observableArrayList(rs.getString("ID_ROZVRHOVE_AKCE"),
                         rs.getString("ZKRATKA_PREDMETU"), rs.getString("NAZEV_PREDMETU"),
-                        tP + " " + rs.getString("JMENO_VYUCUJICIHO") + " " +
-                        rs.getString("PRIJMENI_VYUCUJICIHO") + " " + tZ,
+                        tP + " " + rs.getString("JMENO_VYUCUJICIHO") + " "
+                        + rs.getString("PRIJMENI_VYUCUJICIHO") + " " + tZ,
                         rs.getString("ROLE_VYUCUJICIHO_ROLE"), rs.getString("ZACINAV"),
                         rs.getString("MAHODIN"), rs.getString("ZPUSOB"));
                 seznam.add(list);
@@ -180,32 +180,21 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             dialog2.showAndWait();
         }
     }
-
+    
     public void setScenes(Scene predScena, Scene aktScena) {
         this.predScena = predScena;
         this.aktScena = aktScena;
     }
-
+    
     @FXML
     private void vyucujiciButtonClick(ActionEvent event) {
-          Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLVyucujici.fxml"));
-            root = fxmlLoader.load();
-            FXMLVyucujiciController controller = fxmlLoader.<FXMLVyucujiciController>getController();
-            //controller.setDataLayer(dataLayer);
-            Scene scena = new Scene(root);
-            controller.setScenes(IDAS22018.mainScene, scena);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLVyucujici.fxml"));
+        KnihovnaZobrazovani.zobrazPredhledUcitelu(fxmlLoader);
     }
-
+    
     @FXML
     private void predmetyButtonClick(ActionEvent event) {
-         Parent root;
+        Parent root;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOborPredmet.fxml"));
             root = fxmlLoader.load();
@@ -220,38 +209,22 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             e.printStackTrace();
         }
     }
-
+    
     @FXML
     private void oboryButtonClick(ActionEvent event) {
-           Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOborPredmet.fxml"));
-            root = fxmlLoader.load();
-            FXMLOborPredmetController controller = fxmlLoader.<FXMLOborPredmetController>getController();
-
-            Scene scena = new Scene(root);
-            controller.setScenes(IDAS22018.mainScene, scena);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOborPredmet.fxml"));
+        KnihovnaZobrazovani.zobrazPrehledOboruBezVyberu(fxmlLoader);
     }
-
+    
     @FXML
     private void pracovisteButtonClick(ActionEvent event) {
-        Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPracoviste.fxml"));
-            root = fxmlLoader.load();
-            FXMLPracovisteController controller = fxmlLoader.<FXMLPracovisteController>getController();
-
-            Scene scena = new Scene(root);
-            controller.setScenes(IDAS22018.mainScene, scena);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPracoviste.fxml"));
+        KnihovnaZobrazovani.zobrazPrehledPracovistBezVyberu(fxmlLoader);
+    }
+    
+    @FXML
+    private void zamestnanciButtonClick(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLZamestnanci.fxml"));
+        KnihovnaZobrazovani.zobrazPrehledZamestnancu(fxmlLoader);
     }
 }
