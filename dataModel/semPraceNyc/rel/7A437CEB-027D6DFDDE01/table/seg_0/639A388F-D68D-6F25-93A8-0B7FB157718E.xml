@@ -1,0 +1,49 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="639A388F-D68D-6F25-93A8-0B7FB157718E" name="ZPUSOB_ZAKONCENI">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>BB43C918-7D75-EF93-2213-42AFAFBFE975</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_zz" id="E9E45C60-491A-D588-A31C-803C8E884DED">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>6F2DC85D-E145-5856-3DDC-365434B58D39</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="zpusob_zak" id="CC9BAD5E-6ED3-B369-B99D-984BD51FD9D1">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>C2D4CA8F-0F09-7CB5-D667-3712DAD6244A</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="7998C242-6D40-58CA-0195-D44A4C55CDBD" name="ZPUSOB_ZAKONCENI_PK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>D74D8F1A-DA51-3301-AC2C-6820BDCC00AC</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E9E45C60-491A-D588-A31C-803C8E884DED"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

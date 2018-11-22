@@ -1,0 +1,49 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="DC295CB6-775E-3695-EB46-6E0FC16AB168" name="ROLE">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>E40BD324-E473-1353-3529-DA12B85754B4</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_role" id="1F9D4C7C-38F3-5678-1520-8F4A7CFD9507">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>804B9220-82D3-3CCD-C9C4-E72AA4187131</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="typRole" id="B2A63B12-31EA-E01B-2B13-831899E336ED">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>681C719F-B032-7D11-C9E9-3FB663A6A405</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40</dataTypeSize>
+<ownDataTypeParameters>40,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="177D8C8D-A5F7-C5BF-55F6-53E39D1D010C" name="ROLE_PK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>8F45219B-7D85-20DA-35D3-576C01A2D9F3</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1F9D4C7C-38F3-5678-1520-8F4A7CFD9507"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

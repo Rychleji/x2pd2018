@@ -4,7 +4,7 @@
 <createdTime>2018-11-13 19:36:41 UTC</createdTime>
 <ownerDesignName>semPraceNyc</ownerDesignName>
 <engineerTo>
-<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+<item key="7A437CEB-FC2E-4C05-052D-027D6DFDDE01" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -20,21 +20,20 @@
 <createdTime>2018-11-13 19:36:47 UTC</createdTime>
 <ownerDesignName>semPraceNyc</ownerDesignName>
 <engineerTo>
-<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+<item key="7A437CEB-FC2E-4C05-052D-027D6DFDDE01" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="data" id="DE2D6514-3132-8FDE-6E51-D63D95625A0A">
+<Attribute name="obrazek" id="DE2D6514-3132-8FDE-6E51-D63D95625A0A">
 <createdBy>David</createdBy>
 <createdTime>2018-11-13 19:36:50 UTC</createdTime>
 <ownerDesignName>semPraceNyc</ownerDesignName>
 <engineerTo>
-<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+<item key="7A437CEB-FC2E-4C05-052D-027D6DFDDE01" value="true"/>
 </engineerTo>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT029</logicalDatatype>
@@ -45,7 +44,7 @@
 <createdTime>2018-11-13 19:37:59 UTC</createdTime>
 <ownerDesignName>semPraceNyc</ownerDesignName>
 <engineerTo>
-<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+<item key="7A437CEB-FC2E-4C05-052D-027D6DFDDE01" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -57,7 +56,7 @@
 <createdTime>2018-11-13 19:38:17 UTC</createdTime>
 <ownerDesignName>semPraceNyc</ownerDesignName>
 <engineerTo>
-<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+<item key="7A437CEB-FC2E-4C05-052D-027D6DFDDE01" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -70,12 +69,12 @@
 <generatorID>62CB0021-A8FB-11E6-F6D5-7872813EFEBA</generatorID>
 <ownerDesignName>semPraceNyc</ownerDesignName>
 <engineerTo>
-<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+<item key="7A437CEB-FC2E-4C05-052D-027D6DFDDE01" value="true"/>
 </engineerTo>
 <referedAttribute>9FBF1353-6AD4-40E0-0B72-28D2CB5BDA6D</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
+<logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypeSize>7</dataTypeSize>
 <ownDataTypeParameters>7,,</ownDataTypeParameters>
 </Attribute>
@@ -86,7 +85,7 @@
 <createdTime>2018-11-16 13:20:47 UTC</createdTime>
 <ownerDesignName>semPraceNyc</ownerDesignName>
 <engineerTo>
-<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+<item key="7A437CEB-FC2E-4C05-052D-027D6DFDDE01" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

@@ -4,7 +4,7 @@
 <createdTime>2018-11-13 18:45:17 UTC</createdTime>
 <ownerDesignName>semPraceNyc</ownerDesignName>
 <engineerTo>
-<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+<item key="7A437CEB-FC2E-4C05-052D-027D6DFDDE01" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -20,7 +20,7 @@
 <createdTime>2018-11-13 18:45:30 UTC</createdTime>
 <ownerDesignName>semPraceNyc</ownerDesignName>
 <engineerTo>
-<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+<item key="7A437CEB-FC2E-4C05-052D-027D6DFDDE01" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -32,7 +32,7 @@
 <createdTime>2018-11-13 18:45:36 UTC</createdTime>
 <ownerDesignName>semPraceNyc</ownerDesignName>
 <engineerTo>
-<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+<item key="7A437CEB-FC2E-4C05-052D-027D6DFDDE01" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -45,7 +45,7 @@
 <createdTime>2018-11-13 18:46:07 UTC</createdTime>
 <ownerDesignName>semPraceNyc</ownerDesignName>
 <engineerTo>
-<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+<item key="7A437CEB-FC2E-4C05-052D-027D6DFDDE01" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -59,12 +59,12 @@
 <generatorID>80C9EDB5-8917-C30B-763D-C8AA779E26C5</generatorID>
 <ownerDesignName>semPraceNyc</ownerDesignName>
 <engineerTo>
-<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+<item key="7A437CEB-FC2E-4C05-052D-027D6DFDDE01" value="true"/>
 </engineerTo>
 <referedAttribute>9FBF1353-6AD4-40E0-0B72-28D2CB5BDA6D</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
+<logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypeSize>7</dataTypeSize>
 <ownDataTypeParameters>7,,</ownDataTypeParameters>
 </Attribute>
@@ -75,7 +75,7 @@
 <createdTime>2018-11-13 18:46:05 UTC</createdTime>
 <ownerDesignName>semPraceNyc</ownerDesignName>
 <engineerTo>
-<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+<item key="7A437CEB-FC2E-4C05-052D-027D6DFDDE01" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

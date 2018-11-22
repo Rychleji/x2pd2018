@@ -1,0 +1,213 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="6C62CD9A-0DF8-1FAE-99D8-6D12CBF47DC6" name="ROZVRHOVA_AKCE">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>F2BA23C4-0375-928C-4D3A-649F33ABA8DF</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID_RA" id="B113FD34-2B33-D93E-7BDE-BB975E7C085C">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>7F7F9E6F-D6F7-A7D1-2F51-C2E087E15D4B</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pocet_studentu" id="A6E50230-D0F7-CB5C-41C2-1D036B901D51">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>FECE807F-8CF2-41E2-B74C-1B15C051C9F1</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="maHodin" id="4F73A4F7-4723-2120-7E3E-5E7206582F5B">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>338D1279-00E5-566F-C8D3-0FA07493A68C</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="zacinaV" id="173BB0C2-BC28-DCB4-F330-D15E6744C56A">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>F1DD7F67-A1C3-9FB1-CA29-67B6816A9560</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PREDMET_zkratka_predmetu" id="267202FB-D8AC-8191-C5B8-8A16E15748BC">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>E50004BE-00BE-9CFB-1662-A84C588FC96F</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>8</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="00D9F521-F303-C12C-DF82-5AC03E1B3916" referredColumn="FB334067-085E-7EBE-8A53-BA42236B79B1"/>
+</associations>
+</Column>
+<Column name="ZPUSOB_VYUKY_id_zv" id="A39CAD07-6874-0CDA-D037-91DA30A3E2C3">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>7B57E95C-3E0C-4427-8B5E-66E387D3E551</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="3FCE909A-F926-9A1C-169D-E4E70AE304D0" referredColumn="B8A9C9B9-1231-F975-AD31-BCB31C063B6D"/>
+</associations>
+</Column>
+<Column name="ROLE_VYUCUJICIHO_role" id="9F4E7376-490E-E393-5DC3-918248353BE4">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>91940D1C-858B-F38E-1C23-8908D038BE4C</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="85DD782E-EC3E-532E-CF12-6A9461655496" referredColumn="02F926B2-878C-5BD7-CDD3-3BDE2462F482"/>
+</associations>
+</Column>
+<Column name="ZAMESTNANEC_id_zamestnanec" id="A685942B-C34B-E769-EEED-86640CABB390">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>46968C7B-F377-1D49-2883-5EE57694278A</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="EF14C810-63C5-F7CB-5ECA-A53581A1D3D5" referredColumn="F8DC6128-4BCE-675F-3D6E-C7FC555EACF2"/>
+</associations>
+</Column>
+<Column name="UCEBNA_id_ucebna" id="7A0B6CC1-EC6E-3A01-82AA-947BB36427D0">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>B492BD65-0A06-3E3E-560E-30C31727A205</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="DE56F877-E10E-6E0E-2FB2-65CE379723EE" referredColumn="22D6D02B-7D45-67D2-FA2C-A7C491E57E33"/>
+</associations>
+</Column>
+<Column name="konciV" id="8439DCE4-98BD-BE59-7E74-19A26AB97957">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>88F2EDB8-DADC-C1BA-7EA5-3A5F338629BC</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="BF712665-B213-E29F-B171-84F79575CFC4" name="ROZVRHOVA_AKCE_PK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>BE7636AA-FB72-56F0-C068-C309C5206663</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B113FD34-2B33-D93E-7BDE-BB975E7C085C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0BAB3C6A-F697-60C8-06DD-28B267097C7F" name="ROZVRHOVA_AKCE_PREDMET_FK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>9B20C433-1C42-EA41-040B-62C0657EE182</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="267202FB-D8AC-8191-C5B8-8A16E15748BC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="19669CE3-30E7-24E7-C399-BDF2981A6F33" name="ROZVRHOVA_AKCE_ZPUSOB_VYUKY_FK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>2CAB34B1-8F9F-FBAD-0D1D-A942BF15B5B1</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A39CAD07-6874-0CDA-D037-91DA30A3E2C3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7733D5B6-0189-D30B-1DB3-95948E31295A" name="ROZVRHOVA_AKCE_ROLE_VYUCUJICIHO_FK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>AE1B4EF6-2BC4-95C3-3D2B-60BFEE08E949</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9F4E7376-490E-E393-5DC3-918248353BE4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4C982529-9572-85D9-3398-957E76FF7349" name="ROZVRHOVA_AKCE_ZAMESTNANEC_FK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>44BEC3C3-A648-E345-A384-CBCC5DAF7E0B</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A685942B-C34B-E769-EEED-86640CABB390"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1A396697-1E3E-2FCA-4631-9CAF6FC6A5BF" name="ROZVRHOVA_AKCE_UCEBNA_FK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>CB1AB0A6-45A1-BF94-6E67-9CBC3CFFF26D</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7A0B6CC1-EC6E-3A01-82AA-947BB36427D0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

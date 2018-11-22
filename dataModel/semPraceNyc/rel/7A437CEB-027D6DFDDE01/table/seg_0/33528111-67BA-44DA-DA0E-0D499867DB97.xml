@@ -1,0 +1,151 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="33528111-67BA-44DA-DA0E-0D499867DB97" name="PREDMET">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>5CA66672-0837-C9D0-FEB5-576D107A343D</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="zkratka_predmetu" id="FB334067-085E-7EBE-8A53-BA42236B79B1">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>294F2764-4C52-7877-859B-F91124CE2068</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>8</dataTypeSize>
+<ownDataTypeParameters>8,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nazev_predmetu" id="AF6DC36A-8429-C087-73C7-75A94017BFB9">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>ADA6B639-7366-E1BF-8A45-D053E0333C27</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="rozsah_hodin" id="4B650C65-CF57-BAD2-B71F-C120B3E9E146">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>2FC2A640-C6B8-B48E-CC43-1CEFE34A9804</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="doporuceny_rocnik" id="701FFC83-6BDE-70B1-5A95-49A33F5CA261">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>0EC8011A-295C-FDD7-0E21-A5D3EE727E2F</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SEMESTR_id_semestr" id="9EA025D1-F82C-CC71-CD75-AA1F643AC460">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>50FA5E3B-51A9-3081-4575-C380C9B092C0</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C0653049-4B1D-77A0-8640-CD9323221C12" referredColumn="8AE3441D-14F3-9C1F-D819-48E092F5898A"/>
+</associations>
+</Column>
+<Column name="ZPUSOB_ZAKONCENI_id_zz" id="07E681A9-8735-6FB6-B17D-0502CFA4A413">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>74CF8B25-D662-CD4E-D624-8CF97C84D20F</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="CA2B095E-EE2F-F9B6-1F47-7AB9D01EC3D7" referredColumn="E9E45C60-491A-D588-A31C-803C8E884DED"/>
+</associations>
+</Column>
+<Column name="FORMA_VYUKY_id_fv" id="5B29194E-DE4F-DAF5-640B-C8FDF70A7E6D">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>00CBFF59-06D9-9861-34C9-E3E41CE1DFB5</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="FD0A7439-3ACF-61A3-67F8-EB15492031F5" referredColumn="97E4C11D-9194-2277-CB68-030EEBD7426E"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="4C919295-C182-C2E9-3A9B-B43500EE0056" name="PREDMET_PK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>CBD270A8-A7CC-688F-B07D-CC46BC1B8CFC</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FB334067-085E-7EBE-8A53-BA42236B79B1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4C4E0BB6-F3E1-8B63-3DD8-690A95A00F44" name="PREDMET_FORMA_VYUKY_FK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>9D012733-842B-C48B-B00E-05FA163B61F2</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5B29194E-DE4F-DAF5-640B-C8FDF70A7E6D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="D317A62C-B927-7FE6-A4EB-0F58840119DD" name="PREDMET_SEMESTR_FK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>BF9B6293-67B5-34FE-6872-5DC29D978DCE</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9EA025D1-F82C-CC71-CD75-AA1F643AC460"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="9BD0FE4C-D983-EF18-A5B8-BF9EA9631A8D" name="PREDMET_ZPUSOB_ZAKONCENI_FK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>677EAC2C-DB55-7D1A-49A1-BBABFD8EB5B9</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="07E681A9-8735-6FB6-B17D-0502CFA4A413"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

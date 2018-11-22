@@ -99,3 +99,8 @@ ALTER TABLE rozvrhova_akce
 ALTER TABLE rozvrhova_akce
     ADD CONSTRAINT rozvrhova_akce_zamestnanec_fk FOREIGN KEY ( id_zamestnanec )
         REFERENCES zamestnanec ( id_zamestnanec );
+		
+		
+ALTER TABLE ZAMESTNANEC DROP COLUMN TELEFON;    
+ALTER TABLE ZAMESTNANEC DROP COLUMN MOBIL; 
+ALTER TABLE ZAMESTNANEC ADD (MOBIL NUMBER, TELEFON NUMBER);

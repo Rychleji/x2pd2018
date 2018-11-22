@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="236551E2-D0CD-A85F-E44A-DBAC118B5D77" containerWithKeyObject="10F1FFE0-ED05-BCE4-9EAA-FB943B921827" localFKIndex="50D04F49-7DDE-E653-C6E6-54E4363D10DD" name="ZAMESTNANEC_KATEDRA_FK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>E35D4483-BB68-604B-3501-F5A7773DF50F</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<referredTableLongName>KATEDRA</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>C88395C0-DE40-E2DB-1296-1109066E532C</referredTableID>
+<keyObject>0ABBE485-8774-23F5-1764-1D474416FA86</keyObject>
+<referredKeyID>0ABBE485-8774-23F5-1764-1D474416FA86</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>zkratka_katedry</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

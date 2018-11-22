@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="ACD436FE-BE10-BB72-700A-587E9F654CFB" containerWithKeyObject="2C6F336E-E3F4-63B0-AFFE-E21F65A97A48" localFKIndex="13BEBC4B-93EE-90E4-3333-9336426C7F1F" name="OBOR_PREDMET_KATEGORIE_PREDMETU_FK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>B4C4F3AA-B78F-79D8-DCF2-9730833B7373</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<referredTableLongName>KATEGORIE_PREDMETU</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>BDB27065-694B-12AE-2F31-D83467995257</referredTableID>
+<keyObject>145B07FA-5970-4930-1009-7BF06D2A171D</keyObject>
+<referredKeyID>145B07FA-5970-4930-1009-7BF06D2A171D</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>kategorie</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

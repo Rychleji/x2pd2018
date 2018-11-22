@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="F4C9AF8C-85FE-8EC8-BDCC-2C75CC51789C" containerWithKeyObject="2C6F336E-E3F4-63B0-AFFE-E21F65A97A48" localFKIndex="0249A680-553C-581D-704B-926BC12C90AD" name="OBOR_PREDMET_PREDMET_FK">
+<createdBy>David</createdBy>
+<createdTime>2018-11-21 11:34:41 UTC</createdTime>
+<generatorID>5A5EBA36-412E-8FD3-DE75-DEB1E0B5E165</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<referredTableLongName>PREDMET</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>33528111-67BA-44DA-DA0E-0D499867DB97</referredTableID>
+<keyObject>4C919295-C182-C2E9-3A9B-B43500EE0056</keyObject>
+<referredKeyID>4C919295-C182-C2E9-3A9B-B43500EE0056</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>zkratka_predmetu</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>
