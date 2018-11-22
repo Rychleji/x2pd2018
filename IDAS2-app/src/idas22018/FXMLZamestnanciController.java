@@ -5,6 +5,7 @@
  */
 package idas22018;
 
+import datovavrstva.ISkolniDB;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -54,17 +55,19 @@ public class FXMLZamestnanciController implements Initializable {
 
     private Scene predScena;
     private Scene aktScena;
+     private ISkolniDB dataLayer;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        dataLayer = GuiFXMLController.getDataLayer();
     }
 
     @FXML
     private void okButtonClick(ActionEvent event) {
+   
     }
 
     @FXML

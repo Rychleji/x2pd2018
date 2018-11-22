@@ -35,6 +35,32 @@ public final class KnihovnaZobrazovani {
         }
     }
     
+    static void zobrazPrihlaseni(FXMLLoader loader){
+        Parent root;
+        try {
+            root = loader.load();
+            FXMLPrihlaseniController controller = loader.<FXMLPrihlaseniController>getController();
+            Scene scena = new Scene(root);
+            stageP.setScene(scena);
+            stageP.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    static void zobrazHlavniMenu(FXMLLoader loader){
+        Parent root;
+        try {
+            root = loader.load();
+            GuiFXMLController controller = loader.<GuiFXMLController>getController();
+            Scene scena = new Scene(root);
+            stageP.setScene(scena);
+            stageP.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public static void zobrazPredhledUcitelu(FXMLLoader loader){
         Parent root;
         try {

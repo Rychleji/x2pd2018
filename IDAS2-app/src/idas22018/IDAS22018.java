@@ -27,6 +27,8 @@ public class IDAS22018 extends Application {
     public static Scene mainScene;
     public static GuiFXMLController mainController;
     public static ResultSet dataset;
+    public static boolean prihlaseno = false;
+    public static String druhProhlizeni = "";
     
     public static void close(Scene predchoziScena) {
         stageP.setScene(predchoziScena);

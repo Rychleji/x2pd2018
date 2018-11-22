@@ -87,14 +87,13 @@ public class DialogPripojeni extends Stage {
             try {
                 jmeno=jmenoTF.getText();
                 heslo=hesloTF.getText();
-                //if("C##ST47130".equals(jmeno) && "0".equals(heslo))
-                //    heslo="";
+          
                 buttonPressed = true;
                 hide();
             } catch (IllegalArgumentException ex) {
                 DialogChyba dialog3 = new DialogChyba(null, "Něco se pokazilo :(");
                 dialog3 = (DialogChyba) dialog3.getScene().getWindow();
-                dialog3.showAndWait();;
+                dialog3.showAndWait();
             }
         });
 

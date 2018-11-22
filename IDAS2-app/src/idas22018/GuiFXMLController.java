@@ -98,6 +98,34 @@ public class GuiFXMLController implements Initializable {
         conn = dataLayer.getConnect();
         afterConnect();
 
+        stageP.setOnShown((dd) -> {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLPrihlaseni.fxml"));
+            KnihovnaZobrazovani.zobrazPrihlaseni(loader);
+        });
+
+        while (prihlaseno == false) {
+            DialogPripojeni dialog = new DialogPripojeni(null);
+            dialog = (DialogPripojeni) dialog.getScene().getWindow();
+            dialog.setOnCloseRequest((d) -> {
+                prihlaseno = true;
+            });
+            dialog.showAndWait();
+            if (dialog.isButtonPressed()) {
+                try {
+                    conn = dataLayer.connectToDB("fei-sql1.upceucebny.cz", 1521, "IDAS12", dialog.getJmeno(), dialog.getHeslo());
+                    prihlaseno = true;
+
+                    afterConnect(); //nejsem si jisty
+                } catch (SQLException ex) {
+                    DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());
+                    dialog2.showAndWait();
+                    conn = null;
+                }
+
+            }
+
+        }
+
         stageP.setOnCloseRequest((WindowEvent event) -> {
             Alert closeComf = new Alert(Alert.AlertType.CONFIRMATION, "Opravdu chcete zavřít program?", ButtonType.YES, ButtonType.NO);
 
@@ -292,7 +320,7 @@ public class GuiFXMLController implements Initializable {
         }
     }
 
-    @FXML
+    /*@FXML
     private void pripojeniButtonClick(ActionEvent event) {
         DialogPripojeni dialog = new DialogPripojeni(null);
         dialog = (DialogPripojeni) dialog.getScene().getWindow();
@@ -309,7 +337,7 @@ public class GuiFXMLController implements Initializable {
             afterConnect();
         }
     }
-
+     */
     @FXML
     private void exitButtonClick(ActionEvent event) {
         stageP.close();

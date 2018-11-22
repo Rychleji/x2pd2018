@@ -19,7 +19,6 @@
    <center>
       <VBox alignment="CENTER" prefHeight="241.0" prefWidth="600.0" spacing="3.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="pripojitButton" defaultButton="true" mnemonicParsing="false" onAction="#pripojeniButtonClick" prefHeight="31.0" prefWidth="180.0" text="Připojit do datababáze" />
             <VBox fx:id="disablovatelnyButtonyVBox" alignment="CENTER" prefHeight="169.0" prefWidth="600.0" spacing="3.0" VBox.vgrow="NEVER">
                <children>
                   <Button mnemonicParsing="false" onAction="#vyucujiciButtonClick" prefWidth="150.0" text="Vyučující" />
