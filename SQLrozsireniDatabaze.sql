@@ -19,7 +19,7 @@ CREATE TABLE zamestnanec (
     telefon                   VARCHAR2(13),
     mobil                     VARCHAR2(13),
     email                     VARCHAR2(255) NOT NULL,
-    id_pracoviste             NUMBER NOT NULL,
+    id_pracoviste             VARCHAR(25) NOT NULL,
     katedra_zkratka_katedry   VARCHAR2(10) NOT NULL,
     typrole                   VARCHAR2(15),
     id_role              NUMBER NOT NULL
