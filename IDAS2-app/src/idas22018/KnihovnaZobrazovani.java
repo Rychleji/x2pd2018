@@ -18,7 +18,7 @@ public final class KnihovnaZobrazovani {
         if(kZ == null){
             kZ = new KnihovnaZobrazovani();
         }
-        return kz;
+        return kZ;
     }
     
     /**
