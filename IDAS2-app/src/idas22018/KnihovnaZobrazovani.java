@@ -8,16 +8,17 @@ import javafx.scene.Scene;
 
 public final class KnihovnaZobrazovani {
     static KnihovnaZobrazovani kZ = null; 
-    private KnihovnaZobrazovani(){//
-        kZ = this;
-    }
+    private KnihovnaZobrazovani(){}
     
     /**
      * 
      * @return 
      */
-    public static KnihovnaZobrazovani getKnihovnaZobrazovani(){
-        return kZ == null ? new KnihovnaZobrazovani() : kZ;
+    public static synchronized KnihovnaZobrazovani getKnihovnaZobrazovani(){
+        if(kZ == null){
+            kZ = new KnihovnaZobrazovani();
+        }
+        return kz;
     }
     
     /**
