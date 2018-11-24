@@ -5,6 +5,7 @@
  */
 package idas22018;
 
+//import static idas22018.KnihovnaZobrazovani.getKnihovnaZobrazovani;
 import java.sql.ResultSet;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +30,7 @@ public class IDAS22018 extends Application {
     public static ResultSet dataset;
     public static boolean prihlaseno = false;
     public static String druhProhlizeni = "";
+    //public static KnihovnaZobrazovani knihovnaZobrazovani = getKnihovnaZobrazovani();
     
     public static void close(Scene predchoziScena) {
         stageP.setScene(predchoziScena);

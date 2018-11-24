@@ -89,19 +89,19 @@ public class FXMLZamestnanciController implements Initializable {
     @FXML
     private void pracovisteButtonClick(ActionEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPracoviste.fxml"));
-        KnihovnaZobrazovani.zobrazPrehledPracovistBezVyberu(fxmlLoader);
+        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPracovist();
     }
 
     @FXML
     private void prehledPredmetuButtonClick(ActionEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPredmety.fxml")); //nemuze byt staticke
-        KnihovnaZobrazovani.zobrazPrehledPredmetuBezVyberu(fxmlLoader);
+        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPredmetu();
     }
 
     @FXML
     private void oboryButttonClick(ActionEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLObory.fxml"));
-        KnihovnaZobrazovani.zobrazPrehledOboruBezVyberu(fxmlLoader);
+        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledOboru();
     }
 
     void setScenes(Scene predScena, Scene aktScena) {
@@ -111,8 +111,7 @@ public class FXMLZamestnanciController implements Initializable {
 
     @FXML
     private void vyucujiciButtonClick(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLVyucujici.fxml"));
-        KnihovnaZobrazovani.zobrazPredhledUcitelu(fxmlLoader);
+        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu();
     }
 
     @FXML

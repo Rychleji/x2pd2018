@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package idas22018;
 
 import datovavrstva.ISkolniDB;
@@ -27,11 +22,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-/**
- * FXML Controller class
- *
- * @author Radim
- */
 public class FXMLRozvrhoveAkceController implements Initializable {
     
     ISkolniDB dataLayer;
@@ -81,10 +71,14 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     
     public void setVyucId(String vyucId) {
         this.vyucId = vyucId;
+        if (vyucId != null)
+            fillTable();
     }
     
     public void setSubjId(String subjId) {
         this.subjId = subjId;
+        if (subjId != null)
+            fillTable();
     }
     
     @FXML
@@ -188,43 +182,26 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     
     @FXML
     private void vyucujiciButtonClick(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLVyucujici.fxml"));
-        KnihovnaZobrazovani.zobrazPredhledUcitelu(fxmlLoader);
+        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu();
     }
     
     @FXML
     private void predmetyButtonClick(ActionEvent event) {
-        Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOborPredmet.fxml"));
-            root = fxmlLoader.load();
-            FXMLOborPredmetController controller = fxmlLoader.<FXMLOborPredmetController>getController();
-            controller.setFilterId(tableView.getSelectionModel().getSelectedItem().get(0));
-            
-            Scene scena = new Scene(root);
-            controller.setScenes(IDAS22018.mainScene, scena);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPredmetu();
     }
     
     @FXML
     private void oboryButtonClick(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOborPredmet.fxml"));
-        KnihovnaZobrazovani.zobrazPrehledOboruBezVyberu(fxmlLoader);
+        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledOboru();
     }
     
     @FXML
     private void pracovisteButtonClick(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPracoviste.fxml"));
-        KnihovnaZobrazovani.zobrazPrehledPracovistBezVyberu(fxmlLoader);
+        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPracovist();
     }
     
     @FXML
     private void zamestnanciButtonClick(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLZamestnanci.fxml"));
-        KnihovnaZobrazovani.zobrazPrehledZamestnancu(fxmlLoader);
+        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledZamestnancu();
     }
 }

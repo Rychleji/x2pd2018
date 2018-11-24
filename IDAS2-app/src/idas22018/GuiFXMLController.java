@@ -5,6 +5,7 @@
  */
 package idas22018;
 
+import static idas22018.KnihovnaZobrazovani.getKnihovnaZobrazovani;
 import datovavrstva.ISkolniDB;
 import datovavrstva.SkolniDB;
 import static idas22018.IDAS22018.*;
@@ -55,10 +56,10 @@ public class GuiFXMLController implements Initializable {
 
     @FXML
     private Label versionLabel;
-    @FXML
-    private VBox disablovatelnyButtonyVBox;
-    @FXML
-    private Button pripojitButton;
+    //@FXML
+    //private VBox disablovatelnyButtonyVBox;
+    //@FXML
+    //private Button pripojitButton;
 
     public static ISkolniDB getDataLayer() {
         return dataLayer;
@@ -99,8 +100,7 @@ public class GuiFXMLController implements Initializable {
         afterConnect();
 
         stageP.setOnShown((dd) -> {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLPrihlaseni.fxml"));
-            KnihovnaZobrazovani.zobrazPrihlaseni(loader);
+            getKnihovnaZobrazovani().zobrazPrihlaseni();
         });
 
         while (prihlaseno == false) {
@@ -151,19 +151,7 @@ public class GuiFXMLController implements Initializable {
 
     @FXML
     private void vyucujiciButtonClick(ActionEvent event) {
-        Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLVyucujici.fxml"));
-            root = fxmlLoader.load();
-            FXMLVyucujiciController controller = fxmlLoader.<FXMLVyucujiciController>getController();
-
-            Scene scena = new Scene(root);
-            controller.setScenes(mainScene, scena);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        getKnihovnaZobrazovani().zobrazPrehledUcitelu();
     }
 
     private void afterConnect() {
@@ -228,52 +216,17 @@ public class GuiFXMLController implements Initializable {
 
     @FXML
     private void pracovisteButtonClick(ActionEvent event) {
-        Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPracoviste.fxml"));
-            root = fxmlLoader.load();
-            FXMLPracovisteController controller = fxmlLoader.<FXMLPracovisteController>getController();
-
-            Scene scena = new Scene(root);
-            stageP.setScene(scena);
-            controller.setScenes(mainScene, scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        getKnihovnaZobrazovani().zobrazPrehledPracovist();
     }
 
     @FXML
     private void predmetyButtonClick(ActionEvent event) {
-        Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPredmety.fxml"));
-            root = fxmlLoader.load();
-            FXMLPredmetyController controller = fxmlLoader.<FXMLPredmetyController>getController();
-
-            Scene scena = new Scene(root);
-            controller.setScenes(mainScene, scena);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        getKnihovnaZobrazovani().zobrazPrehledPredmetu();
     }
 
     @FXML
     private void oborButtonClick(ActionEvent event) {
-        Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLObory.fxml"));
-            root = fxmlLoader.load();
-            FXMLOboryController controller = fxmlLoader.<FXMLOboryController>getController();
-            Scene scena = new Scene(root);
-            controller.setScenes(mainScene, scena);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        getKnihovnaZobrazovani().zobrazPrehledOboru();
     }
 
     void setConnection(Connection conn) {
@@ -282,18 +235,7 @@ public class GuiFXMLController implements Initializable {
 
     @FXML
     private void zamestnanciButtonClick(ActionEvent event) {
-        Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLZamestnanci.fxml"));
-            root = fxmlLoader.load();
-            FXMLZamestnanciController controller = fxmlLoader.<FXMLZamestnanciController>getController();
-            Scene scena = new Scene(root);
-            controller.setScenes(mainScene, scena);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        getKnihovnaZobrazovani().zobrazPrehledZamestnancu();
     }
 
     public class HelpClass {

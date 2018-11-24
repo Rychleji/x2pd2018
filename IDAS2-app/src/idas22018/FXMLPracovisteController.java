@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package idas22018;
 
 import datovavrstva.ISkolniDB;
@@ -11,7 +6,6 @@ import idas22018.dialogy.DialogChyba;
 import idas22018.dialogy.DialogPridejKatedru;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -28,11 +22,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-/**
- * FXML Controller class
- *
- * @author Radim
- */
 public class FXMLPracovisteController implements Initializable {
 
     private Scene predScena;
@@ -148,27 +137,9 @@ public class FXMLPracovisteController implements Initializable {
 
     @FXML
     private void vyucujiciButtonClick(ActionEvent event) {
-        if (tableView.getItems().isEmpty() || tableView.getSelectionModel().getSelectedItem() == null) {
-
-        } else {
-            Parent root;
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLVyucujici.fxml"));
-                root = fxmlLoader.load();
-                FXMLVyucujiciController controller = fxmlLoader.<FXMLVyucujiciController>getController();
-                
-                controller.setKatedraFiltr(tableView.getSelectionModel().getSelectedItem().get(0));
-                Scene scena = new Scene(root);
-                
-                //controller.setDataLayer(dataLayer);
-                controller.setScenes(aktScena, scena);
-                controller.initialize(null, null);
-                stageP.setScene(scena);
-                stageP.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        if (!(tableView.getItems().isEmpty() || tableView.getSelectionModel().getSelectedItem() == null)) {
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu(tableView.getSelectionModel().getSelectedItem().get(0), null, aktScena);
+        } 
     }
 
     public void setScenes(Scene predScena, Scene aktScena) {
@@ -178,50 +149,16 @@ public class FXMLPracovisteController implements Initializable {
 
     @FXML
     private void prehledVyucijiciButtonClick(ActionEvent event) {
-        Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLVyucujici.fxml"));
-            root = fxmlLoader.load();
-            FXMLVyucujiciController controller = fxmlLoader.<FXMLVyucujiciController>getController();
-            //controller.setDataLayer(dataLayer);
-            Scene scena = new Scene(root);
-            controller.setScenes(IDAS22018.mainScene, scena);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu();
     }
 
     @FXML
     private void predmetyButtonClick(ActionEvent event) {
-        Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPredmety.fxml"));
-            root = fxmlLoader.load();
-            FXMLPredmetyController controller = fxmlLoader.<FXMLPredmetyController>getController();
-            Scene scena = new Scene(root);
-            controller.setScenes(IDAS22018.mainScene, scena);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPredmetu();
     }
 
     @FXML
     private void oboryButtonClick(ActionEvent event) {
-        Parent root;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLObory.fxml"));
-            root = fxmlLoader.load();
-            FXMLOboryController controller = fxmlLoader.<FXMLOboryController>getController();
-            Scene scena = new Scene(root);
-            controller.setScenes(IDAS22018.mainScene, scena);
-            stageP.setScene(scena);
-            stageP.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledOboru();
     }
 }

@@ -1,17 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package idas22018;
 
 import datovavrstva.ISkolniDB;
 import static idas22018.IDAS22018.*;
 import idas22018.dialogy.DialogChyba;
 import idas22018.dialogy.DialogPridejVyucujiciho;
-import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -21,20 +14,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 
-/**
- * FXML Controller class
- *
- * @author Radim
- */
 public class FXMLVyucujiciController implements Initializable {
 
     ObservableList<List<String>> seznam = FXCollections.observableArrayList();
@@ -95,10 +81,14 @@ public class FXMLVyucujiciController implements Initializable {
 
     public void setKatedraFiltr(String katedraFiltr) {
         this.katedraFiltr = katedraFiltr;
+        if(katedraFiltr!=null)
+            fillTable();
     }
 
     public void setPredmetFiltr(String predmetFiltr) {
         this.predmetFiltr = predmetFiltr;
+        if (predmetFiltr != null)
+            fillTable();
     }
 
     @FXML
@@ -193,36 +183,18 @@ public class FXMLVyucujiciController implements Initializable {
 
     @FXML
     private void akceButtonClick(ActionEvent event) {
-        if (tableView.getItems().isEmpty() || tableView.getSelectionModel().getSelectedItem() == null) {
-
-        } else {
+        if ((!tableView.getItems().isEmpty()) && (tableView.getSelectionModel().getSelectedItem() != null)) {
             String origID = tableView.getSelectionModel().getSelectedItem().get(0);
-            Parent root;
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLRozvrhoveAkce.fxml"));
-                root = fxmlLoader.load();
-                FXMLRozvrhoveAkceController controller = fxmlLoader.<FXMLRozvrhoveAkceController>getController();
-                controller.setVyucId(origID);
-
-                Scene scena = new Scene(root);
-                controller.setScenes(aktScena, scena);
-                controller.initialize(null, null);
-                stageP.setScene(scena);
-                stageP.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazRozvrhoveAkce(origID, null, aktScena);
         }
     }
 
     @FXML
     private void predmetyButtonClick(ActionEvent event) {
-        if (tableView.getItems().isEmpty() || tableView.getSelectionModel().getSelectedItem() == null) {
-
-        } else {
+        if (!(tableView.getItems().isEmpty() || tableView.getSelectionModel().getSelectedItem() == null)) {
             String origID = tableView.getSelectionModel().getSelectedItem().get(0);
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPredmety.fxml"));
-            KnihovnaZobrazovani.zobrazPrehledPredmetuUcitele(origID, fxmlLoader, aktScena);
+            
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPredmetu(origID, aktScena);
         }
     }
 
@@ -233,26 +205,22 @@ public class FXMLVyucujiciController implements Initializable {
 
     @FXML
     private void pracovisteButtonClick(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPracoviste.fxml"));
-        KnihovnaZobrazovani.zobrazPrehledPracovistBezVyberu(fxmlLoader);
+        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPracovist();
     }
 
     @FXML
     private void oboryButttonClick(ActionEvent event) {
-         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLObory.fxml"));
-         KnihovnaZobrazovani.zobrazPrehledOboruBezVyberu(fxmlLoader);
+         KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledOboru();
     }
 
     @FXML
     private void prehledPredmetuButtonClick(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLPredmety.fxml")); //nemuze byt staticke
-        KnihovnaZobrazovani.zobrazPrehledPredmetuBezVyberu(fxmlLoader);
+        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPredmetu();
     }
 
     @FXML
     private void prehledZamestnancuButtonClick(ActionEvent event) {
-         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLZamestnanci.fxml")); //nemuze byt staticke
-        KnihovnaZobrazovani.zobrazPrehledZamestnancu(fxmlLoader);
+        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledZamestnancu();
     }
 
    
