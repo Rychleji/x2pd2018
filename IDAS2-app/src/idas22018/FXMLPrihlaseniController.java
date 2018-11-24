@@ -16,20 +16,20 @@ public class FXMLPrihlaseniController implements Initializable {
 
     @FXML
     private void administratorClick(ActionEvent event) {
-        zavrit("administrator");
+        zavrit(IDAS22018.RezimProhlizeni.ADMINISTRATOR);
     }
 
     @FXML
     private void registrovanyClick(ActionEvent event) {
-        zavrit("registrovany");
+        zavrit(IDAS22018.RezimProhlizeni.REGISTROVANY);
     }
 
     @FXML
     private void neregistrovanyClick(ActionEvent event) {
-        zavrit("neregistrovany");
+        zavrit(IDAS22018.RezimProhlizeni.NEREGISTROVANY);
     }
     
-    private void zavrit(String druhProhlizeni){
+    private void zavrit(IDAS22018.RezimProhlizeni druhProhlizeni){
         KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazHlavniMenu(); // stejné jako cancel(IDAS22018.mainScene)
         IDAS22018.druhProhlizeni = druhProhlizeni;
     }

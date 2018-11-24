@@ -29,7 +29,7 @@ public class IDAS22018 extends Application {
     public static GuiFXMLController mainController;
     public static ResultSet dataset;
     public static boolean prihlaseno = false;
-    public static String druhProhlizeni = "";
+    public static RezimProhlizeni druhProhlizeni = RezimProhlizeni.NEREGISTROVANY;
     //public static KnihovnaZobrazovani knihovnaZobrazovani = getKnihovnaZobrazovani();
     
     public static void close(Scene predchoziScena) {
@@ -58,6 +58,21 @@ public class IDAS22018 extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+    
+    enum RezimProhlizeni{
+        ADMINISTRATOR("administrátor"), REGISTROVANY("registrovaný"), NEREGISTROVANY("neregistrovaný");
+        
+        private final String nazev;
+        
+        private RezimProhlizeni(String nazev){
+            this.nazev = nazev;
+        }
+
+        @Override
+        public String toString() {
+            return nazev;
+        }
     }
     
 }
