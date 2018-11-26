@@ -1,13 +1,10 @@
 package datovavrstva;
 
 import OracleConnector.OracleConnector;
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SkolniDB implements ISkolniDB {
 
@@ -275,7 +272,7 @@ public class SkolniDB implements ISkolniDB {
         String table = "ROZVRHOVA_AKCE";
         String set = String.format("POCET_STUDENTU = %d, MAHODIN = %d, ZACINAV = %.2f, "
                 + "PREDMET_ZKRATKA_PREDMETU = '%s', ZPUSOB_VYUKY_ID_ZV = %d, "
-                + "ROLE_VYUCUJICIHO_ROLE = '%s', VYUCUJICI_ID_VYUCUJICIHO = '%s'",
+                + "ROLE_VYUCUJICIHO_ROLE = '%s', ID_ZAMESTNANEC = '%s'",
                 numberOfStudents, span, startsAt, subjectShort, type, teacherRole, teacherId);
         String condition = "ID_RA = " + id;
 
@@ -287,7 +284,7 @@ public class SkolniDB implements ISkolniDB {
         Statement stmt = connect.createStatement();
 
         String table = "ROZVRHOVA_AKCE";
-        String columns = "(POCET_STUDENTU, MAHODIN, ZACINAV, PREDMET_ZKRATKA_PREDMETU, ZPUSOB_VYUKY_ID_ZV, ROLE_VYUCUJICIHO_ROLE, VYUCUJICI_ID_VYUCUJICIHO)";
+        String columns = "(POCET_STUDENTU, MAHODIN, ZACINAV, PREDMET_ZKRATKA_PREDMETU, ZPUSOB_VYUKY_ID_ZV, ROLE_VYUCUJICIHO_ROLE, ID_ZAMESTNANEC)";
         String set = String.format("%d, %d, %s, '%s', %d, '%s', '%s'",
                 numberOfStudents, span, String.valueOf(startsAt).replace(',', '.'), subjectShort, type, teacherRole, teacherId);
 
@@ -308,8 +305,8 @@ public class SkolniDB implements ISkolniDB {
     public ResultSet selectTeacher(String id) throws SQLException {
         Statement statement = connect.createStatement();
 
-        return statement.executeQuery("select * from VYUCUJICI"
-                + " left join KATEDRA on VYUCUJICI.KATEDRA_ZKRATKA_KATEDRY = KATEDRA.ZKRATKA_KATEDRY"
+        return statement.executeQuery("select * from VYUC_VIEW"
+                + " left join KATEDRA on VYUC_VIEW.KATEDRA_ZKRATKA_KATEDRY = KATEDRA.ZKRATKA_KATEDRY"
                 + " left join FAKULTA on KATEDRA.FAKULTA_ZKRATKA_FAKULTY = FAKULTA.ZKRATKA_FAKULTY"
                 + " where ID_VYUCUJICIHO = " + id);
     }
@@ -318,8 +315,8 @@ public class SkolniDB implements ISkolniDB {
     public ResultSet selectTeachers() throws SQLException {
         Statement statement = connect.createStatement();
 
-        return statement.executeQuery("select * from VYUCUJICI"
-                + " left join KATEDRA on VYUCUJICI.KATEDRA_ZKRATKA_KATEDRY = KATEDRA.ZKRATKA_KATEDRY"
+        return statement.executeQuery("select * from VYUC_VIEW"
+                + " left join KATEDRA on VYUC_VIEW.KATEDRA_ZKRATKA_KATEDRY = KATEDRA.ZKRATKA_KATEDRY"
                 + " left join FAKULTA on KATEDRA.FAKULTA_ZKRATKA_FAKULTY = FAKULTA.ZKRATKA_FAKULTY");
     }
 
@@ -327,8 +324,8 @@ public class SkolniDB implements ISkolniDB {
     public ResultSet selectTeachers(String name, String prijmeni) throws SQLException {
         Statement statement = connect.createStatement();
 
-        return statement.executeQuery("select * from VYUCUJICI"
-                + " left join KATEDRA on VYUCUJICI.KATEDRA_ZKRATKA_KATEDRY = KATEDRA.ZKRATKA_KATEDRY"
+        return statement.executeQuery("select * from VYUC_VIEW"
+                + " left join KATEDRA on VYUC_VIEW.KATEDRA_ZKRATKA_KATEDRY = KATEDRA.ZKRATKA_KATEDRY"
                 + " left join FAKULTA on KATEDRA.FAKULTA_ZKRATKA_FAKULTY = FAKULTA.ZKRATKA_FAKULTY"
                 + " where JMENO like %" + name + "% and PRIJMENI like %" + prijmeni + "%");
     }
@@ -337,8 +334,8 @@ public class SkolniDB implements ISkolniDB {
     public ResultSet selectTeachers(String department) throws SQLException {
         Statement statement = connect.createStatement();
 
-        return statement.executeQuery("select * from VYUCUJICI"
-                + " left join KATEDRA on VYUCUJICI.KATEDRA_ZKRATKA_KATEDRY = KATEDRA.ZKRATKA_KATEDRY"
+        return statement.executeQuery("select * from VYUC_VIEW"
+                + " left join KATEDRA on VYUC_VIEW.KATEDRA_ZKRATKA_KATEDRY = KATEDRA.ZKRATKA_KATEDRY"
                 + " left join FAKULTA on KATEDRA.FAKULTA_ZKRATKA_FAKULTY = FAKULTA.ZKRATKA_FAKULTY"
                 + " where KATEDRA_ZKRATKA_KATEDRY = '" + department + "'");
     }
@@ -348,8 +345,8 @@ public class SkolniDB implements ISkolniDB {
         Statement statement = connect.createStatement();
 
         return statement.executeQuery("select * from rozvrhova_akce"
-                + " inner join VYUCUJICI on ROZHVRHOVA_AKCE.VYUCUJICI_ID_VYUCUJICIHO = VYUCUJICI.ID_VYUCUJICIHO"
-                + " left join KATEDRA on VYUCUJICI.KATEDRA_ZKRATKA_KATEDRY = KATEDRA.ZKRATKA_KATEDRY"
+                + " inner join ZAMESTNANEC on ROZHVRHOVA_AKCE.ID_ZAMESTNANEC = ZAMESTNANEC.ID_ZAMESTNANEC"
+                + " left join KATEDRA on ZAMESTNANEC.KATEDRA_ZKRATKA_KATEDRY = KATEDRA.ZKRATKA_KATEDRY"
                 + " left join FAKULTA on KATEDRA.FAKULTA_ZKRATKA_FAKULTY = FAKULTA.ZKRATKA_FAKULTY"
                 + " inner join PREDMET on ROZVRHOVA_AKCE.PREDMET_ZKRATKA_PREDMETU = PREDMET.ZKRATKA_PREDMETU"
                 + " where JMENO like %" + name + "% and PRIJMENI like %" + prijmeni + "% and ZKRATKA_PREDMETU like %" + zkratkaPredmetu + "%");
