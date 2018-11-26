@@ -9,9 +9,6 @@ import java.sql.Statement;
 public class SkolniDB implements ISkolniDB {
 
     private Connection connect = null;
-    private final String updateMask = "UPDATE %s SET %s WHERE %s";
-    private final String addMask = "INSERT INTO %s %s VALUES (%s)";
-    private final String deleteMask = "DELETE FROM %s WHERE %s";
 
     @Override
     public Connection connectToDB(String server, int port, String SID, String login, String pass) throws SQLException {
