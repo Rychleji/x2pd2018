@@ -5,6 +5,7 @@
  */
 package datovavrstva;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,9 +26,9 @@ public interface ISkolniDB {
 
     public void setConnect(Connection connect);
 
-    public void editTeacher(String origId, String newId, String name, String lastname, String titles, String titlesAfter, String phone, String mobilePhone, String email, String department) throws SQLException;
+    public void editTeacher(String origId, String newId, String name, String lastname, String titles, String titlesAfter, String phone, String mobilePhone, String email, String department, File image, int role, int rights, String username, String password) throws SQLException;
 
-    public void addTeacher(String newId, String name, String lastname, String titles, String titlesAfter, String phone, String mobilePhone, String email, String department) throws SQLException;
+    public void addTeacher(String newId, String name, String lastname, String titles, String titlesAfter, String phone, String mobilePhone, String email, String department, File image, int role, int rights, String username, String password) throws SQLException;
 
     public void deleteTeacher(String id) throws SQLException;
 
@@ -61,9 +62,9 @@ public interface ISkolniDB {
 
     public void deleteSpecializationSubject(String shortSpec, String shortSubj) throws SQLException;
 
-    public void editSchedule(int id, int numberOfStudents, float startsAt, int span, String subjectShort, int type, String teacherRole, String teacherId) throws SQLException;
+    public void editSchedule(int id, int numberOfStudents, float startsAt, int span, String subjectShort, int type, String teacherRole, int teacherId, int roomId) throws SQLException;
 
-    public void addSchedule(int numberOfStudents, float startsAt, int span, String subjectShort, int type, String teacherRole, String teacherId) throws SQLException;
+    public void addSchedule(int numberOfStudents, float startsAt, int span, String subjectShort, int type, String teacherRole, int teacherId, int roomId) throws SQLException;
 
     public void deleteSchedule(int id) throws SQLException;
 
