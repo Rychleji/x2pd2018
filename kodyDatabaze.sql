@@ -192,27 +192,44 @@ END;
 
 -------ROZVRHOVÁ AKCE-------
 
-CREATE OR REPLACE PROCEDURE vlozRozvrhovouAkci
+create or replace PROCEDURE vlozRozvrhovouAkci
     (p_pocetStudentu NUMBER, p_maHodin NUMBER, p_zacinaV NUMBER, p_predmet VARCHAR2, p_zpusobVyuky NUMBER, 
         p_roleVyucujiciho VARCHAR2, p_idVyucujiciho NUMBER, p_idUcebna NUMBER)
 IS
+    ex_kryti EXCEPTION;
 BEGIN
-	--TODO: nutno dodělat podminku pro nekryti rozvrhu
-	INSERT INTO ROZVRHOVA_AKCE (POCET_STUDENTU, MAHODIN, ZACINAV, PREDMET_ZKRATKA_PREDMETU, ZPUSOB_VYUKY_ID_ZV,
-        ROLE_VYUCUJICIHO_ROLE, ID_ZAMESTNANEC, ID_UCEBNA)
-	values (p_pocetStudentu, p_maHodin, p_zacinaV, p_predmet, p_zpusobVyuky, p_roleVyucujiciho, p_idVyucujiciho, p_idUcebna);
+    IF ((MAVOLNO(p_idVyucujiciho, p_zacinaV, p_maHodin, p_idUcebna, 0)) AND (DOSTACUJEMISTO(p_pocetStudentu, p_idUcebna))) THEN
+        INSERT INTO ROZVRHOVA_AKCE (POCET_STUDENTU, MAHODIN, ZACINAV, PREDMET_ZKRATKA_PREDMETU, ZPUSOB_VYUKY_ID_ZV,
+            ROLE_VYUCUJICIHO_ROLE, ID_ZAMESTNANEC, ID_UCEBNA)
+        values (p_pocetStudentu, p_maHodin, p_zacinaV, p_predmet, p_zpusobVyuky, p_roleVyucujiciho, p_idVyucujiciho, p_idUcebna);
+    ELSE
+        RAISE ex_kryti;
+    END IF;
+    
+    EXCEPTION
+        WHEN ex_kryti THEN
+            raise_application_error(-20000, 'Ve zvolený čas je obsazena učebna nebo vyučující už uči.');
 END;
 /
-CREATE OR REPLACE PROCEDURE upravRozvrhovouAkci 
+create or replace PROCEDURE upravRozvrhovouAkci 
     (p_id Number, p_pocetStudentu NUMBER, p_maHodin NUMBER, p_zacinaV NUMBER, p_predmet VARCHAR2, p_zpusobVyuky NUMBER, 
-        p_roleVyucujiciho VARCHAR2, p_idVyucujiciho NUMBER, p_idUcebna NUMBER)
+        p_roleVyucujiciho VARCHAR2, p_idVyucujiciho NUMBER, p_idUcebna NUMBER, p_schvaleno NUMBER)
 IS
+    ex_kryti EXCEPTION;
 BEGIN
-	--TODO: nutno dodělat podminku pro nekryti rozvrhu
-    UPDATE ROZVRHOVA_AKCE 
-    SET POCET_STUDENTU = p_pocetStudentu, MAHODIN = p_maHodin, ZACINAV = p_zacinaV, PREDMET_ZKRATKA_PREDMETU = p_predmet, 
-    ZPUSOB_VYUKY_ID_ZV = p_zpusobVyuky, ROLE_VYUCUJICIHO_ROLE = p_roleVyucujiciho, ID_ZAMESTNANEC = p_idVyucujiciho, ID_UCEBNA = p_idUcebna
-    WHERE ID_RA = p_id;
+    IF ((MAVOLNO(p_idVyucujiciho, p_zacinaV, p_maHodin, p_idUcebna, p_id)) AND (DOSTACUJEMISTO(p_pocetStudentu, p_idUcebna))) THEN
+        UPDATE ROZVRHOVA_AKCE 
+        SET POCET_STUDENTU = p_pocetStudentu, MAHODIN = p_maHodin, ZACINAV = p_zacinaV, PREDMET_ZKRATKA_PREDMETU = p_predmet, 
+        ZPUSOB_VYUKY_ID_ZV = p_zpusobVyuky, ROLE_VYUCUJICIHO_ROLE = p_roleVyucujiciho, ID_ZAMESTNANEC = p_idVyucujiciho, ID_UCEBNA = p_idUcebna,
+        SCHVALENO = p_schvaleno
+        WHERE ID_RA = p_id;
+    ELSE
+        RAISE ex_kryti;
+    END IF;
+
+    EXCEPTION
+        WHEN ex_kryti THEN
+            raise_application_error(-20000, 'Ve zvolený čas je obsazena učebna nebo vyučující už uči.');    
 END;
 /
 CREATE OR REPLACE PROCEDURE smazRozvrhovouAkci (p_id NUMBER)
@@ -399,14 +416,27 @@ BEGIN
    RETURN v_konec; 
 END;
 /
-CREATE OR REPLACE FUNCTION maVolno 
+create or replace FUNCTION maVolno 
     (p_idZam ZAMESTNANEC.ID_ZAMESTNANEC%TYPE, p_zacatek ROZVRHOVA_AKCE.ZACINAV%TYPE, p_delka ROZVRHOVA_AKCE.MAHODIN%TYPE,
-    p_idUcebny UCEBNA.ID_UCEBNA%TYPE)
-RETURN BOOLEAN IS 
-   v_jeVolno BOOLEAN := false;
+    p_idUcebny UCEBNA.ID_UCEBNA%TYPE, p_idRA ROZVRHOVA_AKCE.ID_RA%TYPE)
+RETURN BOOLEAN IS
+    v_jeVolno   BOOLEAN := true;
+    v_zacatek   ROZVRHOVA_AKCE.ZACINAV%TYPE;
+    v_delka     ROZVRHOVA_AKCE.MAHODIN%TYPE;
+
+    CURSOR c1 (p_iz in NUMBER)
+        IS SELECT ZACINAV, MAHODIN FROM ROZVRHOVA_AKCE WHERE (ID_ZAMESTNANEC = p_iz OR ID_UCEBNA = p_idUcebny) AND NOT(ID_RA=p_idRA);
 BEGIN 
-   --TODO
-    
+   open c1 (p_idZam);
+   LOOP
+        FETCH c1 INTO v_delka, v_zacatek;
+        EXIT WHEN c1%NOTFOUND;
+        if ((p_zacatek BETWEEN v_zacatek AND (v_zacatek + v_delka)) or ((p_zacatek+p_delka) BETWEEN v_zacatek AND (v_zacatek+v_delka))) then
+            v_jeVolno := false;
+        end if;
+    END LOOP;
+    CLOSE c1;
+
    RETURN v_jeVolno; 
 END;
 /
