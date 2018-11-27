@@ -197,7 +197,7 @@ CREATE OR REPLACE PROCEDURE vlozRozvrhovouAkci
         p_roleVyucujiciho VARCHAR2, p_idVyucujiciho NUMBER, p_idUcebna NUMBER)
 IS
 BEGIN
-	--nutno dodělat podminku pro nekryti rozvrhu
+	--TODO: nutno dodělat podminku pro nekryti rozvrhu
 	INSERT INTO ROZVRHOVA_AKCE (POCET_STUDENTU, MAHODIN, ZACINAV, PREDMET_ZKRATKA_PREDMETU, ZPUSOB_VYUKY_ID_ZV,
         ROLE_VYUCUJICIHO_ROLE, ID_ZAMESTNANEC, ID_UCEBNA)
 	values (p_pocetStudentu, p_maHodin, p_zacinaV, p_predmet, p_zpusobVyuky, p_roleVyucujiciho, p_idVyucujiciho, p_idUcebna);
@@ -208,7 +208,7 @@ CREATE OR REPLACE PROCEDURE upravRozvrhovouAkci
         p_roleVyucujiciho VARCHAR2, p_idVyucujiciho NUMBER, p_idUcebna NUMBER)
 IS
 BEGIN
-	--nutno dodělat podminku pro nekryti rozvrhu
+	--TODO: nutno dodělat podminku pro nekryti rozvrhu
     UPDATE ROZVRHOVA_AKCE 
     SET POCET_STUDENTU = p_pocetStudentu, MAHODIN = p_maHodin, ZACINAV = p_zacinaV, PREDMET_ZKRATKA_PREDMETU = p_predmet, 
     ZPUSOB_VYUKY_ID_ZV = p_zpusobVyuky, ROLE_VYUCUJICIHO_ROLE = p_roleVyucujiciho, ID_ZAMESTNANEC = p_idVyucujiciho, ID_UCEBNA = p_idUcebna
@@ -385,5 +385,40 @@ BEGIN
    --WHEN ...
    -- exception handling
 
+END;
+/
+-------FUNKCE-------
+CREATE OR REPLACE FUNCTION konecHodiny (p_idRA ROZVRHOVA_AKCE.ID_RA%TYPE)
+RETURN number IS 
+   v_konec ROZVRHOVA_AKCE.ZACINAV%TYPE;
+BEGIN 
+   SELECT (MAHODIN + ZACINAV) into v_konec 
+   FROM ROZVRHOVA_AKCE
+   WHERE ID_RA = p_idRA; 
+    
+   RETURN v_konec; 
+END;
+/
+CREATE OR REPLACE FUNCTION maVolno 
+    (p_idZam ZAMESTNANEC.ID_ZAMESTNANEC%TYPE, p_zacatek ROZVRHOVA_AKCE.ZACINAV%TYPE, p_delka ROZVRHOVA_AKCE.MAHODIN%TYPE,
+    p_idUcebny UCEBNA.ID_UCEBNA%TYPE)
+RETURN BOOLEAN IS 
+   v_jeVolno BOOLEAN := false;
+BEGIN 
+   --TODO
+    
+   RETURN v_jeVolno; 
+END;
+/
+CREATE OR REPLACE FUNCTION dostacujeMisto 
+    (p_pocetStudentu ROZVRHOVA_AKCE.POCET_STUDENTU%TYPE, p_idUcebny UCEBNA.ID_UCEBNA%TYPE)
+RETURN BOOLEAN IS 
+   v_jeVolno    BOOLEAN := false;
+   v_kapacita   UCEBNA.KAPACITA%TYPE;
+BEGIN 
+   SELECT KAPACITA INTO v_kapacita FROM UCEBNA WHERE ID_UCEBNA = p_idUcebny;
+   v_jeVolno := v_kapacita>=p_pocetStudentu;
+    
+   RETURN v_jeVolno; 
 END;
 /
