@@ -1,6 +1,6 @@
 
 -------zamestnanec-------
-CREATE OR REPLACE PROCEDURE vlozZamestnance 
+CREATE OR REPLACE PROCEDURE vlozZamestnance --TODO: UDAJE A DATA
   (p_jmeno VARCHAR2, p_prijmeni VARCHAR2, p_titulPred VARCHAR2, p_titulZa VARCHAR2, p_email VARCHAR2, 
    p_zratkaKatedry VARCHAR2, p_opravneni NUMBER, p_idRole NUMBER, p_mobil NUMBER, p_telefon NUMBER)
 IS
@@ -10,7 +10,7 @@ BEGIN
 	values (p_jmeno, p_prijmeni, p_titulPred, p_titulZa, p_email, p_zratkaKatedry, p_opravneni,  p_idRole, p_mobil, p_telefon);
 END;
 /
-CREATE OR REPLACE PROCEDURE upravZamestnance 
+create or replace PROCEDURE upravZamestnance 
   (p_id NUMBER, p_jmeno VARCHAR2, p_prijmeni VARCHAR2, p_titulPred VARCHAR2, p_titulZa VARCHAR2, p_email VARCHAR2, 
    p_zkratkaKatedry VARCHAR2, p_opravneni NUMBER, p_idRole NUMBER, p_mobil NUMBER, p_telefon NUMBER)
 IS
@@ -21,14 +21,10 @@ BEGIN
     WHERE ID_ZAMESTNANEC = p_id;
 END;
 /
-CREATE OR REPLACE PROCEDURE upravZamestnance 
-  (p_id NUMBER, p_jmeno VARCHAR2, p_prijmeni VARCHAR2, p_titulPred VARCHAR2, p_titulZa VARCHAR2, p_email VARCHAR2, 
-   p_zkratkaKatedry VARCHAR2, p_opravneni NUMBER, p_idRole NUMBER, p_mobil NUMBER, p_telefon NUMBER)
+create or replace PROCEDURE smazZamestnance (p_id NUMBER)--smazani udaju a dat je pomoci triggeru
 IS
 BEGIN
-    UPDATE ZAMESTNANEC
-    SET JMENO = p_jmeno, PRIJMENI = p_prijmeni, TITUL_PRED = p_titulPred, TITUL_ZA = p_titulZa, TELEFON = p_telefon, MOBIL = p_mobil,
-        EMAIL = p_email, KATEDRA_ZKRATKA_KATEDRY = p_zkratkaKatedry, ID_OPRAVNENI = p_opravneni, ID_ROLE = p_idRole
+    DELETE FROM ZAMESTNANEC
     WHERE ID_ZAMESTNANEC = p_id;
 END;
 /
@@ -82,7 +78,6 @@ IS
 BEGIN
     DELETE FROM FAKULTA
     WHERE ZKRATKA_FAKULTY = p_zkratka;
-	--možnost triggeru pro smazani oborů a kateder
 END;
 /
 
@@ -110,7 +105,6 @@ IS
 BEGIN
     DELETE FROM OBOR
     WHERE ZKRATKA_OBORU = p_zkratka;
-	--moznost triggeru pro smazaní všech vazeb obor/předmět
 END;
 /
 
@@ -139,7 +133,6 @@ IS
 BEGIN
     DELETE FROM PREDMET
     WHERE ZKRATKA_PREDMETU = p_zkratka;
-    --moznost triggeru na smazani vsech vazeb predmet/obor a rozvrhovych akci
 END;
 /
 
@@ -200,5 +193,170 @@ IS
 BEGIN
     DELETE FROM ROZVRHOVA_AKCE
     WHERE ID_RA = p_id;
+END;
+/
+
+-------TRIGGERY-------
+
+CREATE OR REPLACE TRIGGER BeforePredmetDelete
+BEFORE DELETE
+   ON Predmet FOR EACH ROW
+
+DECLARE
+    v_zkratkaPredmetu PREDMET.ZKRATKA_PREDMETU%TYPE;
+    v_zkratkaOboru OBOR.ZKRATKA_OBORU%TYPE;
+    v_RAID ROZVRHOVA_AKCE.ID_RA%TYPE;
+
+    CURSOR c1 (p_zp in varchar2)
+        IS SELECT OBOR_ZKRATKA_OBORU FROM OBOR_PREDMET WHERE PREDMET_ZKRATKA_PREDMETU = p_zp;
+    CURSOR c2 (p_zp in varchar2)  
+        IS SELECT ID_RA FROM ROZVRHOVA_AKCE where PREDMET_ZKRATKA_PREDMETU = p_zp;
+BEGIN
+    v_zkratkaPredmetu := :old.zkratka_predmetu;
+   
+    OPEN c1(v_zkratkaPredmetu);
+    LOOP
+        FETCH c1 INTO v_zkratkaOboru;
+        EXIT WHEN c1%NOTFOUND;
+        SMAZOBORPREDMET(v_zkratkaOboru, v_zkratkaPredmetu);   
+    END LOOP;
+    CLOSE c1;
+    
+    OPEN c2(v_zkratkaPredmetu);
+    LOOP
+        FETCH c2 INTO v_RAID;
+        EXIT WHEN c2%NOTFOUND;
+        SMAZROZVRHOVOUAKCI(v_RAID);  
+    END LOOP;
+    CLOSE c2;
+     
+--EXCEPTION
+   --WHEN ...
+   -- exception handling
+
+END;
+/
+CREATE OR REPLACE TRIGGER BeforeOborDelete
+BEFORE DELETE
+   ON Obor FOR EACH ROW
+
+DECLARE
+    v_zkratkaPredmetu PREDMET.ZKRATKA_PREDMETU%TYPE;
+    v_zkratkaOboru OBOR.ZKRATKA_OBORU%TYPE;
+
+    CURSOR c1 (p_zo in VARCHAR2)
+        IS SELECT OBOR_ZKRATKA_OBORU FROM OBOR_PREDMET WHERE OBOR_ZKRATKA_OBORU = p_zo;
+BEGIN
+    v_zkratkaOboru := :old.zkratka_oboru;
+   
+    OPEN c1(v_zkratkaOboru);
+    LOOP
+        FETCH c1 INTO v_zkratkaPredmetu;
+        EXIT WHEN c1%NOTFOUND;
+        SMAZOBORPREDMET(v_zkratkaOboru, v_zkratkaPredmetu);   
+    END LOOP;
+    CLOSE c1;
+
+--EXCEPTION
+   --WHEN ...
+   -- exception handling
+
+END;
+/
+CREATE OR REPLACE TRIGGER BeforeKatedraDelete
+BEFORE DELETE
+   ON Katedra FOR EACH ROW
+
+DECLARE
+    v_zkratkaKatedry KATEDRA.ZKRATKA_KATEDRY%TYPE;
+    v_idZamestnance ZAMESTNANEC.ID_ZAMESTNANEC%TYPE;
+
+    CURSOR c1 (p_zkrOb in varchar2)
+    IS SELECT ID_ZAMESTNANEC FROM ZAMESTNANEC WHERE KATEDRA_ZKRATKA_KATEDRY = p_zkrOb;
+BEGIN
+    v_zkratkaKatedry := :old.zkratka_katedry;
+   
+    OPEN c1(v_zkratkaKatedry);
+    LOOP
+        FETCH c1 INTO v_idZamestnance;
+        EXIT WHEN c1%NOTFOUND;
+        SMAZZAMESTNANCE(v_idZamestnance);   
+    END LOOP;
+    CLOSE c1;
+
+--EXCEPTION
+   --WHEN ...
+   -- exception handling
+
+END;
+/
+CREATE OR REPLACE TRIGGER BeforeFakultaDelete
+BEFORE DELETE
+   ON Fakulta FOR EACH ROW
+
+DECLARE
+    v_zkratkaFakulty FAKULTA.ZKRATKA_FAKULTY%TYPE;
+    v_zkratkaKatedry KATEDRA.ZKRATKA_KATEDRY%TYPE;
+    v_zkratkaOboru   OBOR.ZKRATKA_OBORU%TYPE;
+
+    CURSOR c1 (p_zf in varchar2)
+        IS SELECT ZKRATKA_KATEDRY FROM KATEDRA WHERE FAKULTA_ZKRATKA_FAKULTY = p_zf;
+    CURSOR c2 (p_zf in varchar2)
+        IS SELECT ZKRATKA_OBORU FROM OBOR WHERE FAKULTA_ZKRATKA_FAKULTY = p_zf;
+BEGIN
+    v_zkratkaFakulty := :old.zkratka_fakulty;
+   
+    OPEN c1(v_zkratkaFakulty);
+    LOOP
+        FETCH c1 INTO v_zkratkaKatedry;
+        EXIT WHEN c1%NOTFOUND;
+        SMAZKATEDRU(v_zkratkaKatedry);
+    END LOOP;
+    CLOSE c1;
+    
+    OPEN c2(v_zkratkaFakulty);
+    LOOP
+        FETCH c2 INTO v_zkratkaOboru;
+        EXIT WHEN c2%NOTFOUND;
+        SMAZOBOR(v_zkratkaOboru);
+    END LOOP;
+    CLOSE c2;
+         
+--EXCEPTION
+   --WHEN ...
+   -- exception handling
+
+END;
+/
+CREATE OR REPLACE TRIGGER BeforeZamestnanecDelete
+BEFORE DELETE
+   ON ZAMESTNANEC FOR EACH ROW
+
+DECLARE
+    v_idZam     ZAMESTNANEC.ID_ZAMESTNANEC%TYPE;
+    v_idRA      ROZVRHOVA_AKCE.ID_RA%TYPE;
+    v_idUdaje   UDAJE.ID_UDAJE%TYPE;
+    v_idData    DATA.ID_DATA%TYPE;
+
+    CURSOR c1 (p_iz in NUMBER)
+        IS SELECT ID_RA FROM ROZVRHOVA_AKCE WHERE ID_ZAMESTNANEC = p_iz;
+BEGIN
+    v_idZam := :old.ID_ZAMESTNANEC;
+   
+    OPEN c1(v_idZam);
+    LOOP
+        FETCH c1 INTO v_idRA;
+        EXIT WHEN c1%NOTFOUND;
+        SMAZROZVRHOVOUAKCI(v_idRA);
+    END LOOP;
+    CLOSE c1;
+    
+    DELETE FROM UDAJE WHERE ID_ZAMESTNANEC = v_idZam;
+    DELETE FROM DATA WHERE ID_ZAMESTNANEC = v_idZam;
+     
+--EXCEPTION
+   --WHEN ...
+   -- exception handling
+
 END;
 /
