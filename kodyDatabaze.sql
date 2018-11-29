@@ -1,6 +1,6 @@
 
 -------zamestnanec-------
-CREATE OR REPLACE PROCEDURE vlozZamestnance
+create or replace PROCEDURE vlozZamestnance
   (p_jmeno VARCHAR2, p_prijmeni VARCHAR2, p_titulPred VARCHAR2, p_titulZa VARCHAR2, p_email VARCHAR2, 
    p_zkratkaKatedry VARCHAR2, p_opravneni NUMBER, p_idRole NUMBER, p_mobil NUMBER, p_telefon NUMBER, p_obrazek DATA.OBRAZEK%TYPE,
    p_uzivJmeno VARCHAR2, p_heslo VARCHAR2)
@@ -11,14 +11,16 @@ BEGIN
 	INSERT INTO ZAMESTNANEC (jmeno, prijmeni,titul_pred,titul_za,
 		email,katedra_zkratka_katedry, id_opravneni, id_role, mobil,telefon)
 	VALUES (p_jmeno, p_prijmeni, p_titulPred, p_titulZa, p_email, p_zkratkaKatedry, p_opravneni,  p_idRole, p_mobil, p_telefon);
-    
+
     SELECT ID_ZAMESTNANEC INTO v_id FROM ZAMESTNANEC WHERE JMENO = p_jmeno AND PRIJMENI = p_prijmeni AND EMAIL = p_email;
-    
-    INSERT INTO DATA (OBRAZEK, DATUMPRIDANI, DATUMMODIFIKACE, ID_ZAMESTNANEC)
-    VALUES (p_obrazek, SYSDATE, SYSDATE, v_id);
-    
+
+    IF NOT(p_obrazek is null) THEN
+        INSERT INTO DATA (OBRAZEK, DATUMPRIDANI, DATUMMODIFIKACE, ID_ZAMESTNANEC)
+        VALUES (p_obrazek, SYSDATE, SYSDATE, v_id);
+    END IF;
+
     select standard_hash(p_heslo, 'MD5') into v_pass from dual;
-    
+
     INSERT INTO UDAJE (UZIVATELSKEJMENO, HESLO, ID_ZAMESTNANEC)
     VALUES (p_uzivJmeno, v_pass, v_id);
 END;
@@ -34,14 +36,16 @@ BEGIN
     SET JMENO = p_jmeno, PRIJMENI = p_prijmeni, TITUL_PRED = p_titulPred, TITUL_ZA = p_titulZa, TELEFON = p_telefon, MOBIL = p_mobil,
         EMAIL = p_email, KATEDRA_ZKRATKA_KATEDRY = p_zkratkaKatedry, ID_OPRAVNENI = p_opravneni, ID_ROLE = p_idRole
     WHERE ID_ZAMESTNANEC = p_id;
-    
-    UPDATE DATA
-    SET OBRAZEK = p_obrazek, DATUMMODIFIKACE = SYSDATE
-    WHERE ID_ZAMESTNANEC = p_id;
-    
+
+    IF NOT(p_obrazek is null) THEN
+        UPDATE DATA
+        SET OBRAZEK = p_obrazek, DATUMMODIFIKACE = SYSDATE
+        WHERE ID_ZAMESTNANEC = p_id;
+    END IF;
+
     IF ((P_HESLO != '') AND (P_UZIVJMENO != '')) THEN
         select standard_hash(p_heslo, 'MD5') into v_pass from dual;
-        
+
         UPDATE UDAJE
         SET UZIVATELSKEJMENO = p_uzivJmeno, HESLO = v_pass
         WHERE ID_ZAMESTNANEC = p_id;

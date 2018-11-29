@@ -108,7 +108,7 @@ public class FXMLVyucujiciController implements Initializable {
         DialogPridejVyucujiciho dialog2 = new DialogPridejVyucujiciho(null);
         dialog2.showAndWait();
 
-        if (dialog2.isButtonPressed()) {
+        /*if (dialog2.isButtonPressed()) {
             try {
                 dataLayer.addTeacher(dialog2.getIdV(), dialog2.getJmeno(),
                         dialog2.getPrijmeni(), dialog2.getTitulP(), dialog2.getTitulZ(),
@@ -119,7 +119,7 @@ public class FXMLVyucujiciController implements Initializable {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
                 dialog.showAndWait();
             }
-        }
+        }*///TODO
     }
 
     @FXML
@@ -128,7 +128,7 @@ public class FXMLVyucujiciController implements Initializable {
         DialogPridejVyucujiciho dialog2 = new DialogPridejVyucujiciho(null);
         dialog2.showAndWait();
 
-        if (dialog2.isButtonPressed()) {
+        /*if (dialog2.isButtonPressed()) {
             try {
                 dataLayer.editTeacher(origID, dialog2.getIdV(), dialog2.getJmeno(),
                         dialog2.getPrijmeni(), dialog2.getTitulP(), dialog2.getTitulZ(),
@@ -139,12 +139,12 @@ public class FXMLVyucujiciController implements Initializable {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
                 dialog.showAndWait();
             }
-        }
+        }*///TODO
     }
 
     @FXML
     private void odeberButtonClick(ActionEvent event) {
-        String origID = tableView.getSelectionModel().getSelectedItem().get(0);
+        int origID = Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0));
 
         try {
             dataLayer.deleteTeacher(origID);

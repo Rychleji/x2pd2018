@@ -6,6 +6,8 @@
 package datovavrstva;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,11 +28,11 @@ public interface ISkolniDB {
 
     public void setConnect(Connection connect);
 
-    public void editTeacher(String origId, String newId, String name, String lastname, String titles, String titlesAfter, String phone, String mobilePhone, String email, String department, File image, int role, int rights, String username, String password) throws SQLException;
+    public void editTeacher(int origId, String name, String lastname, String titles, String titlesAfter, int phone, int mobilePhone, String email, String department, FileInputStream image, int role, int rights, String username, String password) throws SQLException, IOException;
 
-    public void addTeacher(String newId, String name, String lastname, String titles, String titlesAfter, String phone, String mobilePhone, String email, String department, File image, int role, int rights, String username, String password) throws SQLException;
+    public void addTeacher(String name, String lastname, String titles, String titlesAfter, int phone, int mobilePhone, String email, String department, FileInputStream image, int role, int rights, String username, String password) throws SQLException, IOException;
 
-    public void deleteTeacher(String id) throws SQLException;
+    public void deleteTeacher(int id) throws SQLException;
 
     public void editDepartment(String origShort, String newShort, String name, String faculty) throws SQLException;
 

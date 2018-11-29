@@ -2,7 +2,10 @@ package datovavrstva;
 
 import OracleConnector.OracleConnector;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -55,28 +58,42 @@ public class SkolniDB implements ISkolniDB {
     }
 
     @Override
-    public void editTeacher(String origId, String newId, String name, String lastname, String titles, String titlesAfter, String phone, String mobilePhone, String email, String department, File image, int role, int rights, String username, String password) throws SQLException {
-        Statement stmt = connect.createStatement();
+    public void editTeacher(int origId, String name, String lastname, String titles, String titlesAfter, int phone, int mobilePhone, String email, String department, FileInputStream image, int role, int rights, String username, String password) throws SQLException, IOException {
+        PreparedStatement ps=connect.prepareStatement("exec UPRAVZAMESTNANCE(?,?,?)");  
         
+        ps.setString(1, String.format("%d, %s, %s, %s, %s, %s, %s, %d, %d, %d, %d", origId, name, lastname, titles, titlesAfter, email, department, rights, role, mobilePhone, phone));
         
-        stmt.execute(String.format("exec VLOZZAMESTNANCE(%d, %d, %f, %s, %d, %s, %d, %d)", numberOfStudents, span, startsAt, subjectShort, type, teacherRole, teacherId, roomId));
+        if(image == null)
+            ps.setString(2, "NULL");
+        else
+            ps.setBinaryStream(2, image, image.available());
+        
+        ps.setString(3, String.format("%s, %s", username, password));
+
+        ps.execute();
     }
 
     @Override
-    public void addTeacher(String newId, String name, String lastname, String titles, String titlesAfter, String phone, String mobilePhone, String email, String department, File image, int role, int rights, String username, String password) throws SQLException {
-        Statement stmt = connect.createStatement();
+    public void addTeacher(String name, String lastname, String titles, String titlesAfter, int phone, int mobilePhone, String email, String department, FileInputStream image, int role, int rights, String username, String password) throws SQLException, IOException {
+        PreparedStatement ps=connect.prepareStatement("exec VLOZZAMESTNANCE(?,?,?)");  
+        
+        ps.setString(1, String.format("%s, %s, %s, %s, %s, %s, %d, %d, %d, %d",name, lastname, titles, titlesAfter, email, department, rights, role, mobilePhone, phone));
+        
+        if(image == null)
+            ps.setString(2, "NULL");
+        else
+            ps.setBinaryStream(2, image, image.available());
+        
+        ps.setString(3, String.format("%s, %s", username, password));
 
-        stmt.execute(String.format("exec VLOZZAMESTNANCE(%d, %d, %f, %s, %d, %s, %d, %d)", numberOfStudents, span, startsAt, subjectShort, type, teacherRole, teacherId, roomId));
+        ps.execute();
     }
 
     @Override
-    public void deleteTeacher(String id) throws SQLException {
+    public void deleteTeacher(int id) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        String table = "VYUCUJICI";
-        String condition = "ID_VYUCUJICIHO = '" + id + "'";
-
-        stmt.execute(String.format(deleteMask, table, condition));
+        stmt.execute("EXEC SMAZZAMESTNANCE(%d)", id);
     }
 
     @Override
