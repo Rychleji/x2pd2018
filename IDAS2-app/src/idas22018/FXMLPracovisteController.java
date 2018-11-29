@@ -4,7 +4,6 @@ import datovavrstva.ISkolniDB;
 import static idas22018.IDAS22018.*;
 import idas22018.dialogy.DialogChyba;
 import idas22018.dialogy.DialogPridejKatedru;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,10 +14,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -40,6 +38,12 @@ public class FXMLPracovisteController implements Initializable {
     private TableColumn<List<String>, String> zkFakultaCol;
     @FXML
     private TableColumn<List<String>, String> fakultaCol;
+    @FXML
+    private Button pridejButton;
+    @FXML
+    private Button upravButton;
+    @FXML
+    private Button odeberButton;
 
     /**
      * Initializes the controller class.
@@ -48,6 +52,10 @@ public class FXMLPracovisteController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         dataLayer = GuiFXMLController.getDataLayer();
 
+        pridejButton.setDisable(IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR);
+        upravButton.setDisable(IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR);
+        odeberButton.setDisable(IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR);
+        
         zkKatedraCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
         katedraCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));
         zkFakultaCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(2)));

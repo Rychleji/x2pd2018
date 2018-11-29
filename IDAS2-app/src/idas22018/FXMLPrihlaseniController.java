@@ -6,8 +6,13 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 public class FXMLPrihlaseniController implements Initializable {
+
+    @FXML
+    private Button prihlasitButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -16,12 +21,12 @@ public class FXMLPrihlaseniController implements Initializable {
 
     @FXML
     private void administratorClick(ActionEvent event) {
-        zavrit(IDAS22018.RezimProhlizeni.ADMINISTRATOR);
+        zavrit(IDAS22018.RezimProhlizeni.ADMINISTRATOR); //TODO - po debugu skrýt
     }
 
     @FXML
     private void registrovanyClick(ActionEvent event) {
-        zavrit(IDAS22018.RezimProhlizeni.REGISTROVANY);
+        zavrit(IDAS22018.RezimProhlizeni.REGISTROVANY); //TODO - po debugu skrýt
     }
 
     @FXML
@@ -30,8 +35,16 @@ public class FXMLPrihlaseniController implements Initializable {
     }
     
     private void zavrit(IDAS22018.RezimProhlizeni druhProhlizeni){
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazHlavniMenu(); // stejné jako cancel(IDAS22018.mainScene)
         IDAS22018.druhProhlizeni = druhProhlizeni;
+        Stage stage = (Stage) prihlasitButton.getScene().getWindow();
+        // do what you have to do
+        stage.close();
+    }
+
+    @FXML
+    private void prihlasitClick(ActionEvent event) {
+        //TODO - vyhledání uživatelského jména v údajích a kontrola správnosti hesla
+        //TODO - předání id přihlášeného zaměstnance do proměnné pro další práci (úprava sebe sama, úprava svých RA, ...)
     }
 
 }

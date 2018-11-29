@@ -11,7 +11,6 @@ import datovavrstva.SkolniDB;
 import static idas22018.IDAS22018.*;
 import idas22018.dialogy.DialogChyba;
 import idas22018.dialogy.DialogPripojeni;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -28,15 +27,10 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
 
@@ -57,10 +51,8 @@ public class GuiFXMLController implements Initializable {
 
     @FXML
     private Label versionLabel;
-    //@FXML
-    //private VBox disablovatelnyButtonyVBox;
-    //@FXML
-    //private Button pripojitButton;
+
+    boolean readyForDialog = false;
 
     public static ISkolniDB getDataLayer() {
         return dataLayer;
@@ -101,32 +93,29 @@ public class GuiFXMLController implements Initializable {
         afterConnect();
 
         stageP.setOnShown((dd) -> {
-            getKnihovnaZobrazovani().zobrazPrihlaseni();
-        });
-
-        while (prihlaseno == false) {
-            DialogPripojeni dialog = new DialogPripojeni(null);
-            dialog = (DialogPripojeni) dialog.getScene().getWindow();
-            dialog.setOnCloseRequest((d) -> {
-                prihlaseno = true;
-                Platform.exit(); // zavre scenu v pripade krizku u pripojeni
-            });
-            dialog.showAndWait();
-            if (dialog.isButtonPressed()) {
-                try {
-                    conn = dataLayer.connectToDB("fei-sql1.upceucebny.cz", 1521, "IDAS12", dialog.getJmeno(), dialog.getHeslo());
+            while (!prihlaseno) {
+                DialogPripojeni dialog = new DialogPripojeni(null);
+                dialog = (DialogPripojeni) dialog.getScene().getWindow();
+                dialog.setOnCloseRequest((d) -> {
                     prihlaseno = true;
+                    Platform.exit();
+                });
+                dialog.showAndWait();
+                if (dialog.isButtonPressed()) {
+                    try {
+                        conn = dataLayer.connectToDB("fei-sql1.upceucebny.cz", 1521, "IDAS12", dialog.getJmeno(), dialog.getHeslo());
+                        prihlaseno = true;
 
-                    afterConnect(); //nejsem si jisty
-                } catch (SQLException ex) {
-                    DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());
-                    dialog2.showAndWait();
-                    conn = null;
+                        afterConnect();
+                        getKnihovnaZobrazovani().zobrazPrihlaseni();
+                    } catch (SQLException ex) {
+                        DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());
+                        dialog2.showAndWait();
+                        conn = null;
+                    }
                 }
-
             }
-
-        }
+        });
 
         stageP.setOnCloseRequest((WindowEvent event) -> {
             Alert closeComf = new Alert(Alert.AlertType.CONFIRMATION, "Opravdu chcete zavřít program?", ButtonType.YES, ButtonType.NO);
@@ -149,6 +138,7 @@ public class GuiFXMLController implements Initializable {
             }
 
         });
+        readyForDialog = true;
     }
 
     @FXML

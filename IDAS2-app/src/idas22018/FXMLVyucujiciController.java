@@ -16,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
@@ -57,6 +58,12 @@ public class FXMLVyucujiciController implements Initializable {
     private ISkolniDB dataLayer;
     @FXML
     private ImageView imageView;
+    @FXML
+    private Button pridejButton;
+    @FXML
+    private Button upravButton;
+    @FXML
+    private Button odeberButton;
 
     /**
      * Initializes the controller class.
@@ -64,6 +71,11 @@ public class FXMLVyucujiciController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         dataLayer = GuiFXMLController.getDataLayer();
+        
+        pridejButton.setDisable(IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR);
+        upravButton.setDisable(IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR);
+        odeberButton.setDisable(IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR);
+        
         idCol.setCellValueFactory((CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
         jmenoCol.setCellValueFactory((CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));
         prijmeniCol.setCellValueFactory((CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(2)));

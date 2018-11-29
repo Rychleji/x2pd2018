@@ -3,8 +3,11 @@ package idas22018;
 import static idas22018.IDAS22018.stageP;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public final class KnihovnaZobrazovani {
     static KnihovnaZobrazovani kZ = null; 
@@ -51,14 +54,16 @@ public final class KnihovnaZobrazovani {
      * 
      */
     public void zobrazPrihlaseni(){
-        Parent root;
+        Stage stage = new Stage();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLPrihlaseni.fxml"));
-            root = loader.load();
-            FXMLPrihlaseniController controller = loader.<FXMLPrihlaseniController>getController();
-            Scene scena = new Scene(root);
-            stageP.setScene(scena);
-            stageP.show();
+            Parent root = loader.load();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Přihlášení");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(IDAS22018.mainScene.getWindow());
+
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

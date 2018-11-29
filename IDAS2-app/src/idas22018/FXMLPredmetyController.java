@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -44,6 +45,12 @@ public class FXMLPredmetyController implements Initializable {
     private TableColumn<List<String>, String> pocetStudentuCol;
     private Scene predScena;
     private Scene aktScena;
+    @FXML
+    private Button pridejButton;
+    @FXML
+    private Button upravButton;
+    @FXML
+    private Button odeberButton;
 
     /**
      * Initializes the controller class.
@@ -51,7 +58,11 @@ public class FXMLPredmetyController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         dataLayer = GuiFXMLController.getDataLayer();
-
+        
+        pridejButton.setDisable(IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR);
+        upravButton.setDisable(IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR);
+        odeberButton.setDisable(IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR);
+        
         zkratkaCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
         nazevCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));
         rocnikCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(2)));

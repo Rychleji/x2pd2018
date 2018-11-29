@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package idas22018;
 
 //import static idas22018.KnihovnaZobrazovani.getKnihovnaZobrazovani;
@@ -13,16 +8,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- *
- * @author Radim
- */
 public class IDAS22018 extends Application {
 
     /**
      *verze programu
      */
-    public static final String VERSION = "1.0.0";
+    public static final String VERSION = "1.0.2";
     public static final String PROGRAMNAME = "Database Editor - v." + VERSION;
     public static Stage stageP;
     public static Scene mainScene;
@@ -60,7 +51,7 @@ public class IDAS22018 extends Application {
         launch(args);
     }
     
-    enum RezimProhlizeni{
+    public enum RezimProhlizeni{
         ADMINISTRATOR("administrátor"), REGISTROVANY("registrovaný"), NEREGISTROVANY("neregistrovaný");
         
         private final String nazev;
