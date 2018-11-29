@@ -1,17 +1,19 @@
 package datovavrstva;
 
 import OracleConnector.OracleConnector;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import static jdk.nashorn.internal.objects.NativeJava.type;
 
 public class SkolniDB implements ISkolniDB {
 
     private Connection connect = null;
-    private final String updateMask = "UPDATE %s SET %s WHERE %s";
-    private final String addMask = "INSERT INTO %s %s VALUES (%s)";
-    private final String deleteMask = "DELETE FROM %s WHERE %s";
 
     @Override
     public Connection connectToDB(String server, int port, String SID, String login, String pass) throws SQLException {
@@ -56,249 +58,168 @@ public class SkolniDB implements ISkolniDB {
     }
 
     @Override
-    public void editTeacher(String origId, String newId, String name, String lastname, String titles, String titlesAfter, String phone, String mobilePhone, String email, String department) throws SQLException {
-        Statement stmt = connect.createStatement();
+    public void editTeacher(int origId, String name, String lastname, String titles, String titlesAfter, int phone, int mobilePhone, String email, String department, FileInputStream image, int role, int rights, String username, String password) throws SQLException, IOException {
+        PreparedStatement ps=connect.prepareStatement("exec UPRAVZAMESTNANCE(?,?,?)");  
+        
+        ps.setString(1, String.format("%d, %s, %s, %s, %s, %s, %s, %d, %d, %d, %d", origId, name, lastname, titles, titlesAfter, email, department, rights, role, mobilePhone, phone));
+        
+        if(image == null)
+            ps.setString(2, "NULL");
+        else
+            ps.setBinaryStream(2, image, image.available());
+        
+        ps.setString(3, String.format("%s, %s", username, password));
 
-        String table = "VYUCUJICI";
-        String set = String.format("ID_VYUCUJICIHO = '%s', JMENO = '%s', PRIJMENI = '%s', TITUL_PRED = '%s', "
-                + "TITUL_ZA = '%s', TELEFON = '%s', MOBIL = '%s', EMAIL = '%s', KATEDRA_ZKRATKA_KATEDRY = '%s'",
-                newId, name, lastname, titles, titlesAfter, phone, mobilePhone, email, department);
-        String condition = "ID_VYUCUJICIHO = '" + origId + "'";
-
-        stmt.execute(String.format(updateMask, table, set, condition));
+        ps.execute();
     }
 
     @Override
-    public void addTeacher(String newId, String name, String lastname, String titles, String titlesAfter, String phone, String mobilePhone, String email, String department) throws SQLException {
-        Statement stmt = connect.createStatement();
+    public void addTeacher(String name, String lastname, String titles, String titlesAfter, int phone, int mobilePhone, String email, String department, FileInputStream image, int role, int rights, String username, String password) throws SQLException, IOException {
+        PreparedStatement ps=connect.prepareStatement("exec VLOZZAMESTNANCE(?,?,?)");  
+        
+        ps.setString(1, String.format("%s, %s, %s, %s, %s, %s, %d, %d, %d, %d",name, lastname, titles, titlesAfter, email, department, rights, role, mobilePhone, phone));
+        
+        if(image == null)
+            ps.setString(2, "NULL");
+        else
+            ps.setBinaryStream(2, image, image.available());
+        
+        ps.setString(3, String.format("%s, %s", username, password));
 
-        String table = "VYUCUJICI";
-        String columns = "(ID_VYUCUJICIHO, JMENO, PRIJMENI, TITUL_PRED, TITUL_ZA, TELEFON, MOBIL, EMAIL, KATEDRA_ZKRATKA_KATEDRY)";
-        String set = String.format("'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'",
-                newId, name, lastname, titles, titlesAfter, phone, mobilePhone, email, department);
-
-        stmt.execute(String.format(addMask, table, columns, set));
+        ps.execute();
     }
 
     @Override
-    public void deleteTeacher(String id) throws SQLException {
+    public void deleteTeacher(int id) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        String table = "VYUCUJICI";
-        String condition = "ID_VYUCUJICIHO = '" + id + "'";
-
-        stmt.execute(String.format(deleteMask, table, condition));
+        stmt.execute("EXEC SMAZZAMESTNANCE(%d)", id);
     }
 
     @Override
     public void editDepartment(String origShort, String newShort, String name, String faculty) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        String table = "KATEDRA";
-        String set = String.format("ZKRATKA_KATEDRY = '%s', NAZEV_KATEDRY = '%s',"
-                + " FAKULTA_ZKRATKA_FAKULTY = '%s'",
-                newShort, name, faculty);
-        String condition = "ZKRATKA_KATEDRY = '" + origShort + "'";
-
-        stmt.execute(String.format(updateMask, table, set, condition));
+        stmt.execute(String.format("exec UPRAVKATEDRU(%s, %s, %s, %s)", origShort, newShort, name, faculty));
     }
 
     @Override
     public void addDepartment(String newShort, String name, String faculty) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        String table = "KATEDRA";
-        String set = String.format("(ZKRATKA_KATEDRY, NAZEV_KATEDRY,"
-                + " FAKULTA_ZKRATKA_FAKULTY)");
-        String values = String.format("'%s','%s', '%s'", newShort, name, faculty);
-
-        stmt.execute(String.format(addMask, table, set, values));
+        stmt.execute(String.format("exec VLOZKATEDRU(%s, %s, %s)", newShort, name, faculty));
     }
 
     @Override
     public void deleteDepartment(String shortName) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        String table = "KATEDRA";
-        String condition = "ZKRATKA_KATEDRY = '" + shortName + "'";
-
-        stmt.execute(String.format(deleteMask, table, condition));
+        stmt.execute(String.format("exec SMAZKATEDRU(%s)", shortName));
     }
 
     @Override
     public void editFaculty(String origShort, String newShort, String name) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        String table = "FAKULTA";
-        String set = String.format("ZKRATKA_FAKULTY = '%s', NAZEV_FAKULTY = '%s'",
-                newShort, name);
-        String condition = "ZKRATKA_FAKULTY = '" + origShort + "'";
-
-        stmt.execute(String.format(updateMask, table, set, condition));
+        stmt.execute(String.format("exec UPRAVFAKULTU(%s, %s, %s)", origShort, newShort, name));
     }
 
     @Override
     public void addFaculty(String newShort, String name) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        String table = "FAKULTA";
-        String set = "";
-        String values = "'" + newShort + "', '" + name + "'";
-
-        stmt.execute(String.format(addMask, table, set, values));
+        stmt.execute(String.format("exec VLOZFAKULTU(%s, %s)", newShort, name));
     }
 
     @Override
     public void deleteFaculty(String shortname) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        String table = "FAKULTA";
-        String condition = "ZKRATKA_FAKULTY = '" + shortname + "'";
-
-        stmt.execute(String.format(deleteMask, table, condition));
+        stmt.execute(String.format("exec SMAZFAKULTU(%s)", shortname));
     }
 
     @Override
     public void editSpecialization(String origShort, String newShort, String name, String faculty) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        String table = "OBOR";
-        String set = String.format("ZKRATKA_OBORU = '%s', NAZEV_OBORU = '%s',"
-                + " FAKULTA_ZKRATKA_FAKULTY = '%s'",
-                newShort, name, faculty);
-        String condition = "ZKRATKA_OBORU = '" + origShort + "'";
-
-        stmt.execute(String.format(updateMask, table, set, condition));
+        stmt.execute(String.format("exec UPRAVOBOR(%s, %s, %s, %s)", origShort, newShort, name, faculty));
     }
 
     @Override
     public void addSpecialization(String newShort, String name, String faculty) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        String table = "OBOR";
-        String set = "";
-        String values = "'" + newShort + "', '" + name + "', '" + faculty + "'";
-
-        stmt.execute(String.format(addMask, table, set, values));
+        stmt.execute(String.format("exec VLOZOBOR(%s, %s, %s)", newShort, name, faculty));
     }
 
     @Override
     public void deleteSpecialization(String shortname) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        String table = "OBOR";
-        String condition = "ZKRATKA_OBORU = '" + shortname + "'";
-
-        stmt.execute(String.format(deleteMask, table, condition));
+        stmt.execute(String.format("exec SMAZOBOR(%s)", shortname));
     }
 
     @Override
     public void editSubject(String origShort, String newShort, String name, int year, int semester, int end, int form) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        String table = "PREDMET";
-        String set = String.format("ZKRATKA_PREDMETU = '%s', NAZEV_PREDMETU = '%s',"
-                + " DOPORUCENY_ROCNIK = %d, SEMESTR_ID_SEMESTR = %d, ZPUSOB_ZAKONCENI_ID_ZZ = %d,"
-                + " FORMA_VYUKY_ID_FV = %d",
-                newShort, name, year, semester, end, form);
-        String condition = "ZKRATKA_PREDMETU = '" + origShort + "'";
-
-        stmt.execute(String.format(updateMask, table, set, condition));
+        stmt.execute(String.format("exec UPRAVPREDMET(%s, %s, %s, %d, %d, %d, %d)", origShort, newShort, name, year, semester, end, form));
     }
 
     @Override
     public void addSubject(String newShort, String name, int year, int semester, int end, int form) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        String table = "PREDMET";
-        String set = "(ZKRATKA_PREDMETU, NAZEV_PREDMETU,"
-                + " DOPORUCENY_ROCNIK, SEMESTR_ID_SEMESTR, ZPUSOB_ZAKONCENI_ID_ZZ, "
-                + "FORMA_VYUKY_ID_FV, ROZSAH_HODIN)";
-        String values = String.format("'%s', '%s', %d, %d, %d, %d, 0",
-                newShort, name, year, semester, end, form);
-
-        stmt.execute(String.format(addMask, table, set, values));
+        stmt.execute(String.format("exec VLOZPREDMET(%s, %s, %d, %d, %d, %d)", newShort, name, year, semester, end, form));
     }
 
     @Override
     public void deleteSubject(String shortname) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        String table = "PREDMET";
-        String condition = "ZKRATKA_PREDMETU = '" + shortname + "'";
-
-        stmt.execute(String.format(deleteMask, table, condition));
+        stmt.execute(String.format("exec SMAZPREDMET(%s)", shortname));
     }
 
     @Override
     public void editSpecializationSubject(String origShortSpec, String origShortSubj, String newShortSpec, String newShortSubj, String category) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        String table = "OBOR_PREDMET";
-        String set = String.format("OBOR_ZKRATKA_OBORU = '%s', PREDMET_ZKRATKA_PREDMETU = '%s',"
-                + " KATEGORIE_PREDMETU_KATEGORIE = '%s'", newShortSpec, newShortSubj, category);
-        String condition = "where OBOR_ZKRATKA_OBORU = '"+origShortSpec+"' "
-                + "and PREDMET_ZKRATKA_PREDMETU = '"+origShortSubj+"'";          
-
-        stmt.execute(String.format(updateMask, table, set, condition));
+        stmt.execute(String.format("exec UPRAVOBORPREDMET(%s, %s, %s, %s, %s)", origShortSpec, origShortSubj, newShortSpec, newShortSubj, category));
     }
 
     @Override
     public void addSpecializationSubject(String shortSpec, String shortSubj, String category) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        String table = "OBOR_PREDMET";
-        String set = "(OBOR_ZKRATKA_OBORU, PREDMET_ZKRATKA_PREDMETU, KATEGORIE_PREDMETU_KATEGORIE)";
-        String values = String.format("'%s', '%s', '%s'",
-                shortSpec, shortSubj, category);
-
-        stmt.execute(String.format(addMask, table, set, values));
+        stmt.execute(String.format("exec VLOZOBORPREDMET(%s, %s, %s)", shortSpec, shortSubj, category));
     }
 
     @Override
     public void deleteSpecializationSubject(String shortSpec, String shortSubj) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        String table = "OBOR_PREDMET";
-        String condition = "OBOR_ZKRATKA_OBORU = '" + shortSpec+" and PREDMET_ZKRATKA_PREDMETU = '"+shortSubj+"'";
-
-        stmt.execute(String.format(deleteMask, table, condition));
+        stmt.execute(String.format("exec SMAZOBORPREDMET(%s, %s)", shortSpec, shortSubj));
     }
 
     @Override
-    public void editSchedule(int id, int numberOfStudents, float startsAt, int span, String subjectShort, int type, String teacherRole, String teacherId) throws SQLException {
+    public void editSchedule(int id, int numberOfStudents, float startsAt, int span, String subjectShort, int type, String teacherRole, int teacherId, int roomId) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        String table = "ROZVRHOVA_AKCE";
-        String set = String.format("POCET_STUDENTU = %d, MAHODIN = %d, ZACINAV = %.2f, "
-                + "PREDMET_ZKRATKA_PREDMETU = '%s', ZPUSOB_VYUKY_ID_ZV = %d, "
-                + "ROLE_VYUCUJICIHO_ROLE = '%s', ID_ZAMESTNANEC = '%s'",
-                numberOfStudents, span, startsAt, subjectShort, type, teacherRole, teacherId);
-        String condition = "ID_RA = " + id;
-
-        stmt.execute(String.format(updateMask, table, set, condition));
+        stmt.execute(String.format("exec UPRAVROZVRHOVOUAKCI(%d, %d, %d, %f, %s, %d, %s, %d, %d)", id, numberOfStudents, span, startsAt, subjectShort, type, teacherRole, teacherId, roomId));
     }
 
     @Override
-    public void addSchedule(int numberOfStudents, float startsAt, int span, String subjectShort, int type, String teacherRole, String teacherId) throws SQLException {
+    public void addSchedule(int numberOfStudents, float startsAt, int span, String subjectShort, int type, String teacherRole, int teacherId, int roomId) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        String table = "ROZVRHOVA_AKCE";
-        String columns = "(POCET_STUDENTU, MAHODIN, ZACINAV, PREDMET_ZKRATKA_PREDMETU, ZPUSOB_VYUKY_ID_ZV, ROLE_VYUCUJICIHO_ROLE, ID_ZAMESTNANEC)";
-        String set = String.format("%d, %d, %s, '%s', %d, '%s', '%s'",
-                numberOfStudents, span, String.valueOf(startsAt).replace(',', '.'), subjectShort, type, teacherRole, teacherId);
-
-        stmt.execute(String.format(addMask, table, columns, set));
+        stmt.execute(String.format("exec VLOZROZVRHOVOUAKCI(%d, %d, %f, %s, %d, %s, %d, %d)", numberOfStudents, span, startsAt, subjectShort, type, teacherRole, teacherId, roomId));
     }
 
     @Override
     public void deleteSchedule(int id) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        String table = "ROZVRHOVA_AKCE";
-        String condition = "ID_RA = " + id;
-
-        stmt.execute(String.format(deleteMask, table, condition));
+        stmt.execute(String.format("exec SMAZROZVRHOVOUAKCI(%d)", id));
     }
 
     @Override

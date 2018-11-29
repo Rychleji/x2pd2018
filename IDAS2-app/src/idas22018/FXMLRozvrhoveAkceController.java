@@ -98,7 +98,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
         DialogPridejRA dialog2 = new DialogPridejRA(null);
         dialog2.showAndWait();
         
-        if (dialog2.isButtonPressed()) {
+        /*if (dialog2.isButtonPressed()) {
             try {
                 dataLayer.addSchedule(dialog2.getPocetStudentu(), dialog2.getZacinaV(),
                         dialog2.getMaHodin(), dialog2.getZkratkaPr(), dialog2.getZpusobVyuky(),
@@ -108,7 +108,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
                 dialog.showAndWait();
             }
-        }
+        }*/ //TODO
     }
     
     @FXML
@@ -117,7 +117,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
         DialogPridejRA dialog2 = new DialogPridejRA(null);
         dialog2.showAndWait();
         
-        if (dialog2.isButtonPressed()) {
+        /*if (dialog2.isButtonPressed()) {
             try {
                 dataLayer.editSchedule(origID, dialog2.getPocetStudentu(), dialog2.getZacinaV(),
                         dialog2.getMaHodin(), dialog2.getZkratkaPr(), dialog2.getZpusobVyuky(),
@@ -127,7 +127,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
                 dialog.showAndWait();
             }
-        }
+        }*/ //TODO
     }
     
     @FXML
