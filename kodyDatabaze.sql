@@ -14,10 +14,8 @@ BEGIN
 
     SELECT ID_ZAMESTNANEC INTO v_id FROM ZAMESTNANEC WHERE JMENO = p_jmeno AND PRIJMENI = p_prijmeni AND EMAIL = p_email;
 
-    IF NOT(p_obrazek is null) THEN
-        INSERT INTO DATA (OBRAZEK, DATUMPRIDANI, DATUMMODIFIKACE, ID_ZAMESTNANEC)
-        VALUES (p_obrazek, SYSDATE, SYSDATE, v_id);
-    END IF;
+    INSERT INTO DATA (OBRAZEK, DATUMPRIDANI, DATUMMODIFIKACE, ID_ZAMESTNANEC)
+    VALUES (p_obrazek, SYSDATE, SYSDATE, v_id);
 
     select standard_hash(p_heslo, 'MD5') into v_pass from dual;
 
@@ -37,7 +35,11 @@ BEGIN
         EMAIL = p_email, KATEDRA_ZKRATKA_KATEDRY = p_zkratkaKatedry, ID_OPRAVNENI = p_opravneni, ID_ROLE = p_idRole
     WHERE ID_ZAMESTNANEC = p_id;
 
-    IF NOT(p_obrazek is null) THEN
+    IF (p_obrazek is null) THEN
+        UPDATE DATA
+        SET DATUMMODIFIKACE = SYSDATE
+        WHERE ID_ZAMESTNANEC = p_id;
+    ELSE
         UPDATE DATA
         SET OBRAZEK = p_obrazek, DATUMMODIFIKACE = SYSDATE
         WHERE ID_ZAMESTNANEC = p_id;
@@ -56,6 +58,15 @@ create or replace PROCEDURE smazZamestnance (p_id NUMBER)--smazani udaju a dat j
 IS
 BEGIN
     DELETE FROM ZAMESTNANEC
+    WHERE ID_ZAMESTNANEC = p_id;
+END;
+/
+create or replace PROCEDURE smazFotku
+  (p_id ZAMESTNANEC.ID_ZAMESTNANEC%TYPE)
+IS
+BEGIN
+    update DATA 
+    set OBRAZEK = NULL
     WHERE ID_ZAMESTNANEC = p_id;
 END;
 /
