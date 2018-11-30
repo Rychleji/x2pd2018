@@ -29,8 +29,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
 
@@ -57,6 +59,12 @@ public class GuiFXMLController implements Initializable {
     public static ISkolniDB getDataLayer() {
         return dataLayer;
     }
+    @FXML
+    private VBox disablovatelnyButtonyVBox;
+    @FXML
+    private VBox vboxZamestnancu;
+    @FXML
+    private Button raButton;
 
     public List<String> getCiselnikKatPredmetu() {
         return ciselnikKatPredmetu;
@@ -81,6 +89,14 @@ public class GuiFXMLController implements Initializable {
     public Map<Integer, HelpClass> getCiselnikFormaVyuky() {
         return ciselnikFormaVyuky;
     }
+    
+    public void panelProRegistrovaneStatus(RezimProhlizeni rp){
+        vboxZamestnancu.setDisable(rp==RezimProhlizeni.NEREGISTROVANY);
+    }
+    
+    public void controlsProVyucujici(String role){
+        raButton.setDisable(!role.equalsIgnoreCase("Vyučující"));
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -90,8 +106,9 @@ public class GuiFXMLController implements Initializable {
             dataLayer = new SkolniDB();
         }
         conn = dataLayer.getConnect();
-        afterConnect();
-
+        //afterConnect();
+        disablovatelnyButtonyVBox.setDisable(true);
+        
         stageP.setOnShown((dd) -> {
             while (!prihlaseno) {
                 DialogPripojeni dialog = new DialogPripojeni(null);
@@ -106,8 +123,9 @@ public class GuiFXMLController implements Initializable {
                         conn = dataLayer.connectToDB("fei-sql1.upceucebny.cz", 1521, "IDAS12", dialog.getJmeno(), dialog.getHeslo());
                         prihlaseno = true;
 
-                        afterConnect();
                         getKnihovnaZobrazovani().zobrazPrihlaseni();
+                        disablovatelnyButtonyVBox.setDisable(false);
+                        afterConnect();
                     } catch (SQLException ex) {
                         DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());
                         dialog2.showAndWait();
@@ -197,13 +215,6 @@ public class GuiFXMLController implements Initializable {
                 dialog2.showAndWait();
             }
         }
-
-        //Není potřeba
-        /*disablovatelnyButtonyVBox.getChildren().forEach((node) -> {
-            node.setDisable(conn == null);
-        });
-
-        pripojitButton.setDisable(conn != null);*/
     }
 
     @FXML
@@ -228,6 +239,14 @@ public class GuiFXMLController implements Initializable {
     @FXML
     private void zamestnanciButtonClick(ActionEvent event) {
         getKnihovnaZobrazovani().zobrazPrehledZamestnancu();
+    }
+
+    @FXML
+    private void udajeButtonAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void raButtonAction(ActionEvent event) {
     }
 
     public class HelpClass {

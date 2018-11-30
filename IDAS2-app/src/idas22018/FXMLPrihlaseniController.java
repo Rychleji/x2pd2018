@@ -36,6 +36,8 @@ public class FXMLPrihlaseniController implements Initializable {
     
     private void zavrit(IDAS22018.RezimProhlizeni druhProhlizeni){
         IDAS22018.druhProhlizeni = druhProhlizeni;
+        IDAS22018.mainController.panelProRegistrovaneStatus(druhProhlizeni);
+        IDAS22018.mainController.controlsProVyucujici("VYUČUJÍCÍ"); //TODO
         Stage stage = (Stage) prihlasitButton.getScene().getWindow();
         // do what you have to do
         stage.close();
@@ -45,6 +47,7 @@ public class FXMLPrihlaseniController implements Initializable {
     private void prihlasitClick(ActionEvent event) {
         //TODO - vyhledání uživatelského jména v údajích a kontrola správnosti hesla
         //TODO - předání id přihlášeného zaměstnance do proměnné pro další práci (úprava sebe sama, úprava svých RA, ...)
+        //TODO z id zamestnance zjistit opravneni zamestnance (registrovany/administrator)
     }
 
 }

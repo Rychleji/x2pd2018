@@ -43,7 +43,7 @@ public class DialogPripojeni extends Stage {
     }
 
     public DialogPripojeni(Window okno) {
-        setTitle("Připojování...");
+        setTitle("Připojování k databázi!");
         setWidth(750);
         setHeight(200);
 

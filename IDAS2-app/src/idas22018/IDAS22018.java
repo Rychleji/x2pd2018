@@ -21,6 +21,7 @@ public class IDAS22018 extends Application {
     public static ResultSet dataset;
     public static boolean prihlaseno = false;
     public static RezimProhlizeni druhProhlizeni = RezimProhlizeni.NEREGISTROVANY;
+    public static int idPrihlasenehoZamestnance;
     //public static KnihovnaZobrazovani knihovnaZobrazovani = getKnihovnaZobrazovani();
     
     public static void close(Scene predchoziScena) {
