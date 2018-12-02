@@ -8,16 +8,15 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="id_vyucujiciho" id="0609893B-F20F-E18D-F2FF-F0504F75A8EB">
+<Column name="id_zamestnanec" id="0609893B-F20F-E18D-F2FF-F0504F75A8EB">
 <createdBy>Radim</createdBy>
 <createdTime>2018-05-07 22:32:20 UTC</createdTime>
 <generatorID>9FBF1353-6AD4-40E0-0B72-28D2CB5BDA6D</generatorID>
 <ownerDesignName>semPraceNyc</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>7</dataTypeSize>
-<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="jmeno" id="9FED90B7-B63F-1111-239E-9C0C949B1D4C">
@@ -78,9 +77,8 @@
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>13</dataTypeSize>
-<ownDataTypeParameters>13,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="mobil" id="E058B849-DA31-BFA5-466D-95A456CF45C1">
@@ -91,9 +89,8 @@
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>13</dataTypeSize>
-<ownDataTypeParameters>13,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="email" id="FB656E54-4CEB-E89A-AF78-F94C2A9CD8C6">
@@ -137,9 +134,39 @@
 <ownDataTypeParameters>60,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="ROLE_id_role" id="BC273A3C-7A3F-B6ED-78C8-980F6A341AED">
+<createdBy>Radim</createdBy>
+<createdTime>2018-12-02 22:10:28 UTC</createdTime>
+<generatorID>0B55F180-A545-6A54-D82B-5CC3FC7ACDFA</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="4CAC7A05-F434-0FCA-D8DB-10BC44CA9325" referredColumn="A0741396-12DC-84FA-9F81-4D15AC1911A6"/>
+</associations>
+</Column>
+<Column name="Opravneni_ID_OPRAVNENI" id="FC38C185-4E4D-3564-E008-26C012EF43EA">
+<createdBy>Radim</createdBy>
+<createdTime>2018-12-02 22:10:28 UTC</createdTime>
+<generatorID>B38E4CB0-CE4D-B530-0B43-746F331A92A0</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="EA0DC2C7-FF07-E1C8-962C-6CDC312C3B9D" referredColumn="8EDF8BCD-ABE2-75A2-1696-4F7B724A0FFE"/>
+</associations>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="B13C0DED-7ABB-2961-8C30-51FA1AC3294A" name="VYUCUJICI_PK">
+<ind_PK_UK id="B13C0DED-7ABB-2961-8C30-51FA1AC3294A" name="ZAMESTNANEC_PK">
 <createdBy>Radim</createdBy>
 <createdTime>2018-05-07 22:32:20 UTC</createdTime>
 <generatorID>14E1F3FB-95EC-0076-717A-A8AADFB24286</generatorID>
@@ -151,7 +178,7 @@
 <colUsage columnID="0609893B-F20F-E18D-F2FF-F0504F75A8EB"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="D6678769-CD5E-2075-B7C4-8F2B84475B56" name="VYUCUJICI_KATEDRA_FK">
+<ind_PK_UK id="D6678769-CD5E-2075-B7C4-8F2B84475B56" name="ZAMESTNANEC_KATEDRA_FK">
 <createdBy>Radim</createdBy>
 <createdTime>2018-05-07 22:32:20 UTC</createdTime>
 <generatorID>E35D4483-BB68-604B-3501-F5A7773DF50F</generatorID>
@@ -160,6 +187,28 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="4AA4BC28-3B42-CA5D-920B-797C4B86A162"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="971DAF35-B6BB-AF3B-6B3E-EA03EB826659" name="ZAMESTNANEC_Opravneni_FK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-12-02 22:10:28 UTC</createdTime>
+<generatorID>89226F29-81AD-F312-5C4E-B5D34E73961B</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FC38C185-4E4D-3564-E008-26C012EF43EA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0819C08B-4831-FC82-C699-CFF7286542AE" name="ZAMESTNANEC_ROLE_FK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-12-02 22:10:28 UTC</createdTime>
+<generatorID>4E01F587-88CA-5F92-C71F-5EEBE39E30DF</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BC273A3C-7A3F-B6ED-78C8-980F6A341AED"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

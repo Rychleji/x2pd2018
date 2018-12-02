@@ -14,8 +14,10 @@ BEGIN
 
     SELECT ID_ZAMESTNANEC INTO v_id FROM ZAMESTNANEC WHERE JMENO = p_jmeno AND PRIJMENI = p_prijmeni AND EMAIL = p_email;
 
-    INSERT INTO DATA (OBRAZEK, DATUMPRIDANI, DATUMMODIFIKACE, ID_ZAMESTNANEC)
-    VALUES (p_obrazek, SYSDATE, SYSDATE, v_id);
+    if NOT(p_obrazek is null) then
+        INSERT INTO DATA (OBRAZEK, DATUMPRIDANI, DATUMMODIFIKACE, ID_ZAMESTNANEC)
+        VALUES (p_obrazek, SYSDATE, SYSDATE, v_id);
+    end if;
 
     select standard_hash(p_heslo, 'MD5') into v_pass from dual;
 
@@ -28,24 +30,32 @@ create or replace PROCEDURE upravZamestnance
    p_zkratkaKatedry VARCHAR2, p_opravneni NUMBER, p_idRole NUMBER, p_mobil NUMBER, p_telefon NUMBER, p_obrazek DATA.OBRAZEK%TYPE,
    p_uzivJmeno VARCHAR2, p_heslo VARCHAR2)
 IS
-    v_pass  VARCHAR2(50);
+    v_pass      VARCHAR2(50);
+    v_idData    DATA.ID_DATA%TYPE := null;
 BEGIN
     UPDATE ZAMESTNANEC
     SET JMENO = p_jmeno, PRIJMENI = p_prijmeni, TITUL_PRED = p_titulPred, TITUL_ZA = p_titulZa, TELEFON = p_telefon, MOBIL = p_mobil,
         EMAIL = p_email, KATEDRA_ZKRATKA_KATEDRY = p_zkratkaKatedry, ID_OPRAVNENI = p_opravneni, ID_ROLE = p_idRole
     WHERE ID_ZAMESTNANEC = p_id;
-
-    IF (p_obrazek is null) THEN
-        UPDATE DATA
-        SET DATUMMODIFIKACE = SYSDATE
-        WHERE ID_ZAMESTNANEC = p_id;
-    ELSE
-        UPDATE DATA
-        SET OBRAZEK = p_obrazek, DATUMMODIFIKACE = SYSDATE
-        WHERE ID_ZAMESTNANEC = p_id;
+           
+    IF NOT(p_obrazek is null) THEN
+        begin
+            select ID_DATA into v_idData from DATA where ID_ZAMESTNANEC = p_id;
+            
+            exception 
+                when NO_DATA_FOUND THEN
+                    insert into DATA (OBRAZEK, DATUMPRIDANI, DATUMMODIFIKACE, ID_ZAMESTNANEC)
+                    values (p_obrazek, SYSDATE, SYSDATE, p_id);
+        end; --pokud nemá odpovídající zaměstnanec data vytvoří se
+        
+        IF NOT(v_idData is null) THEN
+            UPDATE DATA
+            SET OBRAZEK = p_obrazek, DATUMMODIFIKACE = SYSDATE
+            WHERE ID_ZAMESTNANEC = p_id;
+        end if;
     END IF;
 
-    IF ((P_HESLO != '') AND (P_UZIVJMENO != '')) THEN
+    IF NOT((P_HESLO is NULL) AND (P_UZIVJMENO is NULL)) THEN
         select standard_hash(p_heslo, 'MD5') into v_pass from dual;
 
         UPDATE UDAJE
@@ -65,9 +75,7 @@ create or replace PROCEDURE smazFotku
   (p_id ZAMESTNANEC.ID_ZAMESTNANEC%TYPE)
 IS
 BEGIN
-    update DATA 
-    set OBRAZEK = NULL
-    WHERE ID_ZAMESTNANEC = p_id;
+    delete from DATA WHERE ID_ZAMESTNANEC = p_id;
 END;
 /
 -------KATEDRA-------
@@ -465,5 +473,31 @@ BEGIN
    v_jeVolno := v_kapacita>=p_pocetStudentu;
     
    RETURN v_jeVolno; 
+END;
+/
+create or replace FUNCTION vratIdPrihlaseni (p_us UDAJE.UZIVATELSKEJMENO%TYPE, p_ps UDAJE.HESLO%TYPE)
+RETURN ZAMESTNANEC.ID_ZAMESTNANEC%TYPE IS 
+    v_id            UDAJE.ID_ZAMESTNANEC%TYPE;
+    v_ps            UDAJE.HESLO%TYPE;
+    v_psHash        UDAJE.HESLO%TYPE;
+    ex_spatneHeslo  EXCEPTION;
+BEGIN 
+    SELECT ID_ZAMESTNANEC, HESLO into v_id, v_ps 
+    FROM UDAJE
+    WHERE UZIVATELSKEJMENO = p_us;
+
+    select standard_hash(p_ps, 'MD5') into v_psHash from dual;
+
+    IF (v_ps = v_psHash) THEN
+        RETURN v_id;
+    ELSE
+        RAISE ex_spatneHeslo;
+    END IF;
+
+    EXCEPTION
+        WHEN ex_spatneHeslo THEN
+            raise_application_error(-20001, 'Zadané heslo není správné');
+        WHEN NO_DATA_FOUND THEN
+            raise_application_error(-20002, 'Takové přihlašovací jméno neexistuje');
 END;
 /

@@ -19,12 +19,11 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="data" id="00B03670-7888-4514-ABDC-5C7085252680">
+<Column name="obrazek" id="00B03670-7888-4514-ABDC-5C7085252680">
 <createdBy>David</createdBy>
 <createdTime>2018-11-16 16:07:51 UTC</createdTime>
 <generatorID>DE2D6514-3132-8FDE-6E51-D63D95625A0A</generatorID>
 <ownerDesignName>semPraceNyc</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT029</logicalDatatype>
@@ -60,8 +59,7 @@
 <ownerDesignName>semPraceNyc</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>7</dataTypeSize>
+<logicalDatatype>LOGDT019</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>

@@ -31,23 +31,6 @@
 <ownDataTypeParameters>40,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="ZAMESTNANEC_id_vyucujiciho" id="848F57E3-A7E9-A12B-B98D-237081A3BC00">
-<createdBy>David</createdBy>
-<createdTime>2018-11-16 16:07:51 UTC</createdTime>
-<generatorID>79D31F3F-C77D-3DE1-BA2A-0E3A779F4C30</generatorID>
-<ownerDesignName>semPraceNyc</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>7</dataTypeSize>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="5DABED3F-50E2-22AA-2336-DB5871B4662D" referredColumn="0609893B-F20F-E18D-F2FF-F0504F75A8EB"/>
-</associations>
-</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="99D4490E-74AF-F5D0-70ED-FFE2E98CB370" name="ROLE_PK">
@@ -60,17 +43,6 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="A0741396-12DC-84FA-9F81-4D15AC1911A6"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="9520D5BA-B210-78D0-00DD-41DEBAFA569C" name="ROLE_ZAMESTNANEC_FK">
-<createdBy>David</createdBy>
-<createdTime>2018-11-16 16:07:51 UTC</createdTime>
-<generatorID>4E01F587-88CA-5F92-C71F-5EEBE39E30DF</generatorID>
-<ownerDesignName>semPraceNyc</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="848F57E3-A7E9-A12B-B98D-237081A3BC00"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

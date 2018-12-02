@@ -1,0 +1,48 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="7857CB40-C17C-178E-01A1-77EDE44F1F02" name="Opravneni">
+<createdBy>Radim</createdBy>
+<createdTime>2018-12-02 22:10:28 UTC</createdTime>
+<generatorID>201FABCC-6F34-1148-8751-14B5C9BAE89C</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID_OPRAVNENI" id="8EDF8BCD-ABE2-75A2-1696-4F7B724A0FFE">
+<createdBy>Radim</createdBy>
+<createdTime>2018-12-02 22:10:28 UTC</createdTime>
+<generatorID>8712374F-8115-A31E-D743-3E564857A533</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="opravneni" id="5D05E65C-0FD8-D5D7-8343-6F0E811B7566">
+<createdBy>Radim</createdBy>
+<createdTime>2018-12-02 22:10:28 UTC</createdTime>
+<generatorID>F760D592-FFD1-70F8-FF6D-3DD1F13D0787</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT040</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="52E53982-6AA3-79CF-C317-2CE11C03FC1A" name="Opravneni_PK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-12-02 22:10:28 UTC</createdTime>
+<generatorID>A6BBD077-1C95-C6AD-076C-7973E0E95328</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8EDF8BCD-ABE2-75A2-1696-4F7B724A0FFE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -50,8 +50,7 @@
 <ownerDesignName>semPraceNyc</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>7</dataTypeSize>
+<logicalDatatype>LOGDT019</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
@@ -71,6 +70,17 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="44F00720-0F08-5396-D56B-F3E69952C5C3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3FCD5B01-8ED9-AAD4-C80E-530A78E85EE1" name="udaje_uzivatelskeJmeno_UN">
+<createdBy>Radim</createdBy>
+<createdTime>2018-12-02 22:10:28 UTC</createdTime>
+<generatorID>31B6D922-8F20-F5BD-C242-2E29F877E086</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="CABB7AA9-DFB7-2F88-373D-533A66990119"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="60A1D83E-D21D-9AFD-1CED-1E642DF79506" name="udaje__IDX">

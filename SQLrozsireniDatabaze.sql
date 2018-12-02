@@ -204,25 +204,7 @@ Insert into OPRAVNENI (opravneni) values ('Administrátor');
 Insert into OPRAVNENI (opravneni) values ('Registrovaný');
 Insert into OPRAVNENI (opravneni) values ('Neregistrovaný');
 insert into ROLE (typrole) values ('Vyučující');
-
-Insert into ZAMESTNANEC (JMENO,PRIJMENI,TITUL_PRED,TITUL_ZA,TELEFON,MOBIL,EMAIL,KATEDRA_ZKRATKA_KATEDRY,ID_OPRAVNENI,ID_ROLE) values ('Jan','Fikejz','Ing.',null,null,null,'jan.fikejz@upce.cz','KST',(select id_opravneni from opravneni where opravneni = 'Registrovaný'),(select id_role from role where typrole = 'Vyučující'));
-Insert into ZAMESTNANEC (JMENO,PRIJMENI,TITUL_PRED,TITUL_ZA,TELEFON,MOBIL,EMAIL,KATEDRA_ZKRATKA_KATEDRY,ID_OPRAVNENI,ID_ROLE) values ('Filip','Majerík','Ing.',null,null,null,'st40429@student.upce.cz','KST',(select id_opravneni from opravneni where opravneni = 'Registrovaný'),(select id_role from role where typrole = 'Vyučující'));
-Insert into ZAMESTNANEC (JMENO,PRIJMENI,TITUL_PRED,TITUL_ZA,TELEFON,MOBIL,EMAIL,KATEDRA_ZKRATKA_KATEDRY,ID_OPRAVNENI,ID_ROLE) values ('Lubomír','Andrle','Ing.',null,null,null,'lubomir.andrle@upce.cz','KIT',(select id_opravneni from opravneni where opravneni = 'Registrovaný'),(select id_role from role where typrole = 'Vyučující'));
-Insert into ZAMESTNANEC (JMENO,PRIJMENI,TITUL_PRED,TITUL_ZA,TELEFON,MOBIL,EMAIL,KATEDRA_ZKRATKA_KATEDRY,ID_OPRAVNENI,ID_ROLE) values ('Paul Charles','Hooper',null,null,466036710,null,'paul.hooper@upce.cz','FEI',(select id_opravneni from opravneni where opravneni = 'Registrovaný'),(select id_role from role where typrole = 'Vyučující'));
-Insert into ZAMESTNANEC (JMENO,PRIJMENI,TITUL_PRED,TITUL_ZA,TELEFON,MOBIL,EMAIL,KATEDRA_ZKRATKA_KATEDRY,ID_OPRAVNENI,ID_ROLE) values ('Michal','Horáček','Ing.',null,null,null,'michal.horacek.czech@gmail.com','KE',(select id_opravneni from opravneni where opravneni = 'Registrovaný'),(select id_role from role where typrole = 'Vyučující'));
-Insert into ZAMESTNANEC (JMENO,PRIJMENI,TITUL_PRED,TITUL_ZA,TELEFON,MOBIL,EMAIL,KATEDRA_ZKRATKA_KATEDRY,ID_OPRAVNENI,ID_ROLE) values ('Pavel','Horák','JUDr.',null,null,null,'pavel.horak@upce.cz','KIT',(select id_opravneni from opravneni where opravneni = 'Registrovaný'),(select id_role from role where typrole = 'Vyučující'));
-Insert into ZAMESTNANEC (JMENO,PRIJMENI,TITUL_PRED,TITUL_ZA,TELEFON,MOBIL,EMAIL,KATEDRA_ZKRATKA_KATEDRY,ID_OPRAVNENI,ID_ROLE) values ('Josef','Horálek','Mgr.','Ph.D.',466036488,null,'josef.horalek@upce.cz','KIT',(select id_opravneni from opravneni where opravneni = 'Registrovaný'),(select id_role from role where typrole = 'Vyučující'));
-Insert into ZAMESTNANEC (JMENO,PRIJMENI,TITUL_PRED,TITUL_ZA,TELEFON,MOBIL,EMAIL,KATEDRA_ZKRATKA_KATEDRY,ID_OPRAVNENI,ID_ROLE) values ('Klára','Hrůzová','Mgr.','Ph.D.',null,null,'Klara.Hruzova@upce.cz','KMF',(select id_opravneni from opravneni where opravneni = 'Registrovaný'),(select id_role from role where typrole = 'Vyučující'));
-Insert into ZAMESTNANEC (JMENO,PRIJMENI,TITUL_PRED,TITUL_ZA,TELEFON,MOBIL,EMAIL,KATEDRA_ZKRATKA_KATEDRY,ID_OPRAVNENI,ID_ROLE) values ('Jan','Hřídel','Ing.',null,null,null,'jan.hridel@upce.cz','KST',(select id_opravneni from opravneni where opravneni = 'Registrovaný'),(select id_role from role where typrole = 'Vyučující'));
-Insert into ZAMESTNANEC (JMENO,PRIJMENI,TITUL_PRED,TITUL_ZA,TELEFON,MOBIL,EMAIL,KATEDRA_ZKRATKA_KATEDRY,ID_OPRAVNENI,ID_ROLE) values ('Tomáš','Hudec','Mgr.',null,null,null,'tomas.hudec@upce.cz','KIT',(select id_opravneni from opravneni where opravneni = 'Registrovaný'),(select id_role from role where typrole = 'Vyučující'));
-Insert into ZAMESTNANEC (JMENO,PRIJMENI,TITUL_PRED,TITUL_ZA,TELEFON,MOBIL,EMAIL,KATEDRA_ZKRATKA_KATEDRY,ID_OPRAVNENI,ID_ROLE) values ('Veronika','Hurtová','Ing.',null,null,null,'veronika.hurtova@student.upce.cz','KIT',(select id_opravneni from opravneni where opravneni = 'Registrovaný'),(select id_role from role where typrole = 'Vyučující'));
-Insert into ZAMESTNANEC (JMENO,PRIJMENI,TITUL_PRED,TITUL_ZA,TELEFON,MOBIL,EMAIL,KATEDRA_ZKRATKA_KATEDRY,ID_OPRAVNENI,ID_ROLE) values ('Pavel','Chmelař','Ing.',null,null,null,'st19544@student.upce.cz','KE',(select id_opravneni from opravneni where opravneni = 'Registrovaný'),(select id_role from role where typrole = 'Vyučující'));
-Insert into ZAMESTNANEC (JMENO,PRIJMENI,TITUL_PRED,TITUL_ZA,TELEFON,MOBIL,EMAIL,KATEDRA_ZKRATKA_KATEDRY,ID_OPRAVNENI,ID_ROLE) values ('Dana','Jablonská',null,null,null,null,'dana.jablonska@upce.cz','KIT',(select id_opravneni from opravneni where opravneni = 'Registrovaný'),(select id_role from role where typrole = 'Vyučující'));
-Insert into ZAMESTNANEC (JMENO,PRIJMENI,TITUL_PRED,TITUL_ZA,TELEFON,MOBIL,EMAIL,KATEDRA_ZKRATKA_KATEDRY,ID_OPRAVNENI,ID_ROLE) values ('Jiří','Lebduška','Ing.',null,null,null,'jiri.lebduska@student.upce.cz','KIT',(select id_opravneni from opravneni where opravneni = 'Registrovaný'),(select id_role from role where typrole = 'Vyučující'));
-
 insert into ROLE (typrole) values ('Správce systému');
-
-Insert into ZAMESTNANEC (JMENO,PRIJMENI,TITUL_PRED,TITUL_ZA,TELEFON,MOBIL,EMAIL,KATEDRA_ZKRATKA_KATEDRY,ID_OPRAVNENI,ID_ROLE) values ('Jiří','Zůstavec','Ing.',null,null,null,'zustavec.jiri@upce.cz','FEI',(select id_opravneni from opravneni where opravneni = 'Administrátor'),(select id_role from role where typrole = 'Správce systému')); 
 
 create or replace view ROZVRHOVE_AKCE_EXT_VIEW as
 	select r.ID_RA as ID_ROZVRHOVE_AKCE, r.POCET_STUDENTU, r.MAHODIN, r.ZACINAV, r.ROLE_VYUCUJICIHO_ROLE, r.PREDMET_ZKRATKA_PREDMETU as ZKRATKA_PREDMETU, r.ID_ZAMESTNANEC as ID_VYUCUJICIHO, p.NAZEV_PREDMETU, p.DOPORUCENY_ROCNIK,v.ZPUSOB, z.JMENO as JMENO_VYUCUJICIHO, z.PRIJMENI as PRIJMENI_VYUCUJICIHO, z.TITUL_PRED, z.TITUL_ZA, z.TELEFON, z.MOBIL, z.EMAIL, z.KATEDRA_ZKRATKA_KATEDRY, u.nazev as NAZEV_UCEBNY, u.kapacita as KAPACITA_UCEBNY from ROZVRHOVA_AKCE r
@@ -230,16 +212,45 @@ create or replace view ROZVRHOVE_AKCE_EXT_VIEW as
 		left join ZPUSOB_VYUKY v on r.ZPUSOB_VYUKY_ID_ZV = v.ID_ZV
 		left join ZAMESTNANEC z on r.ID_ZAMESTNANEC = z.ID_ZAMESTNANEC
 		left join UCEBNA u on r.ID_UCEBNA = u.ID_UCEBNA;
-		  
-CREATE OR REPLACE VIEW ZAM_VIEW AS 
-  select ID_ZAMESTNANEC,JMENO,PRIJMENI,TITUL_PRED,TITUL_ZA,TELEFON,MOBIL,EMAIL,KATEDRA_ZKRATKA_KATEDRY, OPRAVNENI, typrole from zamestnanec
-  left join OPRAVNENI on ZAMESTNANEC.ID_OPRAVNENI = OPRAVNENI.ID_OPRAVNENI
-  left join ROLE on ZAMESTNANEC.ID_ROLE = ROLE.ID_ROLE;
-  
-CREATE OR REPLACE VIEW VYUC_VIEW AS 
-  select ID_ZAMESTNANEC as ID_VYUCUJICIHO,JMENO,PRIJMENI,TITUL_PRED,TITUL_ZA,TELEFON,MOBIL,EMAIL,KATEDRA_ZKRATKA_KATEDRY, OPRAVNENI from zamestnanec
-  left join OPRAVNENI on ZAMESTNANEC.ID_OPRAVNENI = OPRAVNENI.ID_OPRAVNENI
-  left join ROLE on ZAMESTNANEC.ID_ROLE = ROLE.ID_ROLE
-  where typrole = 'Vyučující';
-  
+		   
 ALTER TABLE ROZVRHOVA_AKCE ADD (SCHVALENO NUMBER(1) default(0) NOT NULL);
+
+declare
+    v_opravneni number(1);
+    v_role      number(1);
+begin
+    --vyučující
+    select id_opravneni into v_opravneni from opravneni where opravneni = 'Registrovaný';
+    select id_role into v_role from role where typrole = 'Vyučující';
+    VLOZZAMESTNANCE('Jan','Fikejz','Ing.',null,'jan.fikejz@upce.cz','KST',v_opravneni,v_role,null,null,null,'fiky1','fiky1');
+    VLOZZAMESTNANCE('Filip','Majerik','Ing.',null,'st40429@student.upce.cz','KST',v_opravneni,v_role,null,null,null,'reg','reg');
+    VLOZZAMESTNANCE('Lubomír','Andrle','Ing.',null,'lubomir.andrle@upce.cz','KIT',v_opravneni,v_role,null,null,null,'andrle','lubomir');
+    VLOZZAMESTNANCE('Paul Charles','Hooper',null,null,'paul.hooper@upce.cz','FEI',v_opravneni,v_role,466036710,null,null,'hooper','looper');
+    VLOZZAMESTNANCE('Michal','Horáček','Ing.',null,'michal.horacek.czech@gmail.com','KE',v_opravneni,v_role,null,null,null,'horacek','prezident');
+    VLOZZAMESTNANCE('Pavel','Horák','JUDr.',null,'pavel.horak@upce.cz','KIT',v_opravneni,v_role,null,null,null,'horak.pavel','zubr');
+    VLOZZAMESTNANCE('Josef','Horálek','Mgr.','Ph.D.','josef.horalek@upce.cz','KIT',v_opravneni,v_role,466036488,null,null,'josef.horalek','Sierra');
+    VLOZZAMESTNANCE('Klára','Hrůzová','Mgr.','Ph.D.','Klara.Hruzova@upce.cz','KMF',v_opravneni,v_role,null,null,null,'hruzova','Hotel');
+    VLOZZAMESTNANCE('Jan','Hřídel','Ing.',null,'jan.hridel@upce.cz','KST',v_opravneni,v_role,null,null,null,'jan.hridel','India');
+    VLOZZAMESTNANCE('Tomáš','Hudec','Mgr.',null,'tomas.hudec@upce.cz','KIT',v_opravneni,v_role,null,null,null,'tomas.hudec','Echo');
+    VLOZZAMESTNANCE('Veronika','Hurtová','Ing.',null,'veronika.hurtova@student.upce.cz','KIT',v_opravneni,v_role,null,null,null,'veronika.h','Lima');
+    VLOZZAMESTNANCE('Pavel','Chmelař','Ing.',null,'st19544@student.upce.cz','KE',v_opravneni,v_role,null,null,null,'st19544','Delta');
+    VLOZZAMESTNANCE('Dana','Jablonská',null,null,'dana.jablonska@upce.cz','KIT',v_opravneni,v_role,null,null,null,'jablonska','SHIELD');
+    VLOZZAMESTNANCE('Jiří','Lebduška',null,null,'jiri.lebduska@student.upce.cz','KIT',v_opravneni,v_role,null,null,null,'lebduska','heslo');
+    --zamestnanci
+    select id_opravneni into v_opravneni from opravneni where opravneni = 'Administrátor';
+    select id_role into v_role from role where typrole = 'Správce systému';
+    VLOZZAMESTNANCE('Jiří','Zůstavec',null,null,'zustavec.jiri@upce.cz','FEI',v_opravneni,v_role,null,null,null,'admin','admin');
+end;
+
+CREATE OR REPLACE VIEW VYUC_VIEW AS 
+  select z.ID_ZAMESTNANEC as ID_VYUCUJICIHO,z.JMENO,z.PRIJMENI,z.TITUL_PRED,z.TITUL_ZA,z.TELEFON,z.MOBIL,z.EMAIL,z.KATEDRA_ZKRATKA_KATEDRY, o.OPRAVNENI, d.OBRAZEK, d.DATUMPRIDANI, d.DATUMMODIFIKACE from zamestnanec z
+  left join OPRAVNENI o on z.ID_OPRAVNENI = o.ID_OPRAVNENI
+  left join ROLE r on z.ID_ROLE = r.ID_ROLE
+  left join DATA d on z.ID_ZAMESTNANEC = d.ID_ZAMESTNANEC
+  where r.typrole = 'Vyučující';
+  
+CREATE OR REPLACE VIEW ZAM_VIEW AS 
+  select z.ID_ZAMESTNANEC as ID_VYUCUJICIHO,z.JMENO,z.PRIJMENI,z.TITUL_PRED,z.TITUL_ZA,z.TELEFON,z.MOBIL,z.EMAIL,z.KATEDRA_ZKRATKA_KATEDRY, o.OPRAVNENI, r.TYPROLE, d.OBRAZEK, d.DATUMPRIDANI, d.DATUMMODIFIKACE from zamestnanec z
+  left join OPRAVNENI o on z.ID_OPRAVNENI = o.ID_OPRAVNENI
+  left join ROLE r on z.ID_ROLE = r.ID_ROLE
+  left join DATA d on z.ID_ZAMESTNANEC = d.ID_ZAMESTNANEC;
