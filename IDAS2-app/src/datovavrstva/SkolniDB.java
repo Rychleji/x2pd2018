@@ -453,4 +453,28 @@ public class SkolniDB implements ISkolniDB {
 
         return statement.executeQuery("select * from PRACOVISTE");
     }
+
+    @Override
+    public void editClassroom(int id, String name, int capacity) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void addClassroom(String name, int capacity) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void deleteClassroom(int id) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ResultSet selectEmployees() throws SQLException {
+        Statement statement = connect.createStatement();
+
+        return statement.executeQuery("select * from ZAM_VIEW"
+                + " left join KATEDRA on ZAM_VIEW.KATEDRA_ZKRATKA_KATEDRY = KATEDRA.ZKRATKA_KATEDRY"
+                + " left join FAKULTA on KATEDRA.FAKULTA_ZKRATKA_FAKULTY = FAKULTA.ZKRATKA_FAKULTY");
+    }
 }

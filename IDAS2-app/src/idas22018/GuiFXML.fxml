@@ -22,7 +22,7 @@
             <VBox fx:id="disablovatelnyButtonyVBox" alignment="CENTER" prefHeight="169.0" prefWidth="600.0" spacing="3.0" VBox.vgrow="ALWAYS">
                <children>
                   <Button mnemonicParsing="false" onAction="#vyucujiciButtonClick" prefWidth="150.0" text="Vyučující" />
-                  <Button mnemonicParsing="false" onAction="#zamestnanciButtonClick" prefWidth="150.0" text="Zamestnanci" />
+                  <Button mnemonicParsing="false" onAction="#zamestnanciButtonClick" prefWidth="150.0" text="Zaměstnanci" />
                   <Button mnemonicParsing="false" onAction="#pracovisteButtonClick" prefWidth="150.0" text="Pracoviště" />
                   <Button mnemonicParsing="false" onAction="#predmetyButtonClick" prefWidth="150.0" text="Předměty" />
                   <Button mnemonicParsing="false" onAction="#oborButtonClick" prefWidth="150.0" text="Obory" />

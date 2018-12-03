@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
@@ -52,8 +53,13 @@ public class FXMLVyucujiciController implements Initializable {
     private TableColumn<List<String>, String> fakultaCol;
     private Scene predScena;
     private Scene aktScena;
-
+    private boolean skrytControlsProVyucujici = false;
     
+    public void setSkrytVeci(boolean skryt) {
+        skrytControlsProVyucujici = skryt;
+        fillTable();
+    }
+
     //Vezmu si datovou vrstvu
     private ISkolniDB dataLayer;
     @FXML
@@ -64,18 +70,26 @@ public class FXMLVyucujiciController implements Initializable {
     private Button upravButton;
     @FXML
     private Button odeberButton;
-
+    @FXML
+    private Label nadpisLabel;
+    @FXML
+    private Button akceFiltrButton;
+    @FXML
+    private Button predmetyFiltrButton;
+    @FXML
+    private Button zamestnanciButton;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         dataLayer = GuiFXMLController.getDataLayer();
-        
-        pridejButton.setDisable(IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR);
-        upravButton.setDisable(IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR);
-        odeberButton.setDisable(IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR);
-        
+
+        pridejButton.setDisable(IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR);
+        upravButton.setDisable(IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR);
+        odeberButton.setDisable(IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR);
+
         idCol.setCellValueFactory((CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
         jmenoCol.setCellValueFactory((CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));
         prijmeniCol.setCellValueFactory((CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(2)));
@@ -93,14 +107,16 @@ public class FXMLVyucujiciController implements Initializable {
 
     public void setKatedraFiltr(String katedraFiltr) {
         this.katedraFiltr = katedraFiltr;
-        if(katedraFiltr!=null)
+        if (katedraFiltr != null) {
             fillTable();
+        }
     }
 
     public void setPredmetFiltr(String predmetFiltr) {
         this.predmetFiltr = predmetFiltr;
-        if (predmetFiltr != null)
+        if (predmetFiltr != null) {
             fillTable();
+        }
     }
 
     @FXML
@@ -168,20 +184,28 @@ public class FXMLVyucujiciController implements Initializable {
     }
 
     private void fillTable() {
+        nadpisLabel.setText(skrytControlsProVyucujici ? "Zaměstnanci" : "Vyučující");
+        akceFiltrButton.setVisible(!skrytControlsProVyucujici);
+        predmetyFiltrButton.setVisible(!skrytControlsProVyucujici);
+        zamestnanciButton.setText(skrytControlsProVyucujici?"Vyučující":"Zaměstnanci");
         try {
             ResultSet rs = null;
-            if (predmetFiltr != null) {
-                rs = dataLayer.selectTeachers("", "", predmetFiltr);
-            } else if (katedraFiltr != null) {
-                rs = dataLayer.selectTeachers(katedraFiltr);
+            if (!skrytControlsProVyucujici) {
+                if (predmetFiltr != null) {
+                    rs = dataLayer.selectTeachers("", "", predmetFiltr);
+                } else if (katedraFiltr != null) {
+                    rs = dataLayer.selectTeachers(katedraFiltr);
+                } else {
+                    rs = dataLayer.selectTeachers();
+                }
             } else {
-                rs = dataLayer.selectTeachers();
+                rs = dataLayer.selectEmployees();
             }
 
             seznam.clear();
 
             while (rs.next()) {
-                List<String> list = FXCollections.observableArrayList(rs.getString("ID_VYUCUJICIHO"),
+                List<String> list = FXCollections.observableArrayList(rs.getString(skrytControlsProVyucujici ? "ID_ZAMESTNANEC" : "ID_VYUCUJICIHO"),
                         rs.getString("JMENO"), rs.getString("PRIJMENI"), rs.getString("TITUL_PRED"),
                         rs.getString("TITUL_ZA"), rs.getString("TELEFON"), rs.getString("MOBIL"),
                         rs.getString("EMAIL"), rs.getString("ZKRATKA_KATEDRY"), rs.getString("ZKRATKA_FAKULTY"));
@@ -205,7 +229,7 @@ public class FXMLVyucujiciController implements Initializable {
     private void predmetyButtonClick(ActionEvent event) {
         if (!(tableView.getItems().isEmpty() || tableView.getSelectionModel().getSelectedItem() == null)) {
             String origID = tableView.getSelectionModel().getSelectedItem().get(0);
-            
+
             KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPredmetu(origID, aktScena);
         }
     }
@@ -222,7 +246,7 @@ public class FXMLVyucujiciController implements Initializable {
 
     @FXML
     private void oboryButttonClick(ActionEvent event) {
-         KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledOboru();
+        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledOboru();
     }
 
     @FXML
@@ -232,8 +256,12 @@ public class FXMLVyucujiciController implements Initializable {
 
     @FXML
     private void prehledZamestnancuButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledZamestnancu();
+        if (!skrytControlsProVyucujici){
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledZamestnancu();
+        } else{
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu();
+        }
+        
     }
 
-   
 }
