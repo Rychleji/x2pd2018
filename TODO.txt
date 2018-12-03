@@ -6,6 +6,6 @@ TODO
 ?Upravit databazi podle noveho modelu? -done
 ?Upravit selecty/pohledy pro nove upravenou databazi? - done
 ?Prevest sql kod z aplikace do PL/SQL kodu do procedur, cursoru apod.? - done
-?Upravit aplikaci pro pouziti uzivatel/administrator/nereg.uzivatel? - pracuju na tom
+?Upravit aplikaci pro pouziti uzivatel/administrator/nereg.uzivatel? - #7
 ?Udelat joiny na omezeni, aby nemohla byt obsazena ucebna kde uz je zadana vyuka? - done
 více TODO na GitHub Issues

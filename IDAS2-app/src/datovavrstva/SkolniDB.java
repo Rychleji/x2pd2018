@@ -1,7 +1,6 @@
 package datovavrstva;
 
 import OracleConnector.OracleConnector;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import static jdk.nashorn.internal.objects.NativeJava.type;
 
 public class SkolniDB implements ISkolniDB {
 

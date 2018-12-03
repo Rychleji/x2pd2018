@@ -53,7 +53,7 @@ public class IDAS22018 extends Application {
     }
     
     public enum RezimProhlizeni{
-        ADMINISTRATOR("administrátor"), REGISTROVANY("registrovaný"), NEREGISTROVANY("neregistrovaný");
+        ADMINISTRATOR("Administrátor"), REGISTROVANY("Registrovaný"), NEREGISTROVANY("Neregistrovaný");
         
         private final String nazev;
         
