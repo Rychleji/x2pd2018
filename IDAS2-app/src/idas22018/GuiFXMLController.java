@@ -50,6 +50,8 @@ public class GuiFXMLController implements Initializable {
     List<String> ciselnikRoleVyuc = new ArrayList<>(2);
     Map<Integer, HelpClass> ciselnikZpusobZak = new HashMap<>(2);
     Map<Integer, HelpClass> ciselnikFormaVyuky = new HashMap<>(3);
+    Map<Integer, HelpClass> ciselnikRole = new HashMap<>(5);
+    Map<Integer, HelpClass> ciselnikOpravneni = new HashMap<>(3);
 
     @FXML
     private Label versionLabel;
@@ -89,6 +91,14 @@ public class GuiFXMLController implements Initializable {
     public Map<Integer, HelpClass> getCiselnikFormaVyuky() {
         return ciselnikFormaVyuky;
     }
+
+    public Map<Integer, HelpClass> getCiselnikRole() {
+        return ciselnikRole;
+    }
+
+    public Map<Integer, HelpClass> getCiselnikOpravneni() {
+        return ciselnikOpravneni;
+    }
     
     public void panelProRegistrovaneStatus(RezimProhlizeni rp){
         vboxZamestnancu.setDisable(rp==RezimProhlizeni.NEREGISTROVANY);
@@ -106,7 +116,6 @@ public class GuiFXMLController implements Initializable {
             dataLayer = new SkolniDB();
         }
         conn = dataLayer.getConnect();
-        //afterConnect();
         disablovatelnyButtonyVBox.setDisable(true);
         
         stageP.setOnShown((dd) -> {
@@ -209,6 +218,20 @@ public class GuiFXMLController implements Initializable {
                 while (rs.next()) {
                     HelpClass input = new HelpClass(rs.getInt("ID_ZZ"), rs.getString("ZPUSOB_ZAK"));
                     ciselnikZpusobZak.put(input.getId(), input);
+                }
+                
+                rs = query.executeQuery("select * from ROLE");
+
+                while (rs.next()) {
+                    HelpClass input = new HelpClass(rs.getInt("ID_ROLE"), rs.getString("TYPROLE"));
+                    ciselnikRole.put(input.getId(), input);
+                }
+                
+                rs = query.executeQuery("select * from OPRAVNENI");
+
+                while (rs.next()) {
+                    HelpClass input = new HelpClass(rs.getInt("ID_OPRAVNENI"), rs.getString("OPRAVNENI"));
+                    ciselnikOpravneni.put(input.getId(), input);
                 }
             } catch (SQLException ex) {
                 DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());
