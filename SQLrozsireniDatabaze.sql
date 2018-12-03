@@ -88,8 +88,7 @@ ALTER TABLE zamestnanec
 
 ALTER TABLE ROZVRHOVA_AKCE
   ADD (id_zamestnanec   NUMBER NOT NULL,
-    id_ucebna             NUMBER NOT NULL,
-    konciv                       TIMESTAMP NOT NULL);
+    id_ucebna             NUMBER NOT NULL);
 
 ALTER TABLE rozvrhova_akce
     ADD CONSTRAINT rozvrhova_akce_ucebna_fk FOREIGN KEY ( id_ucebna )
@@ -254,3 +253,9 @@ CREATE OR REPLACE VIEW ZAM_VIEW AS
   left join OPRAVNENI o on z.ID_OPRAVNENI = o.ID_OPRAVNENI
   left join ROLE r on z.ID_ROLE = r.ID_ROLE
   left join DATA d on z.ID_ZAMESTNANEC = d.ID_ZAMESTNANEC;
+  
+ALTER TABLE udaje
+ADD CONSTRAINT prihlasovacijmeno_unique UNIQUE (uzivatelskejmeno); --musí být jedinečné
+
+ALTER TABLE ucebna
+ADD CONSTRAINT ucebnanazev_unique UNIQUE (nazev); --musí být jedinečné

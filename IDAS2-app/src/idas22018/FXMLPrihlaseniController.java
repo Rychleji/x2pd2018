@@ -3,16 +3,12 @@ package idas22018;
 import static idas22018.IDAS22018.prihlaseno;
 import idas22018.dialogy.DialogChyba;
 import java.net.URL;
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Types;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,13 +40,14 @@ public class FXMLPrihlaseniController implements Initializable {
 
     @FXML
     private void neregistrovanyClick(ActionEvent event) {//prohlížení
+        IDAS22018.mainController.controlsProVyucujici("neregistrovaný");
         zavrit(IDAS22018.RezimProhlizeni.NEREGISTROVANY);
     }
     
     private void zavrit(IDAS22018.RezimProhlizeni druhProhlizeni){
         IDAS22018.druhProhlizeni = druhProhlizeni;
         IDAS22018.mainController.panelProRegistrovaneStatus(druhProhlizeni);
-        IDAS22018.mainController.controlsProVyucujici("VYUČUJÍCÍ"); //TODO
+        
         Stage stage = (Stage) prihlasitButton.getScene().getWindow();
         // do what you have to do
         stage.close();
@@ -70,7 +67,7 @@ public class FXMLPrihlaseniController implements Initializable {
             
             Statement statement = conn.createStatement();
 
-            rs = statement.executeQuery("select OPRAVNENI from ZAM_VIEW where ID_ZAMESTNANEC = " + String.valueOf(IDAS22018.idPrihlasenehoZamestnance));
+            rs = statement.executeQuery("select OPRAVNENI, TYPROLE from ZAM_VIEW where ID_ZAMESTNANEC = " + String.valueOf(IDAS22018.idPrihlasenehoZamestnance));
             rs.next();
             
             IDAS22018.RezimProhlizeni rezim = IDAS22018.RezimProhlizeni.NEREGISTROVANY;
@@ -79,6 +76,8 @@ public class FXMLPrihlaseniController implements Initializable {
                 if(hod.toString().equalsIgnoreCase(rs.getString("OPRAVNENI")))
                     rezim = hod;
             }
+            
+            IDAS22018.mainController.controlsProVyucujici(rs.getString("TYPROLE"));
             
             zavrit(rezim);
         } catch (SQLException ex) {
