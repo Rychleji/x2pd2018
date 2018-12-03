@@ -3,6 +3,7 @@ package datovavrstva;
 import OracleConnector.OracleConnector;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -468,7 +469,11 @@ public class SkolniDB implements ISkolniDB {
 
     @Override
     public void addClassroom(String name, int capacity) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CallableStatement stmt = connect.prepareCall("{call VLOZUCEBNU(?,?)}");
+        stmt.setString(1, name);
+        stmt.setInt(2, capacity);
+        
+        stmt.executeUpdate();
     }
 
     @Override

@@ -8,6 +8,7 @@ package idas22018;
 import datovavrstva.ISkolniDB;
 import static idas22018.IDAS22018.close;
 import idas22018.dialogy.DialogChyba;
+import idas22018.dialogy.DialogPridejUcebnu;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -58,17 +59,19 @@ public class FXMLUcebnaController implements Initializable {
         pridejButton.setDisable(IDAS22018.druhProhlizeni != IDAS22018.RezimProhlizeni.ADMINISTRATOR);
         upravButton.setDisable(IDAS22018.druhProhlizeni != IDAS22018.RezimProhlizeni.ADMINISTRATOR);
         odeberButton.setDisable(IDAS22018.druhProhlizeni != IDAS22018.RezimProhlizeni.ADMINISTRATOR);
-        
+
         nazevCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
         kapacitaCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));
         tableView.setItems(seznam);
-        
+
         fillTable();
-        
+
     }
 
     @FXML
     private void okButtonClick(ActionEvent event) {
+        dataLayer.commit();
+        close(predScena);
     }
 
     @FXML
@@ -79,6 +82,23 @@ public class FXMLUcebnaController implements Initializable {
 
     @FXML
     private void pridejButtonClick(ActionEvent event) {
+        DialogPridejUcebnu dialog = new DialogPridejUcebnu(pridejButton.getParent().getScene().getWindow(), dataLayer.getConnect());
+        dialog.showAndWait();
+
+        if (dialog.isButtonPressed()) {
+            try {
+                dataLayer.addClassroom("dudu", 10);
+                dataLayer.commit();
+                //dataLayer.addClassroom(dialog.getZkratkaPredmetu(), dialog.getKapacita());
+             
+                //dataLayer.commit();
+                //fillTable();
+            } catch (SQLException ex) {
+                System.out.println("pusss");
+                DialogChyba dialogChyba = new DialogChyba(null, ex.getMessage());
+                dialog.showAndWait();
+            }
+        }
     }
 
     @FXML
@@ -114,16 +134,16 @@ public class FXMLUcebnaController implements Initializable {
     }
 
     private void fillTable() {
-        try{
+        try {
             ResultSet rs = dataLayer.selectClassromm();
-            
+
             seznam.clear();
-            
+
             while (rs.next()) {
                 List<String> list = FXCollections.observableArrayList(rs.getString("NAZEV"), rs.getString("KAPACITA"));
                 seznam.add(list);
             }
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());
             dialog2.showAndWait();
         }
