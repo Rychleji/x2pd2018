@@ -200,17 +200,17 @@ public class SkolniDB implements ISkolniDB {
     }
 
     @Override
-    public void editSchedule(int id, int numberOfStudents, float startsAt, int span, String subjectShort, int type, String teacherRole, int teacherId, int roomId) throws SQLException {
+    public void editSchedule(int id, int numberOfStudents, float startsAt, float span, String subjectShort, int type, String teacherRole, int teacherId, int roomId) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        stmt.execute(String.format("exec UPRAVROZVRHOVOUAKCI(%d, %d, %d, %f, %s, %d, %s, %d, %d)", id, numberOfStudents, span, startsAt, subjectShort, type, teacherRole, teacherId, roomId));
+        stmt.execute(String.format("exec UPRAVROZVRHOVOUAKCI(%d, %d, %f, %f, %s, %d, %s, %d, %d)", id, numberOfStudents, span, startsAt, subjectShort, type, teacherRole, teacherId, roomId));
     }
 
     @Override
-    public void addSchedule(int numberOfStudents, float startsAt, int span, String subjectShort, int type, String teacherRole, int teacherId, int roomId) throws SQLException {
+    public void addSchedule(int numberOfStudents, float startsAt, float span, String subjectShort, int type, String teacherRole, int teacherId, int roomId) throws SQLException {
         Statement stmt = connect.createStatement();
 
-        stmt.execute(String.format("exec VLOZROZVRHOVOUAKCI(%d, %d, %f, %s, %d, %s, %d, %d)", numberOfStudents, span, startsAt, subjectShort, type, teacherRole, teacherId, roomId));
+        stmt.execute(String.format("exec VLOZROZVRHOVOUAKCI(%d, %f, %f, %s, %d, %s, %d, %d)", numberOfStudents, span, startsAt, subjectShort, type, teacherRole, teacherId, roomId));
     }
 
     @Override
