@@ -1,7 +1,11 @@
 package idas22018;
 
 //import static idas22018.KnihovnaZobrazovani.getKnihovnaZobrazovani;
+import idas22018.dialogy.DialogChyba;
+import idas22018.dialogy.DialogCommitRollback;
+import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,7 +26,33 @@ public class IDAS22018 extends Application {
     public static boolean prihlaseno = false;
     public static RezimProhlizeni druhProhlizeni = RezimProhlizeni.NEREGISTROVANY;
     public static int idPrihlasenehoZamestnance;
-    //public static KnihovnaZobrazovani knihovnaZobrazovani = getKnihovnaZobrazovani();
+    
+    public static boolean prejdiZOknaBezCommitu(){
+        boolean ukoncit = true;
+        Connection conn = mainController.getDataLayer().getConnect();
+        
+        DialogCommitRollback dialog = new DialogCommitRollback(null);
+        dialog.showAndWait();
+       
+        try {
+            switch(dialog.getVysl()){
+                case COMMIT:
+                    conn.commit();
+                    break;
+                case ROLLBACK:
+                    conn.rollback();
+                    break;
+                case CANCEL:
+                    ukoncit = false;
+                    break;
+            }
+        } catch (SQLException ex) {
+            ukoncit = false;
+            DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());
+            dialog2.showAndWait();
+        }
+        return ukoncit;
+    }
     
     public static void close(Scene predchoziScena) {
         stageP.setScene(predchoziScena);

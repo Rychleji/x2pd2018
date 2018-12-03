@@ -63,7 +63,7 @@ public class DialogPridejRA extends Stage {
 
     int pocetStudentu = 15, zpusobVyuky=0, ucebnaId, idVyuc;
     
-    float zacinaV = 8, maHodin = 2;
+    double zacinaV = 8.0, maHodin = 2.0;
     
     private String zkratkaPr, roleVyuc;
 
@@ -72,7 +72,7 @@ public class DialogPridejRA extends Stage {
     }
 
     public float getMaHodin() {
-        return maHodin;
+        return (float) maHodin;
     }
 
     public int getPocetStudentu() {
@@ -84,7 +84,7 @@ public class DialogPridejRA extends Stage {
     }
 
     public float getZacinaV() {
-        return zacinaV;
+        return (float) zacinaV;
     }
 
     public String getZkratkaPr() {
@@ -205,9 +205,9 @@ public class DialogPridejRA extends Stage {
         } catch (SQLException ex) {
             Logger.getLogger(DialogPridejRA.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Spinner<Float> zacinaVSp = new Spinner<>(0.0, 19.0, zacinaV, 0.5);
+        Spinner<Double> zacinaVSp = new Spinner<>(0.0, 19.0, zacinaV, 0.5);
         Spinner<Integer> pocetStudentuSp = new Spinner<>(1, Integer.MAX_VALUE-1, pocetStudentu, 1);
-        Spinner<Float> maHodinSp = new Spinner<>(0.1, 5.0, maHodin, 0.25);
+        Spinner<Double> maHodinSp = new Spinner<>(0.1, 5.0, maHodin, 0.25);
         ComboBox<String> ucebnaCb = new ComboBox<>();
         try {
             stmt = conn.createStatement();
@@ -278,7 +278,8 @@ public class DialogPridejRA extends Stage {
                 
                 ResultSet rs1;
                 Statement stmt1 = conn.createStatement();
-                rs1 = stmt1.executeQuery("select ID_UCEBNA from UCEBNA where NAZEV = "+ ucebnaCb.getValue());
+                String help = String.format("select ID_UCEBNA from UCEBNA where NAZEV = '%s'", ucebnaCb.getValue());
+                rs1 = stmt1.executeQuery(help);
                 rs1.next();
                 
                 ucebnaId = rs1.getInt("ID_UCEBNA");

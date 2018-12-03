@@ -22,11 +22,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 public class FXMLRozvrhoveAkceController implements Initializable {
-    
+
     ISkolniDB dataLayer;
     ObservableList<List<String>> seznam = FXCollections.observableArrayList();
     String vyucId, subjId;
-    
+
     @FXML
     private TableView<List<String>> tableView;
     @FXML
@@ -59,8 +59,9 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     private Button upravButton;
     @FXML
     private Button odeberButton;
-    
+
     boolean vlastni = false;
+    boolean zmeny = false;
 
     /**
      * Initializes the controller class.
@@ -68,12 +69,12 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         dataLayer = GuiFXMLController.getDataLayer();
-        
-        schvalitButton.setDisable((IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR));
-        pridejButton.setDisable((IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR)||vlastni);
-        upravButton.setDisable((IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR)||vlastni);
-        odeberButton.setDisable((IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR)||vlastni);
-        
+
+        schvalitButton.setDisable((IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR));
+        pridejButton.setDisable((IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR) || vlastni);
+        upravButton.setDisable((IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR) || vlastni);
+        odeberButton.setDisable((IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR) || vlastni);
+
         idCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
         zkratkaCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));
         predmetCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(2)));
@@ -84,46 +85,51 @@ public class FXMLRozvrhoveAkceController implements Initializable {
         zpusobCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(7)));
         ucebnaCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(8)));
         schvalenoCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(9)));
-        
+
         tableView.setItems(seznam);
         fillTable();
     }
-    
+
     public void setVyucId(String vyucId) {
         this.vyucId = vyucId;
-        if (vyucId != null)
+        if (vyucId != null) {
             fillTable();
+        }
     }
-    
+
     public void setSubjId(String subjId) {
         this.subjId = subjId;
-        if (subjId != null)
+        if (subjId != null) {
             fillTable();
+        }
     }
-    
+
     @FXML
     private void okButtonClick(ActionEvent event) {
         dataLayer.commit();
+        zmeny = false;
         close(predScena);
     }
-    
+
     @FXML
     private void cancelButtonClick(ActionEvent event) {
         dataLayer.rollback();
+        zmeny = false;
         close(predScena);
     }
-    
+
     @FXML
     private void pridejButtonClick(ActionEvent event) {
-        DialogPridejRA dialog2 = new DialogPridejRA(schvalitButton.getParent().getScene().getWindow(), dataLayer.getConnect(), 
-            0, subjId, vyucId==null?0:Integer.parseInt(vyucId));
+        DialogPridejRA dialog2 = new DialogPridejRA(schvalitButton.getParent().getScene().getWindow(), dataLayer.getConnect(),
+                0, subjId, vyucId == null ? 0 : Integer.parseInt(vyucId));
         dialog2.showAndWait();
-        
+
         if (dialog2.isButtonPressed()) {
             try {
                 dataLayer.addSchedule(dialog2.getPocetStudentu(), dialog2.getZacinaV(),
                         dialog2.getMaHodin(), dialog2.getZkratkaPr(), dialog2.getZpusobVyuky(),
                         dialog2.getRoleVyuc(), dialog2.getIdVyuc(), dialog2.getUcebnaId());
+                zmeny = true;
                 fillTable();
             } catch (SQLException ex) {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -131,19 +137,20 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             }
         }
     }
-    
+
     @FXML
     private void upravButtonClick(ActionEvent event) {
         int origID = Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0));
         DialogPridejRA dialog2 = new DialogPridejRA(schvalitButton.getParent().getScene().getWindow(),
-                dataLayer.getConnect(), origID, subjId, vyucId==null?0:Integer.parseInt(vyucId));
+                dataLayer.getConnect(), origID, subjId, vyucId == null ? 0 : Integer.parseInt(vyucId));
         dialog2.showAndWait();
-        
+
         if (dialog2.isButtonPressed()) {
             try {
                 dataLayer.editSchedule(origID, dialog2.getPocetStudentu(), dialog2.getZacinaV(),
                         dialog2.getMaHodin(), dialog2.getZkratkaPr(), dialog2.getZpusobVyuky(),
                         dialog2.getRoleVyuc(), dialog2.getIdVyuc(), dialog2.getUcebnaId());
+                zmeny = true;
                 fillTable();
             } catch (SQLException ex) {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -151,25 +158,26 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             }
         }
     }
-    
+
     @FXML
     private void odeberButtonClick(ActionEvent event) {
         int origID = Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0));
-        
+
         try {
             dataLayer.deleteSchedule(origID);
+            zmeny = true;
             fillTable();
         } catch (SQLException ex) {
             DialogChyba dialog = new DialogChyba(null, ex.getMessage());
             dialog.showAndWait();
         }
-        
+
     }
-    
+
     private void fillTable() {
         try {
             ResultSet rs = null;
-            
+
             if (vyucId != null) {
                 rs = dataLayer.selectSchedules_byTeacherId(vyucId);
             } else if (subjId != null) {
@@ -178,11 +186,11 @@ public class FXMLRozvrhoveAkceController implements Initializable {
                 rs = dataLayer.selectSchedules();
             }
             seznam.clear();
-            
+
             while (rs.next()) {
                 String tP = rs.getString("TITUL_PRED") == null ? "" : rs.getString("TITUL_PRED");
                 String tZ = rs.getString("TITUL_ZA") == null ? "" : rs.getString("TITUL_ZA");
-                
+
                 List<String> list = FXCollections.observableArrayList(rs.getString("ID_ROZVRHOVE_AKCE"),
                         rs.getString("ZKRATKA_PREDMETU"), rs.getString("NAZEV_PREDMETU"),
                         tP + " " + rs.getString("JMENO_VYUCUJICIHO") + " "
@@ -197,35 +205,50 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             dialog2.showAndWait();
         }
     }
-    
+
     public void setScenes(Scene predScena, Scene aktScena) {
         this.predScena = predScena;
         this.aktScena = aktScena;
     }
-    
+
     @FXML
     private void vyucujiciButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu();
+        }
     }
-    
+
     @FXML
     private void predmetyButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPredmetu();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPredmetu();
+        }
     }
-    
+
     @FXML
     private void oboryButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledOboru();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledOboru();
+        }
     }
-    
+
     @FXML
     private void pracovisteButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPracovist();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPracovist();
+        }
     }
-    
+
     @FXML
     private void zamestnanciButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledZamestnancu();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledZamestnancu();
+        }
     }
 
     @FXML
@@ -233,6 +256,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
         try {
             Statement st = dataLayer.getConnect().createStatement();
             st.execute(String.format("EXEC schvalAkci(%d)", Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0))));
+            zmeny = true;
         } catch (SQLException ex) {
             DialogChyba dialog = new DialogChyba(null, ex.getMessage());
             dialog.showAndWait();
