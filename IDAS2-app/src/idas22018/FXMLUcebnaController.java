@@ -87,12 +87,11 @@ public class FXMLUcebnaController implements Initializable {
 
         if (dialog.isButtonPressed()) {
             try {
-                dataLayer.addClassroom("dudu", 10);
-                dataLayer.commit();
-                //dataLayer.addClassroom(dialog.getZkratkaPredmetu(), dialog.getKapacita());
+                //dataLayer.commit();
+                dataLayer.addClassroom(dialog.getZkratkaPredmetu(), dialog.getKapacita());
              
                 //dataLayer.commit();
-                //fillTable();
+                fillTable();
             } catch (SQLException ex) {
                 System.out.println("pusss");
                 DialogChyba dialogChyba = new DialogChyba(null, ex.getMessage());
