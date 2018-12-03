@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="447.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas22018.GuiFXMLController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="447.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas22018.GuiFXMLController">
    <top>
       <Label text="Editor databáze" textFill="#100365" BorderPane.alignment="CENTER">
          <font>
@@ -26,7 +26,7 @@
                   <Button mnemonicParsing="false" onAction="#pracovisteButtonClick" prefWidth="150.0" text="Pracoviště" />
                   <Button mnemonicParsing="false" onAction="#predmetyButtonClick" prefWidth="150.0" text="Předměty" />
                   <Button mnemonicParsing="false" onAction="#oborButtonClick" prefWidth="150.0" text="Obory" />
-                  <Button mnemonicParsing="false" prefWidth="150.0" text="Učebny" />
+                  <Button mnemonicParsing="false" onAction="#clickUcebnyButton" prefWidth="150.0" text="Učebny" />
                </children>
             </VBox>
             <VBox fx:id="vboxZamestnancu" alignment="CENTER" disable="true" spacing="3.0" VBox.vgrow="SOMETIMES">

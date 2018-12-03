@@ -272,6 +272,11 @@ public class GuiFXMLController implements Initializable {
     private void raButtonAction(ActionEvent event) {
     }
 
+    @FXML
+    private void clickUcebnyButton(ActionEvent event) {
+        getKnihovnaZobrazovani().zobrazPrehledUceben();
+    }
+
     public class HelpClass {
 
         int id;

@@ -453,6 +453,13 @@ public class SkolniDB implements ISkolniDB {
 
         return statement.executeQuery("select * from PRACOVISTE");
     }
+    
+    @Override
+    public ResultSet selectClassromm() throws SQLException{
+        Statement statement = connect.createStatement();
+
+        return statement.executeQuery("select * from UCEBNA");
+    }
 
     @Override
     public void editClassroom(int id, String name, int capacity) throws SQLException {

@@ -74,7 +74,9 @@ public interface ISkolniDB {
     public void addClassroom(String name, int capacity) throws SQLException;
     
     public void deleteClassroom(int id) throws SQLException;
-
+    
+    public ResultSet selectClassromm() throws SQLException; 
+    
     public ResultSet selectTeacher(String id) throws SQLException;
 
     public ResultSet selectTeachers() throws SQLException;

@@ -278,4 +278,23 @@ public final class KnihovnaZobrazovani {
             e.printStackTrace();
         }
     }
+
+    public void zobrazPrehledUceben() {
+        zobrazPrehledUceben(IDAS22018.mainScene);
+    }
+    
+    private void zobrazPrehledUceben(Scene predchoziScena){
+       Parent root;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLUcebna.fxml"));
+            root = loader.load();
+            FXMLUcebnaController controller = loader.<FXMLUcebnaController>getController();
+            Scene scena = new Scene(root);
+            controller.setScenes(IDAS22018.mainScene, scena);
+            stageP.setScene(scena);
+            stageP.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
