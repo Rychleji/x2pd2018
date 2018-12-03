@@ -10,8 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -117,39 +115,41 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     
     @FXML
     private void pridejButtonClick(ActionEvent event) {
-        DialogPridejRA dialog2 = new DialogPridejRA(null);
+        DialogPridejRA dialog2 = new DialogPridejRA(schvalitButton.getParent().getScene().getWindow(), dataLayer.getConnect(), 
+            0, subjId, vyucId==null?0:Integer.parseInt(vyucId));
         dialog2.showAndWait();
         
-        /*if (dialog2.isButtonPressed()) {
+        if (dialog2.isButtonPressed()) {
             try {
                 dataLayer.addSchedule(dialog2.getPocetStudentu(), dialog2.getZacinaV(),
                         dialog2.getMaHodin(), dialog2.getZkratkaPr(), dialog2.getZpusobVyuky(),
-                        dialog2.getRoleVyuc(), dialog2.getIdVyuc());
+                        dialog2.getRoleVyuc(), dialog2.getIdVyuc(), dialog2.getUcebnaId());
                 fillTable();
             } catch (SQLException ex) {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
                 dialog.showAndWait();
             }
-        }*/ //TODO
+        }
     }
     
     @FXML
     private void upravButtonClick(ActionEvent event) {
         int origID = Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0));
-        DialogPridejRA dialog2 = new DialogPridejRA(null);
+        DialogPridejRA dialog2 = new DialogPridejRA(schvalitButton.getParent().getScene().getWindow(),
+                dataLayer.getConnect(), origID, subjId, vyucId==null?0:Integer.parseInt(vyucId));
         dialog2.showAndWait();
         
-        /*if (dialog2.isButtonPressed()) {
+        if (dialog2.isButtonPressed()) {
             try {
                 dataLayer.editSchedule(origID, dialog2.getPocetStudentu(), dialog2.getZacinaV(),
                         dialog2.getMaHodin(), dialog2.getZkratkaPr(), dialog2.getZpusobVyuky(),
-                        dialog2.getRoleVyuc(), dialog2.getIdVyuc());
+                        dialog2.getRoleVyuc(), dialog2.getIdVyuc(), dialog2.getUcebnaId());
                 fillTable();
             } catch (SQLException ex) {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
                 dialog.showAndWait();
             }
-        }*/ //TODO
+        }
     }
     
     @FXML
