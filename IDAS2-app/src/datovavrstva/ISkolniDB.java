@@ -5,7 +5,6 @@
  */
 package datovavrstva;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -69,6 +68,12 @@ public interface ISkolniDB {
     public void addSchedule(int numberOfStudents, float startsAt, int span, String subjectShort, int type, String teacherRole, int teacherId, int roomId) throws SQLException;
 
     public void deleteSchedule(int id) throws SQLException;
+    
+    public void editClassroom(int id, String name, int capacity) throws SQLException;
+    
+    public void addClassroom(String name, int capacity) throws SQLException;
+    
+    public void deleteClassroom(int id) throws SQLException;
 
     public ResultSet selectTeacher(String id) throws SQLException;
 
@@ -127,4 +132,6 @@ public interface ISkolniDB {
     public ResultSet selectSchedules() throws SQLException;
     
     public ResultSet selectWorkSpaces() throws SQLException;
+    
+    public ResultSet selectEmployees() throws SQLException;
 }

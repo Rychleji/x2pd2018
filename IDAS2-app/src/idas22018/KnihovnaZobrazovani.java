@@ -3,7 +3,6 @@ package idas22018;
 import static idas22018.IDAS22018.stageP;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
@@ -38,9 +37,10 @@ public final class KnihovnaZobrazovani {
     public void zobrazPrehledZamestnancu(Scene predchoziScena) {
         Parent root;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLZamestnanci.fxml")); //nemuze byt staticke
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLVyucujici.fxml"));
             root = loader.load();
-            FXMLZamestnanciController controller = loader.<FXMLZamestnanciController>getController();
+            FXMLVyucujiciController controller = loader.<FXMLVyucujiciController>getController();
+            controller.setSkrytVeci(true);
             Scene scena = new Scene(root);
             controller.setScenes(predchoziScena, scena);
             stageP.setScene(scena);

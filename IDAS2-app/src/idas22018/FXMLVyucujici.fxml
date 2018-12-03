@@ -15,7 +15,7 @@
    <top>
       <FlowPane alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Vyučující" textFill="#100365">
+            <Label fx:id="nadpisLabel" text="Vyučující" textFill="#100365">
                <font>
                   <Font name="Arial" size="47.0" />
                </font>
@@ -51,16 +51,16 @@
    <center>
       <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="idCol" prefWidth="59.20002746582031" text="ID" />
-          <TableColumn fx:id="jmenoCol" text="Jméno" />
+          <TableColumn fx:id="idCol" prefWidth="45.0" text="ID" />
+          <TableColumn fx:id="jmenoCol" prefWidth="95.0" text="Jméno" />
             <TableColumn fx:id="prijmeniCol" prefWidth="92.800048828125" text="Příjmení" />
             <TableColumn fx:id="titulPredCol" prefWidth="59.200042724609375" text="Titul před" />
             <TableColumn fx:id="titulZaCol" prefWidth="61.600006103515625" text="Titul za" />
             <TableColumn fx:id="telefonCol" prefWidth="90.4000244140625" text="Telefon" />
-            <TableColumn fx:id="mobilCol" prefWidth="100.0" text="Mobil" />
-            <TableColumn fx:id="emailCol" prefWidth="96.0" text="E-mail" />
-            <TableColumn fx:id="katedraCol" prefWidth="65.5999755859375" text="Katedra" />
-            <TableColumn fx:id="fakultaCol" prefWidth="140.00006103515625" text="Fakulta" />
+            <TableColumn fx:id="mobilCol" prefWidth="90.0" text="Mobil" />
+            <TableColumn fx:id="emailCol" prefWidth="176.0" text="E-mail" />
+            <TableColumn fx:id="katedraCol" prefWidth="65.0" text="Katedra" />
+            <TableColumn fx:id="fakultaCol" prefWidth="72.0" text="Fakulta" />
         </columns>
       </TableView>
    </center>
@@ -76,8 +76,8 @@
                   <Insets />
                </opaqueInsets></Button>
             <Button fx:id="odeberButton" mnemonicParsing="false" onAction="#odeberButtonClick" prefHeight="30.0" prefWidth="140.0" text="Odeber" />
-            <Button mnemonicParsing="false" onAction="#akceButtonClick" prefHeight="30.0" prefWidth="140.0" text="Rozvrhové akce" />
-            <Button mnemonicParsing="false" onAction="#predmetyButtonClick" prefHeight="30.0" prefWidth="140.0" text="Vyučované předměty" />
+            <Button fx:id="akceFiltrButton" mnemonicParsing="false" onAction="#akceButtonClick" prefHeight="30.0" prefWidth="140.0" text="Rozvrhové akce" />
+            <Button fx:id="predmetyFiltrButton" mnemonicParsing="false" onAction="#predmetyButtonClick" prefHeight="30.0" prefWidth="140.0" text="Vyučované předměty" />
             <Label text="NAVIGACE" underline="true">
                <font>
                   <Font name="System Bold" size="22.0" />
@@ -86,12 +86,12 @@
             <Button mnemonicParsing="false" onAction="#pracovisteButtonClick" prefHeight="30.0" prefWidth="140.0" text="Pracoviště" />
             <Button mnemonicParsing="false" onAction="#prehledPredmetuButtonClick" prefHeight="30.0" prefWidth="140.0" text="Předměty" />
             <Button mnemonicParsing="false" onAction="#oboryButttonClick" prefHeight="30.0" prefWidth="140.0" text="Obory" />
-            <Button mnemonicParsing="false" onAction="#prehledZamestnancuButtonClick" prefHeight="30.0" prefWidth="140.0" text="Zaměstnanci" />
+            <Button fx:id="zamestnanciButton" mnemonicParsing="false" onAction="#prehledZamestnancuButtonClick" prefHeight="30.0" prefWidth="140.0" text="Zaměstnanci" />
          </children>
       </VBox>
    </right>
    <left>
-      <VBox alignment="CENTER" prefHeight="445.0" prefWidth="190.0" spacing="5.0" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="445.0" prefWidth="190.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Foto:">
                <font>
