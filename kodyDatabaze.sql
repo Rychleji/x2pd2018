@@ -262,7 +262,14 @@ BEGIN
     WHERE ID_RA = p_id;
 END;
 /
-
+create or replace PROCEDURE schvalAkci (p_id Number)
+IS
+BEGIN
+    UPDATE ROZVRHOVA_AKCE 
+    SET SCHVALENO = 1
+    WHERE ID_RA = p_id;
+END;
+/
 -------TRIGGERY-------
 
 CREATE OR REPLACE TRIGGER BeforePredmetDelete

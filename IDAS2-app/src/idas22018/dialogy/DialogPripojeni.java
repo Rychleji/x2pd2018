@@ -48,7 +48,7 @@ public class DialogPripojeni extends Stage {
         setHeight(200);
 
         initStyle(StageStyle.UTILITY);
-        initModality(Modality.WINDOW_MODAL);
+        initModality(Modality.APPLICATION_MODAL);
         initOwner(okno);
 
         setScene(vytvorScenu());

@@ -7,8 +7,11 @@ import idas22018.dialogy.DialogPridejRA;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -45,6 +49,20 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     private TableColumn<List<String>, String> zpusobCol;
     private Scene predScena;
     private Scene aktScena;
+    @FXML
+    private TableColumn<List<String>, String> ucebnaCol;
+    @FXML
+    private TableColumn<List<String>, String> schvalenoCol;
+    @FXML
+    private Button schvalitButton;
+    @FXML
+    private Button pridejButton;
+    @FXML
+    private Button upravButton;
+    @FXML
+    private Button odeberButton;
+    
+    boolean vlastni = false;
 
     /**
      * Initializes the controller class.
@@ -52,6 +70,11 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         dataLayer = GuiFXMLController.getDataLayer();
+        
+        schvalitButton.setDisable((IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR));
+        pridejButton.setDisable((IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR)||vlastni);
+        upravButton.setDisable((IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR)||vlastni);
+        odeberButton.setDisable((IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR)||vlastni);
         
         idCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
         zkratkaCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));
@@ -61,6 +84,8 @@ public class FXMLRozvrhoveAkceController implements Initializable {
         zacatekCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(5)));
         maHodinCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(6)));
         zpusobCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(7)));
+        ucebnaCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(8)));
+        schvalenoCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(9)));
         
         tableView.setItems(seznam);
         fillTable();
@@ -163,7 +188,8 @@ public class FXMLRozvrhoveAkceController implements Initializable {
                         tP + " " + rs.getString("JMENO_VYUCUJICIHO") + " "
                         + rs.getString("PRIJMENI_VYUCUJICIHO") + " " + tZ,
                         rs.getString("ROLE_VYUCUJICIHO_ROLE"), rs.getString("ZACINAV"),
-                        rs.getString("MAHODIN"), rs.getString("ZPUSOB"));
+                        rs.getString("MAHODIN"), rs.getString("ZPUSOB"), rs.getString("NAZEV_UCEBNY"),
+                        rs.getString("SCHVALENO"));
                 seznam.add(list);
             }
         } catch (SQLException ex) {
@@ -200,5 +226,16 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     @FXML
     private void zamestnanciButtonClick(ActionEvent event) {
         KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledZamestnancu();
+    }
+
+    @FXML
+    private void onSchvalitButtonClick(ActionEvent event) {
+        try {
+            Statement st = dataLayer.getConnect().createStatement();
+            st.execute(String.format("EXEC schvalAkci(%d)", Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0))));
+        } catch (SQLException ex) {
+            DialogChyba dialog = new DialogChyba(null, ex.getMessage());
+            dialog.showAndWait();
+        }
     }
 }
