@@ -261,16 +261,17 @@ MODIFY MAHODIN NUMBER(5,3);
 
 create table DNYVTYDNU(
     DEN VARCHAR2(10) NOT NULL,
+	PRIORITA NUMBER(1) DEFAULT(1) NOT NULL,
     CONSTRAINT den_pk PRIMARY KEY (den)
 );
 
-insert into DNYVTYDNU values('Pondělí');
-insert into DNYVTYDNU values('Úterý');
-insert into DNYVTYDNU values('Středa');
-insert into DNYVTYDNU values('Čtvrtek');
-insert into DNYVTYDNU values('Pátek');
-insert into DNYVTYDNU values('Sobota');
-insert into DNYVTYDNU values('Neděle');
+insert into DNYVTYDNU values('Pondělí', 1);
+insert into DNYVTYDNU values('Úterý', 2);
+insert into DNYVTYDNU values('Středa', 3);
+insert into DNYVTYDNU values('Čtvrtek', 4);
+insert into DNYVTYDNU values('Pátek', 5);
+insert into DNYVTYDNU values('Sobota', 6);
+insert into DNYVTYDNU values('Neděle', 7);
 
 alter table ROZVRHOVA_AKCE
     ADD DENVTYDNU VARCHAR2(10) DEFAULT('Pondělí') NOT NULL; 

@@ -5,9 +5,9 @@ import static idas22018.IDAS22018.*;
 import idas22018.dialogy.DialogChyba;
 import idas22018.dialogy.DialogPridejRA;
 import java.net.URL;
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -135,7 +135,8 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             try {
                 dataLayer.addSchedule(dialog2.getPocetStudentu(), dialog2.getZacinaV(),
                         dialog2.getMaHodin(), dialog2.getZkratkaPr(), dialog2.getZpusobVyuky(),
-                        dialog2.getRoleVyuc(), dialog2.getIdVyuc(), dialog2.getUcebnaId());
+                        dialog2.getRoleVyuc(), dialog2.getIdVyuc(), dialog2.getUcebnaId(),
+                        dialog2.getDen());
                 zmeny = true;
                 fillTable();
             } catch (SQLException ex) {
@@ -156,7 +157,8 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             try {
                 dataLayer.editSchedule(origID, dialog2.getPocetStudentu(), dialog2.getZacinaV(),
                         dialog2.getMaHodin(), dialog2.getZkratkaPr(), dialog2.getZpusobVyuky(),
-                        dialog2.getRoleVyuc(), dialog2.getIdVyuc(), dialog2.getUcebnaId());
+                        dialog2.getRoleVyuc(), dialog2.getIdVyuc(), dialog2.getUcebnaId(),
+                        dialog2.getDen());
                 zmeny = true;
                 fillTable();
             } catch (SQLException ex) {
@@ -263,9 +265,12 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     @FXML
     private void onSchvalitButtonClick(ActionEvent event) {
         try {
-            Statement st = dataLayer.getConnect().createStatement();
-            st.execute(String.format("EXEC schvalAkci(%d)", Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0))));
+            CallableStatement stmt = dataLayer.getConnect().prepareCall("{call schvalAkci(?)}");
+            stmt.setInt(1, Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0)));
+        
+            stmt.executeUpdate();
             zmeny = true;
+            fillTable();
         } catch (SQLException ex) {
             DialogChyba dialog = new DialogChyba(null, ex.getMessage());
             dialog.showAndWait();
