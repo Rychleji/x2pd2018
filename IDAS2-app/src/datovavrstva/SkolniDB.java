@@ -209,9 +209,21 @@ public class SkolniDB implements ISkolniDB {
 
     @Override
     public void addSchedule(int numberOfStudents, float startsAt, float span, String subjectShort, int type, String teacherRole, int teacherId, int roomId) throws SQLException {
-        Statement stmt = connect.createStatement();
+        CallableStatement stmt = connect.prepareCall("{call VLOZROZVRHOVOUAKCI(?,?,?,?,?,?,?,?)}");
+        stmt.setInt(1, numberOfStudents);
+        stmt.setFloat(2, span);
+        stmt.setFloat(3, startsAt);
+        stmt.setString(4, subjectShort);
+        stmt.setInt(5, type);
+        stmt.setString(6, teacherRole);
+        stmt.setInt(7, teacherId);
+        stmt.setInt(8, roomId);
+        
+        stmt.executeUpdate();
+        
+        //Statement stmt = connect.createStatement();
 
-        stmt.execute(String.format("exec VLOZROZVRHOVOUAKCI(%d, %f, %f, %s, %d, %s, %d, %d)", numberOfStudents, span, startsAt, subjectShort, type, teacherRole, teacherId, roomId));
+        //stmt.execute(String.format("exec VLOZROZVRHOVOUAKCI(%d, %f, %f, %s, %d, %s, %d, %d)", numberOfStudents, span, startsAt, subjectShort, type, teacherRole, teacherId, roomId));
     }
 
     @Override
