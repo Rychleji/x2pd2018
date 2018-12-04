@@ -1,14 +1,20 @@
 package datovavrstva;
 
 import OracleConnector.OracleConnector;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javafx.scene.image.Image;
+import javax.imageio.ImageIO;
 
 public class SkolniDB implements ISkolniDB {
 
@@ -73,19 +79,36 @@ public class SkolniDB implements ISkolniDB {
     }
 
     @Override
-    public void addTeacher(String name, String lastname, String titles, String titlesAfter, int phone, int mobilePhone, String email, String department, FileInputStream image, int role, int rights, String username, String password) throws SQLException, IOException {
-        PreparedStatement ps=connect.prepareStatement("exec VLOZZAMESTNANCE(?,?,?)");  
+    public void addPicture(InputStream image, int id_zamestnanec) throws SQLException{
+        CallableStatement stmt = connect.prepareCall("{call VLOZOBRAZEK(?, ?)}");
         
-        ps.setString(1, String.format("%s, %s, %s, %s, %s, %s, %d, %d, %d, %d",name, lastname, titles, titlesAfter, email, department, rights, role, mobilePhone, phone));
-        
-        if(image == null)
-            ps.setString(2, "NULL");
-        else
-            ps.setBinaryStream(2, image, image.available());
-        
-        ps.setString(3, String.format("%s, %s", username, password));
+        stmt.setBinaryStream(1, image);
+        stmt.setInt(2, id_zamestnanec);
+        stmt.executeUpdate();
+    }
+    
+    
 
-        ps.execute();
+    @Override
+    public void addTeacher(String name, String lastname, String titles, String titlesAfter, int phone, int mobilePhone, String email, String department, int role, int rights, String username, String password) throws SQLException, IOException {
+//        CallableStatement stmt = connect.prepareCall("{call VLOZUCEBNU(?,?)}");
+//        stmt.setString(1, name);
+//        stmt.setInt(2, capacity);
+//        
+//        stmt.executeUpdate();
+
+//        PreparedStatement ps=connect.prepareStatement("exec VLOZZAMESTNANCE(?,?,?)");  
+//        
+//        ps.setString(1, String.format("%s, %s, %s, %s, %s, %s, %d, %d, %d, %d",name, lastname, titles, titlesAfter, email, department, rights, role, mobilePhone, phone));
+//        
+//        if(image == null)
+//            ps.setString(2, "NULL");
+//        else
+//            ps.setBinaryStream(2, image, image.available());
+//        
+//        ps.setString(3, String.format("%s, %s", username, password));
+//
+//        ps.execute();
     }
 
     @Override

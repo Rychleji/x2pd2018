@@ -5,6 +5,12 @@
  */
 package idas22018.dialogy;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,8 +18,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -123,6 +131,7 @@ public class DialogPridejVyucujiciho extends Stage {
         grid.add(emailTF, 1, 7);
         grid.add(new Label("Zkratka katedry:"), 0, 8);
         grid.add(zkratKatTF, 1, 8);
+      
 
         // Tlačítko
         Button tlacitko1 = new Button("Vlož");
