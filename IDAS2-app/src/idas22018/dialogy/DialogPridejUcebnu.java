@@ -28,9 +28,24 @@ public class DialogPridejUcebnu extends Stage {
 
     private boolean buttonPressed = false;
     private Spinner<Integer> spinnerKapacita = new Spinner<>(1, Integer.MAX_VALUE - 1, 1, 1);
-    
+
     private int kapacita;
-    private String zkratkaPredmetu;
+    private String nazev;
+
+    public DialogPridejUcebnu(Window okno, Connection conn, String nazev, int kapacita) {
+        this.nazev = nazev;
+        this.kapacita = kapacita;
+        
+        setTitle("Rozvrhová akce");
+
+        initStyle(StageStyle.UTILITY);
+        initModality(Modality.WINDOW_MODAL);
+        initOwner(okno);
+
+        setScene(vytvorScenu(conn));
+        this.setWidth(400);
+        this.setResizable(false);
+    }
 
     public DialogPridejUcebnu(Window okno, Connection conn) {
         setTitle("Rozvrhová akce");
@@ -38,7 +53,6 @@ public class DialogPridejUcebnu extends Stage {
         initStyle(StageStyle.UTILITY);
         initModality(Modality.WINDOW_MODAL);
         initOwner(okno);
-        spinnerKapacita.setEditable(true);
 
         setScene(vytvorScenu(conn));
         this.setWidth(400);
@@ -59,26 +73,29 @@ public class DialogPridejUcebnu extends Stage {
         GridPane grid2 = new GridPane();
         grid2.setAlignment(Pos.BOTTOM_CENTER);
         grid2.setPadding(new Insets(10));
-        
+
         TextField textFiedlZkratkaPredmetu = new TextField();
 
         grid.add(new Label("Zkratka učebny:"), 0, 0);
         grid.add(textFiedlZkratkaPredmetu, 1, 0);
 
         grid.add(new Label("Kapacita: "), 0, 1);
+
+        spinnerKapacita.getValueFactory().setValue(kapacita);
+        textFiedlZkratkaPredmetu.setText(nazev);
+
         grid.add(spinnerKapacita, 1, 1);
 
         Button tlacitko1 = new Button("Vlož");
-        
 
         grid2.add(tlacitko1, 0, 0);
 
         box.getChildren().addAll(grid, grid2);
-        
-        tlacitko1.setOnAction((event) ->{
-            this.zkratkaPredmetu = textFiedlZkratkaPredmetu.getText();
+
+        tlacitko1.setOnAction((event) -> {
+            this.nazev = textFiedlZkratkaPredmetu.getText();
             this.kapacita = spinnerKapacita.getValue();
-            
+
             buttonPressed = true;
             this.close();
         });
@@ -89,12 +106,12 @@ public class DialogPridejUcebnu extends Stage {
         return kapacita;
     }
 
-    public String getZkratkaPredmetu() {
-        return zkratkaPredmetu;
+    public String getNazev() {
+        return nazev;
     }
 
     public boolean isButtonPressed() {
         return buttonPressed;
     }
-    
+
 }

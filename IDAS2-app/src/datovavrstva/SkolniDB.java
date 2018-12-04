@@ -476,7 +476,12 @@ public class SkolniDB implements ISkolniDB {
 
     @Override
     public void editClassroom(int id, String name, int capacity) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CallableStatement stmt = connect.prepareCall("{call UPRAVUCEBNU(?,?,?)}");
+        stmt.setInt(1, id);
+        stmt.setString(2, name);
+        stmt.setInt(3, capacity);
+        
+        stmt.executeUpdate();
     }
 
     @Override
