@@ -298,6 +298,18 @@ public class FXMLVyucujiciController implements Initializable {
 
     @FXML
     private void smazObrazekButton(ActionEvent event) {
+        if (tableView.getSelectionModel().getSelectedItem() != null) {
+            int id = Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0));
+
+            try {
+                dataLayer.deletePicture(id);
+            } catch (SQLException ex) {
+                DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());
+                dialog2.showAndWait();
+            }
+
+            tableView.getSelectionModel().clearSelection();
+        }
     }
 
 }

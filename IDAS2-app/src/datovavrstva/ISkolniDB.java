@@ -36,6 +36,8 @@ public interface ISkolniDB {
     public void addTeacher(String name, String lastname, String titles, String titlesAfter, int phone, int mobilePhone, String email, String department, int role, int rights, String username, String password) throws SQLException, IOException;
 
     public void deleteTeacher(int id) throws SQLException;
+    
+    public void deletePicture(int id) throws SQLException;
 
     public void editDepartment(String origShort, String newShort, String name, String faculty) throws SQLException;
 

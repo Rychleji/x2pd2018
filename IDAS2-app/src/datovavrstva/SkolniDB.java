@@ -79,6 +79,15 @@ public class SkolniDB implements ISkolniDB {
     }
 
     @Override
+    public void deletePicture(int id) throws SQLException {
+        CallableStatement stmt = connect.prepareCall("{call SMAZFOTKU(?)}");
+        
+        stmt.setInt(1, id);
+        
+        stmt.executeUpdate();
+    }
+    
+    @Override
     public void addPicture(InputStream image, int id_zamestnanec) throws SQLException{
         CallableStatement stmt = connect.prepareCall("{call VLOZOBRAZEK(?, ?)}");
         
