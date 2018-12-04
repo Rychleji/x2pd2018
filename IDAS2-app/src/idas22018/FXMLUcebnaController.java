@@ -115,8 +115,8 @@ public class FXMLUcebnaController implements Initializable {
             if (dialog.isButtonPressed()) {
                 try {
                     dataLayer.editClassroom(id_ucebna, dialog.getNazev(), dialog.getKapacita());
-                   
-                   fillTable();
+
+                    fillTable();
                 } catch (SQLException ex) {
                     DialogChyba dialogChyba = new DialogChyba(null, ex.getMessage());
                     dialogChyba.showAndWait();
@@ -126,8 +126,7 @@ public class FXMLUcebnaController implements Initializable {
     }
 
     @FXML
-    private void odeberButtonClick(ActionEvent event
-    ) {
+    private void odeberButtonClick(ActionEvent event) {
         if (tableView.getSelectionModel().getSelectedItem().get(0) != null) {
             try {
                 dataLayer.deleteClassroom(Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0)));
@@ -140,8 +139,11 @@ public class FXMLUcebnaController implements Initializable {
     }
 
     @FXML
-    private void buttonRozvrhoveAkceZobraz(ActionEvent event
-    ) {
+    private void buttonRozvrhoveAkceZobraz(ActionEvent event) {
+        if (tableView.getSelectionModel().getSelectedItem().get(0) != null) {
+            String roomID = tableView.getSelectionModel().getSelectedItem().get(0);
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazRozvrhoveAkce(null, null, roomID, aktScena);
+        }
     }
 
     @FXML
