@@ -554,6 +554,8 @@ public class SkolniDB implements ISkolniDB {
 
     @Override
     public ResultSet selectSchedules_byClassroom(int classroomId) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Statement statement = connect.createStatement();
+        
+        return statement.executeQuery("select * from ROZVRHOVE_AKCE_EXT_VIEW where ID_UCEBNY = "+classroomId);
     }
 }
