@@ -221,7 +221,7 @@ public class FXMLVyucujiciController implements Initializable {
     private void akceButtonClick(ActionEvent event) {
         if ((!tableView.getItems().isEmpty()) && (tableView.getSelectionModel().getSelectedItem() != null)) {
             String origID = tableView.getSelectionModel().getSelectedItem().get(0);
-            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazRozvrhoveAkce(origID, null, aktScena);
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazRozvrhoveAkce(origID, null, null, aktScena);
         }
     }
 

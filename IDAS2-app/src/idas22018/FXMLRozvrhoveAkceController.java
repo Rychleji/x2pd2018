@@ -25,7 +25,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
 
     ISkolniDB dataLayer;
     ObservableList<List<String>> seznam = FXCollections.observableArrayList();
-    String vyucId, subjId;
+    String vyucId, subjId, roomId;
 
     @FXML
     private TableView<List<String>> tableView;
@@ -100,6 +100,13 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     public void setSubjId(String subjId) {
         this.subjId = subjId;
         if (subjId != null) {
+            fillTable();
+        }
+    }
+    
+    public void setRoomId(String room) {
+        this.roomId = room;
+        if (room != null) {
             fillTable();
         }
     }
@@ -182,7 +189,9 @@ public class FXMLRozvrhoveAkceController implements Initializable {
                 rs = dataLayer.selectSchedules_byTeacherId(vyucId);
             } else if (subjId != null) {
                 rs = dataLayer.selectSchedules(subjId);
-            } else {
+            } else if(roomId != null){
+                rs = dataLayer.selectSchedules_byClassroom(Integer.parseInt(roomId));
+            }else {
                 rs = dataLayer.selectSchedules();
             }
             seznam.clear();

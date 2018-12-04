@@ -216,7 +216,7 @@ public final class KnihovnaZobrazovani {
      * 
      */
     public void zobrazRozvrhoveAkce(){
-        zobrazRozvrhoveAkce(null, null, IDAS22018.mainScene);
+        zobrazRozvrhoveAkce(null, null, null, IDAS22018.mainScene);
     }
     
     /**
@@ -224,16 +224,17 @@ public final class KnihovnaZobrazovani {
      * @param predchoziScena 
      */
     public void zobrazRozvrhoveAkce(Scene predchoziScena){
-        zobrazRozvrhoveAkce(null, null, predchoziScena);
+        zobrazRozvrhoveAkce(null, null, null, predchoziScena);
     }
     
     /**
      * 
      * @param vyucID
      * @param subjID
+     * @param roomID
      * @param predchoziScena 
      */
-    public void zobrazRozvrhoveAkce(String vyucID, String subjID, Scene predchoziScena){
+    public void zobrazRozvrhoveAkce(String vyucID, String subjID, String roomID, Scene predchoziScena){
         Parent root;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLRozvrhoveAkce.fxml"));
@@ -241,6 +242,7 @@ public final class KnihovnaZobrazovani {
             FXMLRozvrhoveAkceController controller = fxmlLoader.<FXMLRozvrhoveAkceController>getController();
             controller.setVyucId(vyucID);
             controller.setSubjId(subjID);
+            controller.setRoomId(roomID);
             Scene scena = new Scene(root);
             controller.setScenes(predchoziScena, scena);
             stageP.setScene(scena);

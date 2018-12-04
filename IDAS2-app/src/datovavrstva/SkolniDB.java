@@ -209,7 +209,7 @@ public class SkolniDB implements ISkolniDB {
 
     @Override
     public void addSchedule(int numberOfStudents, float startsAt, float span, String subjectShort, int type, String teacherRole, int teacherId, int roomId) throws SQLException {
-        CallableStatement stmt = connect.prepareCall("{call VLOZROZVRHOVOUAKCI(?,?,?,?,?,?,?,?)}");
+        CallableStatement stmt = connect.prepareCall("{call VLOZROZVRHOVOUAKCI(?,?,?,?,?,?,?,?,?)}");
         stmt.setInt(1, numberOfStudents);
         stmt.setFloat(2, span);
         stmt.setFloat(3, startsAt);
@@ -218,12 +218,9 @@ public class SkolniDB implements ISkolniDB {
         stmt.setString(6, teacherRole);
         stmt.setInt(7, teacherId);
         stmt.setInt(8, roomId);
+        stmt.setString(9, "Pondělí");
         
         stmt.executeUpdate();
-        
-        //Statement stmt = connect.createStatement();
-
-        //stmt.execute(String.format("exec VLOZROZVRHOVOUAKCI(%d, %f, %f, %s, %d, %s, %d, %d)", numberOfStudents, span, startsAt, subjectShort, type, teacherRole, teacherId, roomId));
     }
 
     @Override
@@ -508,5 +505,10 @@ public class SkolniDB implements ISkolniDB {
         return statement.executeQuery("select * from ZAM_VIEW"
                 + " left join KATEDRA on ZAM_VIEW.KATEDRA_ZKRATKA_KATEDRY = KATEDRA.ZKRATKA_KATEDRY"
                 + " left join FAKULTA on KATEDRA.FAKULTA_ZKRATKA_FAKULTY = FAKULTA.ZKRATKA_FAKULTY");
+    }
+
+    @Override
+    public ResultSet selectSchedules_byClassroom(int classroomId) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

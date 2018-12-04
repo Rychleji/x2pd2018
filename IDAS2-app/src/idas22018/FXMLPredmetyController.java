@@ -177,7 +177,7 @@ public class FXMLPredmetyController implements Initializable {
     private void raButtonClick(ActionEvent event) {
         if (!(tableView.getItems().isEmpty() || tableView.getSelectionModel().getSelectedItem() == null)) {
             String origID = tableView.getSelectionModel().getSelectedItem().get(0);
-            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazRozvrhoveAkce(null, origID, aktScena);
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazRozvrhoveAkce(null, origID, null, aktScena);
         }
     }
 

@@ -136,4 +136,6 @@ public interface ISkolniDB {
     public ResultSet selectWorkSpaces() throws SQLException;
     
     public ResultSet selectEmployees() throws SQLException;
+    
+    public ResultSet selectSchedules_byClassroom(int classroomId) throws SQLException;
 }
