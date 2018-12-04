@@ -478,8 +478,11 @@ public class SkolniDB implements ISkolniDB {
 
     @Override
     public void deleteClassroom(int id) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        CallableStatement stmt = connect.prepareCall("{call SMAZUCEBNU(?)}");
+        stmt.setInt(1, id);
+        
+        int a = stmt.executeUpdate();
+   }
 
     @Override
     public ResultSet selectEmployees() throws SQLException {

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="419.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas22018.FXMLUcebnaController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="477.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas22018.FXMLUcebnaController">
    <top>
       <FlowPane alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -50,8 +50,9 @@
    <center>
       <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <columns>
-            <TableColumn fx:id="nazevCol" prefWidth="111.99999845027924" text="Nazev" />
-            <TableColumn fx:id="kapacitaCol" prefWidth="110.39998931884764" text="Kapacita" />
+            <TableColumn fx:id="colId" prefWidth="66.40002596378326" text="ID" />
+            <TableColumn fx:id="nazevCol" prefWidth="111.99999237060547" text="Nazev" />
+            <TableColumn fx:id="kapacitaCol" prefWidth="101.60000000000002" text="Kapacita" />
          </columns>
       </TableView>
    </center>

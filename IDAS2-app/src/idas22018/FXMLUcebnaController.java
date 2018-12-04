@@ -7,6 +7,7 @@ package idas22018;
 
 import datovavrstva.ISkolniDB;
 import static idas22018.IDAS22018.close;
+import static idas22018.KnihovnaZobrazovani.getKnihovnaZobrazovani;
 import idas22018.dialogy.DialogChyba;
 import idas22018.dialogy.DialogPridejUcebnu;
 import java.net.URL;
@@ -47,6 +48,9 @@ public class FXMLUcebnaController implements Initializable {
     @FXML
     private TableColumn<List<String>, String> kapacitaCol;
 
+    @FXML
+    private TableColumn<List<String>, String> colId;
+
     private ISkolniDB dataLayer;
     private ObservableList<List<String>> seznam = FXCollections.observableArrayList();
     private Scene predScena;
@@ -60,8 +64,9 @@ public class FXMLUcebnaController implements Initializable {
         upravButton.setDisable(IDAS22018.druhProhlizeni != IDAS22018.RezimProhlizeni.ADMINISTRATOR);
         odeberButton.setDisable(IDAS22018.druhProhlizeni != IDAS22018.RezimProhlizeni.ADMINISTRATOR);
 
-        nazevCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
-        kapacitaCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));
+        colId.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
+        nazevCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));
+        kapacitaCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(2)));
         tableView.setItems(seznam);
 
         fillTable();
@@ -87,13 +92,10 @@ public class FXMLUcebnaController implements Initializable {
 
         if (dialog.isButtonPressed()) {
             try {
-                //dataLayer.commit();
                 dataLayer.addClassroom(dialog.getZkratkaPredmetu(), dialog.getKapacita());
-             
-                //dataLayer.commit();
+
                 fillTable();
             } catch (SQLException ex) {
-                System.out.println("pusss");
                 DialogChyba dialogChyba = new DialogChyba(null, ex.getMessage());
                 dialog.showAndWait();
             }
@@ -106,6 +108,15 @@ public class FXMLUcebnaController implements Initializable {
 
     @FXML
     private void odeberButtonClick(ActionEvent event) {
+        if (tableView.getSelectionModel().getSelectedItem().get(0) != null) {
+            try {
+                dataLayer.deleteClassroom(Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0)));
+                seznam.remove(tableView.getSelectionModel().getSelectedItem()); //odstrani ze seznamu paklize je totiz ucebna vytvorena a neni comitnuta pak ji neni jak ze seznamu odstranit vizualne pro uzivatele
+            } catch (SQLException ex) {
+                DialogChyba dialog = new DialogChyba(null, ex.getMessage());
+                dialog.showAndWait();
+            }
+        }
     }
 
     @FXML
@@ -114,22 +125,27 @@ public class FXMLUcebnaController implements Initializable {
 
     @FXML
     private void vyucujiciButtonClick(ActionEvent event) {
+        getKnihovnaZobrazovani().zobrazPrehledUcitelu();
     }
 
     @FXML
     private void predmetyButtonClick(ActionEvent event) {
+        getKnihovnaZobrazovani().zobrazPrehledPredmetu();
     }
 
     @FXML
     private void oboryButtonClick(ActionEvent event) {
+        getKnihovnaZobrazovani().zobrazPrehledOboru();
     }
 
     @FXML
     private void pracovisteButtonClick(ActionEvent event) {
+        getKnihovnaZobrazovani().zobrazPrehledPracovist();
     }
 
     @FXML
     private void zamestnanciButtonClick(ActionEvent event) {
+        getKnihovnaZobrazovani().zobrazPrehledZamestnancu();
     }
 
     private void fillTable() {
@@ -139,7 +155,7 @@ public class FXMLUcebnaController implements Initializable {
             seznam.clear();
 
             while (rs.next()) {
-                List<String> list = FXCollections.observableArrayList(rs.getString("NAZEV"), rs.getString("KAPACITA"));
+                List<String> list = FXCollections.observableArrayList(rs.getString("ID_UCEBNA"),rs.getString("NAZEV"), rs.getString("KAPACITA"));
                 seznam.add(list);
             }
         } catch (SQLException ex) {
