@@ -7,9 +7,11 @@ package datovavrstva;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -29,7 +31,9 @@ public interface ISkolniDB {
 
     public void editTeacher(int origId, String name, String lastname, String titles, String titlesAfter, int phone, int mobilePhone, String email, String department, FileInputStream image, int role, int rights, String username, String password) throws SQLException, IOException;
 
-    public void addTeacher(String name, String lastname, String titles, String titlesAfter, int phone, int mobilePhone, String email, String department, FileInputStream image, int role, int rights, String username, String password) throws SQLException, IOException;
+    public void addPicture(InputStream image, int id_zamestnanec) throws SQLException;
+    
+    public void addTeacher(String name, String lastname, String titles, String titlesAfter, int phone, int mobilePhone, String email, String department, int role, int rights, String username, String password) throws SQLException, IOException;
 
     public void deleteTeacher(int id) throws SQLException;
 

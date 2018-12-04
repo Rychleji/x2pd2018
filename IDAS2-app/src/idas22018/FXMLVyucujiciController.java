@@ -4,11 +4,17 @@ import datovavrstva.ISkolniDB;
 import static idas22018.IDAS22018.*;
 import idas22018.dialogy.DialogChyba;
 import idas22018.dialogy.DialogPridejVyucujiciho;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +28,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 
 public class FXMLVyucujiciController implements Initializable {
 
@@ -54,7 +61,7 @@ public class FXMLVyucujiciController implements Initializable {
     private Scene predScena;
     private Scene aktScena;
     private boolean skrytControlsProVyucujici = false;
-    
+
     public void setSkrytVeci(boolean skryt) {
         skrytControlsProVyucujici = skryt;
         fillTable();
@@ -78,7 +85,7 @@ public class FXMLVyucujiciController implements Initializable {
     private Button predmetyFiltrButton;
     @FXML
     private Button zamestnanciButton;
-    
+
     /**
      * Initializes the controller class.
      */
@@ -187,7 +194,7 @@ public class FXMLVyucujiciController implements Initializable {
         nadpisLabel.setText(skrytControlsProVyucujici ? "Zaměstnanci" : "Vyučující");
         akceFiltrButton.setVisible(!skrytControlsProVyucujici);
         predmetyFiltrButton.setVisible(!skrytControlsProVyucujici);
-        zamestnanciButton.setText(skrytControlsProVyucujici?"Vyučující":"Zaměstnanci");
+        zamestnanciButton.setText(skrytControlsProVyucujici ? "Vyučující" : "Zaměstnanci");
         try {
             ResultSet rs = null;
             if (!skrytControlsProVyucujici) {
@@ -256,12 +263,41 @@ public class FXMLVyucujiciController implements Initializable {
 
     @FXML
     private void prehledZamestnancuButtonClick(ActionEvent event) {
-        if (!skrytControlsProVyucujici){
+        if (!skrytControlsProVyucujici) {
             KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledZamestnancu();
-        } else{
+        } else {
             KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu();
         }
-        
+
+    }
+
+    @FXML
+    private void pridejFotoButton(ActionEvent event) {
+
+        if (tableView.getSelectionModel().getSelectedItem() != null) {
+            FileChooser fileChooser = new FileChooser();
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("png files (*.png)", "*.png");
+            fileChooser.getExtensionFilters().add(extFilter);
+
+            File file = fileChooser.showOpenDialog(null);
+
+            int id = Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0));
+            if (file != null) {
+                try {
+                    InputStream is = new FileInputStream(file);
+                    dataLayer.addPicture(is, id);
+                } catch (FileNotFoundException | SQLException ex) {
+                    DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());
+                    dialog2.showAndWait();
+                }
+            }
+            tableView.getSelectionModel().clearSelection();
+        }
+
+    }
+
+    @FXML
+    private void smazObrazekButton(ActionEvent event) {
     }
 
 }
