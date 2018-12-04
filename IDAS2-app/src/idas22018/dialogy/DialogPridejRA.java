@@ -55,7 +55,7 @@ public class DialogPridejRA extends Stage {
 
         @Override
         public String toString() {
-            return titul +' '+ jmeno +' '+ prijmeni +' ' + titulZa;
+            return titul!=null?titul:"" +' '+ jmeno +' '+ prijmeni +' ' + titulZa!=null?titulZa:"";
         }
         
     }

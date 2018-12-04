@@ -45,12 +45,12 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     private TableColumn<List<String>, String> maHodinCol;
     @FXML
     private TableColumn<List<String>, String> zpusobCol;
-    private Scene predScena;
-    private Scene aktScena;
     @FXML
     private TableColumn<List<String>, String> ucebnaCol;
     @FXML
     private TableColumn<List<String>, String> schvalenoCol;
+    @FXML
+    private TableColumn<List<String>, String> denCol;
     @FXML
     private Button schvalitButton;
     @FXML
@@ -59,9 +59,12 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     private Button upravButton;
     @FXML
     private Button odeberButton;
-
-    boolean vlastni = false;
-    boolean zmeny = false;
+    
+    private Scene predScena;
+    private Scene aktScena;
+    
+    private boolean vlastni = false;
+    private boolean zmeny = false;
 
     /**
      * Initializes the controller class.
@@ -85,6 +88,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
         zpusobCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(7)));
         ucebnaCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(8)));
         schvalenoCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(9)));
+        denCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(10)));
 
         tableView.setItems(seznam);
         fillTable();
@@ -109,6 +113,10 @@ public class FXMLRozvrhoveAkceController implements Initializable {
         if (room != null) {
             fillTable();
         }
+    }
+
+    public void setVlastni(boolean vlastni) {
+        this.vlastni = vlastni;
     }
 
     @FXML
@@ -208,7 +216,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
                         + rs.getString("PRIJMENI_VYUCUJICIHO") + " " + tZ,
                         rs.getString("ROLE_VYUCUJICIHO_ROLE"), rs.getString("ZACINAV"),
                         rs.getString("MAHODIN"), rs.getString("ZPUSOB"), rs.getString("NAZEV_UCEBNY"),
-                        rs.getString("SCHVALENO"));
+                        rs.getString("SCHVALENO"), rs.getString("DENVTYDNU"));
                 seznam.add(list);
             }
         } catch (SQLException ex) {
