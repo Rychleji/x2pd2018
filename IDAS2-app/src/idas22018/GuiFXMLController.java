@@ -52,6 +52,7 @@ public class GuiFXMLController implements Initializable {
     Map<Integer, HelpClass> ciselnikFormaVyuky = new HashMap<>(3);
     Map<Integer, HelpClass> ciselnikRole = new HashMap<>(5);
     Map<Integer, HelpClass> ciselnikOpravneni = new HashMap<>(3);
+    List<String> ciselnikDen = new ArrayList<>(7);
 
     @FXML
     private Label versionLabel;
@@ -98,6 +99,10 @@ public class GuiFXMLController implements Initializable {
 
     public Map<Integer, HelpClass> getCiselnikOpravneni() {
         return ciselnikOpravneni;
+    }
+
+    public List<String> getCiselnikDen() {
+        return ciselnikDen;
     }
     
     public void panelProRegistrovaneStatus(RezimProhlizeni rp){
@@ -232,6 +237,12 @@ public class GuiFXMLController implements Initializable {
                 while (rs.next()) {
                     HelpClass input = new HelpClass(rs.getInt("ID_OPRAVNENI"), rs.getString("OPRAVNENI"));
                     ciselnikOpravneni.put(input.getId(), input);
+                }
+                
+                rs = query.executeQuery("select * from dnyvtydnu order by priorita");
+
+                while (rs.next()) {
+                    ciselnikDen.add(rs.getString("DEN"));
                 }
             } catch (SQLException ex) {
                 DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());

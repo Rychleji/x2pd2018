@@ -67,9 +67,9 @@ public interface ISkolniDB {
 
     public void deleteSpecializationSubject(String shortSpec, String shortSubj) throws SQLException;
 
-    public void editSchedule(int id, int numberOfStudents, float startsAt, float span, String subjectShort, int type, String teacherRole, int teacherId, int roomId) throws SQLException;
+    public void editSchedule(int id, int numberOfStudents, float startsAt, float span, String subjectShort, int type, String teacherRole, int teacherId, int roomId, String day) throws SQLException;
 
-    public void addSchedule(int numberOfStudents, float startsAt, float span, String subjectShort, int type, String teacherRole, int teacherId, int roomId) throws SQLException;
+    public void addSchedule(int numberOfStudents, float startsAt, float span, String subjectShort, int type, String teacherRole, int teacherId, int roomId, String day) throws SQLException;
 
     public void deleteSchedule(int id) throws SQLException;
     

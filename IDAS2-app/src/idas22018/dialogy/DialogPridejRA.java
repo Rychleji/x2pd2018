@@ -30,6 +30,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
+import jdk.nashorn.internal.runtime.CodeStore;
 
 /**
  *
@@ -54,7 +55,7 @@ public class DialogPridejRA extends Stage {
 
         @Override
         public String toString() {
-            return titul +' '+ jmeno +' '+ prijmeni +' ' + titulZa;
+            return titul!=null?titul:"" +' '+ jmeno +' '+ prijmeni +' ' + titulZa!=null?titulZa:"";
         }
         
     }
@@ -65,7 +66,7 @@ public class DialogPridejRA extends Stage {
     
     double zacinaV = 8.0, maHodin = 2.0;
     
-    private String zkratkaPr, roleVyuc;
+    private String zkratkaPr, roleVyuc, den;
 
     public boolean isButtonPressed() {
         return buttonPressed;
@@ -101,6 +102,10 @@ public class DialogPridejRA extends Stage {
 
     public int getUcebnaId() {
         return ucebnaId;
+    }
+
+    public String getDen() {
+        return den;
     }
     
     public DialogPridejRA(Window okno, Connection conn, int idRA, String zkratkaPredmetuFiltr, int idVyucFiltr) {
@@ -144,6 +149,7 @@ public class DialogPridejRA extends Stage {
                 maHodin = rs.getFloat("MAHODIN");
                 zkratkaPr = rs.getString("ZKRATKA_PREDMETU");
                 roleVyuc = rs.getString("ROLE_VYUCUJICIHO_ROLE");
+                den = rs.getString("DENVTYDNU");
             } catch (SQLException ex) {
                 Logger.getLogger(DialogPridejRA.class.getName()).log(Level.SEVERE, null, ex);
             }        
@@ -231,17 +237,21 @@ public class DialogPridejRA extends Stage {
         
         ObservableList<String> list1 = FXCollections.observableArrayList(IDAS22018.mainController.getCiselnikRoleVyuc());
         ObservableList<GuiFXMLController.HelpClass> list2 = FXCollections.observableArrayList(IDAS22018.mainController.getCiselnikZpusobVyuky().values());   
-               
+        ObservableList<String> list3 = FXCollections.observableArrayList(IDAS22018.mainController.getCiselnikDen());
+        
         ComboBox<String> roleCB = new ComboBox<>(list1);
         ComboBox<GuiFXMLController.HelpClass> zpusobCB = new ComboBox<>(list2);
+        ComboBox<String> denCb = new ComboBox<>(list3);
         
         if(idRA==0){
             roleCB.getSelectionModel().selectFirst();
             zpusobCB.getSelectionModel().selectFirst();
+            denCb.getSelectionModel().selectFirst();
         }else{
             roleCB.getSelectionModel().select(roleVyuc);
             HelpClass sel = IDAS22018.mainController.getCiselnikZpusobVyuky().get(zpusobVyuky);
             zpusobCB.getSelectionModel().select(sel);
+            denCb.getSelectionModel().select(den);
         }
         
         grid.add(new Label("Zkratka předmětu:"), 0, 0);
@@ -260,6 +270,8 @@ public class DialogPridejRA extends Stage {
         grid.add(zpusobCB, 1, 6);
         grid.add(new Label("Učebna:"), 0, 7);
         grid.add(ucebnaCb, 1, 7);
+        grid.add(new Label("Den v týdnu:"), 0, 8);
+        grid.add(denCb, 1, 8);
 
         // Tlačítko
         Button tlacitko1 = new Button("Vlož");
@@ -275,6 +287,7 @@ public class DialogPridejRA extends Stage {
                 pocetStudentu = pocetStudentuSp.getValue();
                 roleVyuc = roleCB.getValue();
                 zpusobVyuky =  zpusobCB.getValue().getId();
+                den = denCb.getValue();
                 
                 ResultSet rs1;
                 Statement stmt1 = conn.createStatement();

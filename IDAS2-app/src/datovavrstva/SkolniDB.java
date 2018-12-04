@@ -224,14 +224,26 @@ public class SkolniDB implements ISkolniDB {
     }
 
     @Override
-    public void editSchedule(int id, int numberOfStudents, float startsAt, float span, String subjectShort, int type, String teacherRole, int teacherId, int roomId) throws SQLException {
-        Statement stmt = connect.createStatement();
-
-        stmt.execute(String.format("exec UPRAVROZVRHOVOUAKCI(%d, %d, %f, %f, %s, %d, %s, %d, %d)", id, numberOfStudents, span, startsAt, subjectShort, type, teacherRole, teacherId, roomId));
+    public void editSchedule(int id, int numberOfStudents, float startsAt, float span, String subjectShort, int type, String teacherRole, int teacherId, int roomId, String day) throws SQLException {
+        //stmt.execute(String.format("exec UPRAVROZVRHOVOUAKCI(%d, %d, %f, %f, %s, %d, %s, %d, %d)", id, numberOfStudents, span, startsAt, subjectShort, type, teacherRole, teacherId, roomId));
+        
+        CallableStatement stmt = connect.prepareCall("{call UPRAVROZVRHOVOUAKCI(?,?,?,?,?,?,?,?,?,?)}");
+        stmt.setInt(1, id);
+        stmt.setInt(2, numberOfStudents);
+        stmt.setFloat(3, span);
+        stmt.setFloat(4, startsAt);
+        stmt.setString(5, subjectShort);
+        stmt.setInt(6, type);
+        stmt.setString(7, teacherRole);
+        stmt.setInt(8, teacherId);
+        stmt.setInt(9, roomId);
+        stmt.setString(10, day);
+        
+        stmt.executeUpdate();
     }
 
     @Override
-    public void addSchedule(int numberOfStudents, float startsAt, float span, String subjectShort, int type, String teacherRole, int teacherId, int roomId) throws SQLException {
+    public void addSchedule(int numberOfStudents, float startsAt, float span, String subjectShort, int type, String teacherRole, int teacherId, int roomId, String day) throws SQLException {
         CallableStatement stmt = connect.prepareCall("{call VLOZROZVRHOVOUAKCI(?,?,?,?,?,?,?,?,?)}");
         stmt.setInt(1, numberOfStudents);
         stmt.setFloat(2, span);
@@ -241,16 +253,17 @@ public class SkolniDB implements ISkolniDB {
         stmt.setString(6, teacherRole);
         stmt.setInt(7, teacherId);
         stmt.setInt(8, roomId);
-        stmt.setString(9, "Pondělí");
+        stmt.setString(9, day);
         
         stmt.executeUpdate();
     }
 
     @Override
     public void deleteSchedule(int id) throws SQLException {
-        Statement stmt = connect.createStatement();
-
-        stmt.execute(String.format("exec SMAZROZVRHOVOUAKCI(%d)", id));
+        CallableStatement stmt = connect.prepareCall("{call SMAZROZVRHOVOUAKCI(?)}");
+        stmt.setInt(1, id);
+        
+        stmt.executeUpdate();
     }
 
     @Override

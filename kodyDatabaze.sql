@@ -221,7 +221,7 @@ create or replace PROCEDURE vlozRozvrhovouAkci
 IS
     ex_kryti EXCEPTION;
 BEGIN
-    IF ((MAVOLNO(p_idVyucujiciho, p_zacinaV, p_maHodin, p_idUcebna, 0)) AND (DOSTACUJEMISTO(p_pocetStudentu, p_idUcebna))) THEN
+    IF ((MAVOLNO(p_idVyucujiciho, p_zacinaV, p_maHodin, p_den, p_idUcebna, 0)) AND (DOSTACUJEMISTO(p_pocetStudentu, p_idUcebna))) THEN
         INSERT INTO ROZVRHOVA_AKCE (POCET_STUDENTU, MAHODIN, ZACINAV, PREDMET_ZKRATKA_PREDMETU, ZPUSOB_VYUKY_ID_ZV,
             ROLE_VYUCUJICIHO_ROLE, ID_ZAMESTNANEC, ID_UCEBNA, DENVTYDNU)
         values (p_pocetStudentu, p_maHodin, p_zacinaV, p_predmet, p_zpusobVyuky, p_roleVyucujiciho, p_idVyucujiciho, p_idUcebna, p_den);
@@ -240,7 +240,7 @@ create or replace PROCEDURE upravRozvrhovouAkci
 IS
     ex_kryti EXCEPTION;
 BEGIN
-    IF ((MAVOLNO(p_idVyucujiciho, p_zacinaV, p_maHodin, p_idUcebna, p_id)) AND (DOSTACUJEMISTO(p_pocetStudentu, p_idUcebna))) THEN
+    IF ((MAVOLNO(p_idVyucujiciho, p_zacinaV, p_maHodin, p_den, p_idUcebna, p_id)) AND (DOSTACUJEMISTO(p_pocetStudentu, p_idUcebna))) THEN
         UPDATE ROZVRHOVA_AKCE 
         SET POCET_STUDENTU = p_pocetStudentu, MAHODIN = p_maHodin, ZACINAV = p_zacinaV, PREDMET_ZKRATKA_PREDMETU = p_predmet, 
         ZPUSOB_VYUKY_ID_ZV = p_zpusobVyuky, ROLE_VYUCUJICIHO_ROLE = p_roleVyucujiciho, ID_ZAMESTNANEC = p_idVyucujiciho, ID_UCEBNA = p_idUcebna,
@@ -447,22 +447,26 @@ BEGIN
 END;
 /
 create or replace FUNCTION maVolno 
-    (p_idZam ZAMESTNANEC.ID_ZAMESTNANEC%TYPE, p_zacatek ROZVRHOVA_AKCE.ZACINAV%TYPE, p_delka ROZVRHOVA_AKCE.MAHODIN%TYPE,
+    (p_idZam ZAMESTNANEC.ID_ZAMESTNANEC%TYPE, p_zacatek ROZVRHOVA_AKCE.ZACINAV%TYPE, p_delka ROZVRHOVA_AKCE.MAHODIN%TYPE, p_den ROZVRHOVA_AKCE.DENVTYDNU%TYPE,
     p_idUcebny UCEBNA.ID_UCEBNA%TYPE, p_idRA ROZVRHOVA_AKCE.ID_RA%TYPE)
 RETURN BOOLEAN IS
-    v_jeVolno   BOOLEAN := true;
-    v_zacatek   ROZVRHOVA_AKCE.ZACINAV%TYPE;
-    v_delka     ROZVRHOVA_AKCE.MAHODIN%TYPE;
+    v_jeVolno           BOOLEAN := true;
+    v_zacatekDruhe      ROZVRHOVA_AKCE.ZACINAV%TYPE;
+    v_delkaDruhe        ROZVRHOVA_AKCE.MAHODIN%TYPE;
+    v_denDruha          ROZVRHOVA_AKCE.DENVTYDNU%TYPE;
 
-    CURSOR c1 (p_iz in NUMBER)
-        IS SELECT ZACINAV, MAHODIN FROM ROZVRHOVA_AKCE WHERE (ID_ZAMESTNANEC = p_iz OR ID_UCEBNA = p_idUcebny) AND NOT(ID_RA=p_idRA);
-BEGIN 
-   open c1 (p_idZam);
+    CURSOR c1 (p_iz in NUMBER, p_iu in NUMBER, p_ira in NUMBER)
+        IS SELECT ZACINAV, MAHODIN, DENVTYDNU FROM ROZVRHOVA_AKCE WHERE (ID_ZAMESTNANEC = p_iz OR ID_UCEBNA = p_iu) AND NOT(ID_RA=p_ira);
+BEGIN
+   open c1 (p_idZam, p_idUcebny, p_idRA);
    LOOP
-        FETCH c1 INTO v_delka, v_zacatek;
+        FETCH c1 INTO v_delkaDruhe, v_zacatekDruhe, v_denDruha;
         EXIT WHEN c1%NOTFOUND;
-        if ((p_zacatek BETWEEN v_zacatek AND (v_zacatek + v_delka - 0.017)) or ((p_zacatek+p_delka - 0.017) BETWEEN v_zacatek AND (v_zacatek+v_delka - 0.017))) then
-            v_jeVolno := false;
+        if (p_den = v_denDruha) then
+            if ((p_zacatek BETWEEN v_zacatekDruhe AND (v_zacatekDruhe + v_delkaDruhe - 0.017)) or
+                    ((p_zacatek+p_delka - 0.017) BETWEEN v_zacatekDruhe AND (v_zacatekDruhe+v_delkaDruhe - 0.017))) then
+                v_jeVolno := false;
+            end if;
         end if;
     END LOOP;
     CLOSE c1;

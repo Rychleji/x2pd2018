@@ -52,14 +52,15 @@
          <columns>
             <TableColumn fx:id="idCol" prefWidth="42.000030517578125" text="ID" />
             <TableColumn fx:id="zkratkaCol" prefWidth="64.0" text="Zkratka" />
-            <TableColumn fx:id="predmetCol" prefWidth="209.0" text="Předmět" />
-            <TableColumn fx:id="vyucujiciCol" prefWidth="228.0" text="Vyučující" />
-            <TableColumn fx:id="roleCol" minWidth="0.0" prefWidth="124.0" text="Role vyučujícího" />
-            <TableColumn fx:id="zacatekCol" minWidth="0.0" prefWidth="66.0" text="Začíná v" />
-            <TableColumn fx:id="maHodinCol" prefWidth="77.0" text="Má hodin" />
-            <TableColumn fx:id="zpusobCol" prefWidth="71.0" text="Způsob" />
-            <TableColumn fx:id="ucebnaCol" maxWidth="145.0" minWidth="30.0" prefWidth="110.0" text="Učebna" />
-            <TableColumn fx:id="schvalenoCol" prefWidth="28.0" text="Schváleno" />
+            <TableColumn fx:id="predmetCol" prefWidth="221.0" text="Předmět" />
+            <TableColumn fx:id="vyucujiciCol" prefWidth="195.0" text="Vyučující" />
+            <TableColumn fx:id="roleCol" minWidth="0.0" prefWidth="94.0" text="Role vyučujícího" />
+            <TableColumn fx:id="denCol" prefWidth="85.0" text="Den" />
+            <TableColumn fx:id="zacatekCol" minWidth="0.0" prefWidth="70.0" text="Začíná v" />
+            <TableColumn fx:id="maHodinCol" prefWidth="90.0" text="Má hodin" />
+            <TableColumn fx:id="zpusobCol" prefWidth="74.0" text="Způsob" />
+            <TableColumn fx:id="ucebnaCol" maxWidth="156.0" minWidth="30.0" prefWidth="61.0" text="Učebna" />
+            <TableColumn fx:id="schvalenoCol" prefWidth="23.0" text="Schváleno" />
          </columns>
       </TableView>
    </center>

@@ -5,9 +5,9 @@ import static idas22018.IDAS22018.*;
 import idas22018.dialogy.DialogChyba;
 import idas22018.dialogy.DialogPridejRA;
 import java.net.URL;
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -45,12 +45,12 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     private TableColumn<List<String>, String> maHodinCol;
     @FXML
     private TableColumn<List<String>, String> zpusobCol;
-    private Scene predScena;
-    private Scene aktScena;
     @FXML
     private TableColumn<List<String>, String> ucebnaCol;
     @FXML
     private TableColumn<List<String>, String> schvalenoCol;
+    @FXML
+    private TableColumn<List<String>, String> denCol;
     @FXML
     private Button schvalitButton;
     @FXML
@@ -59,9 +59,12 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     private Button upravButton;
     @FXML
     private Button odeberButton;
-
-    boolean vlastni = false;
-    boolean zmeny = false;
+    
+    private Scene predScena;
+    private Scene aktScena;
+    
+    private boolean vlastni = false;
+    private boolean zmeny = false;
 
     /**
      * Initializes the controller class.
@@ -85,6 +88,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
         zpusobCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(7)));
         ucebnaCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(8)));
         schvalenoCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(9)));
+        denCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(10)));
 
         tableView.setItems(seznam);
         fillTable();
@@ -111,6 +115,10 @@ public class FXMLRozvrhoveAkceController implements Initializable {
         }
     }
 
+    public void setVlastni(boolean vlastni) {
+        this.vlastni = vlastni;
+    }
+
     @FXML
     private void okButtonClick(ActionEvent event) {
         dataLayer.commit();
@@ -135,7 +143,8 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             try {
                 dataLayer.addSchedule(dialog2.getPocetStudentu(), dialog2.getZacinaV(),
                         dialog2.getMaHodin(), dialog2.getZkratkaPr(), dialog2.getZpusobVyuky(),
-                        dialog2.getRoleVyuc(), dialog2.getIdVyuc(), dialog2.getUcebnaId());
+                        dialog2.getRoleVyuc(), dialog2.getIdVyuc(), dialog2.getUcebnaId(),
+                        dialog2.getDen());
                 zmeny = true;
                 fillTable();
             } catch (SQLException ex) {
@@ -156,7 +165,8 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             try {
                 dataLayer.editSchedule(origID, dialog2.getPocetStudentu(), dialog2.getZacinaV(),
                         dialog2.getMaHodin(), dialog2.getZkratkaPr(), dialog2.getZpusobVyuky(),
-                        dialog2.getRoleVyuc(), dialog2.getIdVyuc(), dialog2.getUcebnaId());
+                        dialog2.getRoleVyuc(), dialog2.getIdVyuc(), dialog2.getUcebnaId(),
+                        dialog2.getDen());
                 zmeny = true;
                 fillTable();
             } catch (SQLException ex) {
@@ -206,7 +216,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
                         + rs.getString("PRIJMENI_VYUCUJICIHO") + " " + tZ,
                         rs.getString("ROLE_VYUCUJICIHO_ROLE"), rs.getString("ZACINAV"),
                         rs.getString("MAHODIN"), rs.getString("ZPUSOB"), rs.getString("NAZEV_UCEBNY"),
-                        rs.getString("SCHVALENO"));
+                        rs.getString("SCHVALENO"), rs.getString("DENVTYDNU"));
                 seznam.add(list);
             }
         } catch (SQLException ex) {
@@ -263,9 +273,12 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     @FXML
     private void onSchvalitButtonClick(ActionEvent event) {
         try {
-            Statement st = dataLayer.getConnect().createStatement();
-            st.execute(String.format("EXEC schvalAkci(%d)", Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0))));
+            CallableStatement stmt = dataLayer.getConnect().prepareCall("{call schvalAkci(?)}");
+            stmt.setInt(1, Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0)));
+        
+            stmt.executeUpdate();
             zmeny = true;
+            fillTable();
         } catch (SQLException ex) {
             DialogChyba dialog = new DialogChyba(null, ex.getMessage());
             dialog.showAndWait();
