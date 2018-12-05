@@ -14,6 +14,7 @@ import idas22018.dialogy.DialogPridejUcebnu;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -57,6 +58,7 @@ public class FXMLUcebnaController implements Initializable {
     private Scene predScena;
     private Scene aktScena;
     private boolean zmeny = false;
+    private LinkedList<Integer> vymazane = new LinkedList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -79,6 +81,7 @@ public class FXMLUcebnaController implements Initializable {
     private void okButtonClick(ActionEvent event) {
         dataLayer.commit();
         zmeny = false;
+        vymazane.clear();
         close(predScena);
     }
 
@@ -86,6 +89,7 @@ public class FXMLUcebnaController implements Initializable {
     private void cancelButtonClick(ActionEvent event) {
         dataLayer.rollback();
         zmeny = false;
+        vymazane.clear();
         close(predScena);
     }
 
@@ -135,8 +139,9 @@ public class FXMLUcebnaController implements Initializable {
     private void odeberButtonClick(ActionEvent event) {
         if (tableView.getSelectionModel().getSelectedItem().get(0) != null) {
             try {
-                dataLayer.deleteClassroom(Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0)));
-                seznam.remove(tableView.getSelectionModel().getSelectedItem()); //odstrani ze seznamu paklize je totiz ucebna vytvorena a neni comitnuta pak ji neni jak ze seznamu odstranit vizualne pro uzivatele
+                int id = Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0));
+                dataLayer.deleteClassroom(id);
+                vymazane.add(id);
                 zmeny = true;
             } catch (SQLException ex) {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -203,8 +208,10 @@ public class FXMLUcebnaController implements Initializable {
             seznam.clear();
 
             while (rs.next()) {
-                List<String> list = FXCollections.observableArrayList(rs.getString("ID_UCEBNA"), rs.getString("NAZEV"), rs.getString("KAPACITA"));
-                seznam.add(list);
+                if(!vymazane.contains(rs.getInt("ID_UCEBNA"))){
+                    List<String> list = FXCollections.observableArrayList(rs.getString("ID_UCEBNA"), rs.getString("NAZEV"), rs.getString("KAPACITA"));
+                    seznam.add(list);
+                }
             }
         } catch (SQLException ex) {
             DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());

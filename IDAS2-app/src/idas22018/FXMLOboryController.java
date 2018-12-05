@@ -8,6 +8,7 @@ import idas22018.dialogy.DialogPridejObor;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -45,6 +46,7 @@ public class FXMLOboryController implements Initializable {
     private Button odeberButton;
     
     private boolean zmeny = false;
+    LinkedList<String> vymazane = new LinkedList<>();
 
     /**
      * Initializes the controller class.
@@ -69,6 +71,7 @@ public class FXMLOboryController implements Initializable {
     private void okButtonClick(ActionEvent event) {
         dataLayer.commit();
         zmeny = false;
+        vymazane.clear();
         close(predScena);
     }
 
@@ -76,6 +79,7 @@ public class FXMLOboryController implements Initializable {
     private void cancelButtonClick(ActionEvent event) {
         dataLayer.rollback();
         zmeny = false;
+        vymazane.clear();
         close(predScena);
     }
 
@@ -123,6 +127,7 @@ public class FXMLOboryController implements Initializable {
         try {
             dataLayer.deleteSpecialization(origID);
             zmeny = true;
+            vymazane.add(origID);
             fillTable();
         } catch (SQLException ex) {
             DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -136,9 +141,11 @@ public class FXMLOboryController implements Initializable {
             seznam.clear();
 
             while (rs.next()) {
-                List<String> list = FXCollections.observableArrayList(rs.getString("ZKRATKA_OBORU"),
-                        rs.getString("NAZEV_OBORU"), rs.getString("ZKRATKA_FAKULTY"));
-                seznam.add(list);
+                if(!vymazane.contains(rs.getString("ZKRATKA_OBORU"))){
+                    List<String> list = FXCollections.observableArrayList(rs.getString("ZKRATKA_OBORU"),
+                            rs.getString("NAZEV_OBORU"), rs.getString("ZKRATKA_FAKULTY"));
+                    seznam.add(list);
+                }
             }
         } catch (SQLException ex) {
             DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());

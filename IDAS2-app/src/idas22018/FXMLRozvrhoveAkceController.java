@@ -8,6 +8,7 @@ import java.net.URL;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -65,6 +66,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     
     private boolean vlastni = false;
     private boolean zmeny = false;
+    private LinkedList<Integer> vymazane = new LinkedList<>();
 
     /**
      * Initializes the controller class.
@@ -123,6 +125,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     private void okButtonClick(ActionEvent event) {
         dataLayer.commit();
         zmeny = false;
+        vymazane.clear();
         close(predScena);
     }
 
@@ -130,6 +133,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     private void cancelButtonClick(ActionEvent event) {
         dataLayer.rollback();
         zmeny = false;
+        vymazane.clear();
         close(predScena);
     }
 
@@ -183,6 +187,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
         try {
             dataLayer.deleteSchedule(origID);
             zmeny = true;
+            vymazane.add(origID);
             fillTable();
         } catch (SQLException ex) {
             DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -207,17 +212,19 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             seznam.clear();
 
             while (rs.next()) {
-                String tP = rs.getString("TITUL_PRED") == null ? "" : rs.getString("TITUL_PRED");
-                String tZ = rs.getString("TITUL_ZA") == null ? "" : rs.getString("TITUL_ZA");
+                if(!vymazane.contains(rs.getInt("ID_ROZVRHOVE_AKCE"))){
+                    String tP = rs.getString("TITUL_PRED") == null ? "" : rs.getString("TITUL_PRED");
+                    String tZ = rs.getString("TITUL_ZA") == null ? "" : rs.getString("TITUL_ZA");
 
-                List<String> list = FXCollections.observableArrayList(rs.getString("ID_ROZVRHOVE_AKCE"),
-                        rs.getString("ZKRATKA_PREDMETU"), rs.getString("NAZEV_PREDMETU"),
-                        tP + " " + rs.getString("JMENO_VYUCUJICIHO") + " "
-                        + rs.getString("PRIJMENI_VYUCUJICIHO") + " " + tZ,
-                        rs.getString("ROLE_VYUCUJICIHO_ROLE"), rs.getString("ZACINAV"),
-                        rs.getString("MAHODIN"), rs.getString("ZPUSOB"), rs.getString("NAZEV_UCEBNY"),
-                        rs.getString("SCHVALENO"), rs.getString("DENVTYDNU"));
-                seznam.add(list);
+                    List<String> list = FXCollections.observableArrayList(rs.getString("ID_ROZVRHOVE_AKCE"),
+                            rs.getString("ZKRATKA_PREDMETU"), rs.getString("NAZEV_PREDMETU"),
+                            tP + " " + rs.getString("JMENO_VYUCUJICIHO") + " "
+                            + rs.getString("PRIJMENI_VYUCUJICIHO") + " " + tZ,
+                            rs.getString("ROLE_VYUCUJICIHO_ROLE"), rs.getString("ZACINAV"),
+                            rs.getString("MAHODIN"), rs.getString("ZPUSOB"), rs.getString("NAZEV_UCEBNY"),
+                            rs.getString("SCHVALENO"), rs.getString("DENVTYDNU"));
+                    seznam.add(list);
+                }
             }
         } catch (SQLException ex) {
             DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());

@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -81,6 +82,7 @@ public class FXMLVyucujiciController implements Initializable {
     private Button zamestnanciButton;
     
     private boolean zmeny = false;
+    private LinkedList<Integer> vymazane = new LinkedList<>();
     
     public void setSkrytVeci(boolean skryt) {
         skrytControlsProVyucujici = skryt;
@@ -131,6 +133,7 @@ public class FXMLVyucujiciController implements Initializable {
     private void okButtonClick(ActionEvent event) {
         dataLayer.commit();
         zmeny = false;
+        vymazane.clear();
         close(predScena);
     }
 
@@ -138,6 +141,7 @@ public class FXMLVyucujiciController implements Initializable {
     private void cancelButtonClick(ActionEvent event) {
         dataLayer.rollback();
         zmeny = false;
+        vymazane.clear();
         close(predScena);
     }
 
@@ -189,6 +193,7 @@ public class FXMLVyucujiciController implements Initializable {
         try {
             dataLayer.deleteTeacher(origID);
             zmeny = true;
+            vymazane.add(origID);
             fillTable();
         } catch (SQLException ex) {
             DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -218,11 +223,13 @@ public class FXMLVyucujiciController implements Initializable {
             seznam.clear();
 
             while (rs.next()) {
-                List<String> list = FXCollections.observableArrayList(rs.getString(skrytControlsProVyucujici ? "ID_ZAMESTNANEC" : "ID_VYUCUJICIHO"),
-                        rs.getString("JMENO"), rs.getString("PRIJMENI"), rs.getString("TITUL_PRED"),
-                        rs.getString("TITUL_ZA"), rs.getString("TELEFON"), rs.getString("MOBIL"),
-                        rs.getString("EMAIL"), rs.getString("ZKRATKA_KATEDRY"), rs.getString("ZKRATKA_FAKULTY"));
-                seznam.add(list);
+                if (!vymazane.contains(rs.getInt(skrytControlsProVyucujici ? "ID_ZAMESTNANEC" : "ID_VYUCUJICIHO"))){
+                    List<String> list = FXCollections.observableArrayList(rs.getString(skrytControlsProVyucujici ? "ID_ZAMESTNANEC" : "ID_VYUCUJICIHO"),
+                            rs.getString("JMENO"), rs.getString("PRIJMENI"), rs.getString("TITUL_PRED"),
+                            rs.getString("TITUL_ZA"), rs.getString("TELEFON"), rs.getString("MOBIL"),
+                            rs.getString("EMAIL"), rs.getString("ZKRATKA_KATEDRY"), rs.getString("ZKRATKA_FAKULTY"));
+                    seznam.add(list);
+                }
             }
         } catch (SQLException ex) {
             DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());

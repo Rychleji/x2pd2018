@@ -7,6 +7,7 @@ import idas22018.dialogy.DialogPridejPredmet;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -26,6 +27,7 @@ public class FXMLPredmetyController implements Initializable {
     ISkolniDB dataLayer;
     ObservableList<List<String>> seznam = FXCollections.observableArrayList();
     String vyucId;
+    LinkedList<String> vymazane = new LinkedList<>();
 
     @FXML
     private TableView<List<String>> tableView;
@@ -80,6 +82,7 @@ public class FXMLPredmetyController implements Initializable {
     private void okButtonClick(ActionEvent event) {
         dataLayer.commit();
         zmeny = false;
+        vymazane.clear();
         close(predScena);
     }
 
@@ -87,6 +90,7 @@ public class FXMLPredmetyController implements Initializable {
     private void cancelButtonClick(ActionEvent event) {
         dataLayer.rollback();
         zmeny = false;
+        vymazane.clear();
         close(predScena);
     }
 
@@ -142,6 +146,7 @@ public class FXMLPredmetyController implements Initializable {
         try {
             dataLayer.deleteSubject(origID);
             zmeny = true;
+            vymazane.add(origID);
             fillTable();
         } catch (SQLException ex) {
             DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -160,10 +165,12 @@ public class FXMLPredmetyController implements Initializable {
             seznam.clear();
 
             while (rs.next()) {
-                List<String> list = FXCollections.observableArrayList(rs.getString("ZKRATKA_PREDMETU"),
-                        rs.getString("NAZEV_PREDMETU"), rs.getString("DOPORUCENY_ROCNIK"),
-                        rs.getString("SEM"), rs.getString("FORMA"), rs.getString("ZPUSOB_ZAK"), rs.getString("POCET_STUDENTU"));
-                seznam.add(list);
+                if(!vymazane.contains(rs.getString("ZKRATKA_PREDMETU"))){
+                    List<String> list = FXCollections.observableArrayList(rs.getString("ZKRATKA_PREDMETU"),
+                            rs.getString("NAZEV_PREDMETU"), rs.getString("DOPORUCENY_ROCNIK"),
+                            rs.getString("SEM"), rs.getString("FORMA"), rs.getString("ZPUSOB_ZAK"), rs.getString("POCET_STUDENTU"));
+                    seznam.add(list);
+                }
             }
         } catch (SQLException ex) {
             DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());

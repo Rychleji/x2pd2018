@@ -7,6 +7,7 @@ import idas22018.dialogy.DialogPridejOborPredmet;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -49,6 +50,16 @@ public class FXMLOborPredmetController implements Initializable {
     private Button odeberButton;
     
     private boolean zmeny = false;
+    
+    class PrimKlic{
+        String predmet, obor;
+        PrimKlic(String pred, String ob){
+            predmet = pred;
+            obor = ob;
+        }
+    }
+    
+    private LinkedList<PrimKlic> vymazane = new LinkedList<>();
 
     /**
      * Initializes the controller class.
@@ -75,6 +86,7 @@ public class FXMLOborPredmetController implements Initializable {
     private void okButtonClick(ActionEvent event) {
         dataLayer.commit();
         zmeny = false;
+        vymazane.clear();
         close(predScena);
     }
 
@@ -82,6 +94,7 @@ public class FXMLOborPredmetController implements Initializable {
     private void cancelButtonClick(ActionEvent event) {
         dataLayer.rollback();
         zmeny = false;
+        vymazane.clear();
         close(predScena);
     }
 
@@ -132,6 +145,7 @@ public class FXMLOborPredmetController implements Initializable {
         try {
             dataLayer.deleteSpecializationSubject(origID2, origID);
             zmeny = true;
+            vymazane.add(new PrimKlic(origID2, origID));
             fillTable();
         } catch (SQLException ex) {
             DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -151,11 +165,20 @@ public class FXMLOborPredmetController implements Initializable {
             seznam.clear();
 
             while (rs.next()) {
-                List<String> list = FXCollections.observableArrayList(
-                        rs.getString("ZKRATKA_PREDMETU"), rs.getString("NAZEV_PREDMETU"),
-                        rs.getString("ZKRATKA_OBORU"), rs.getString("NAZEV_OBORU"),
-                        rs.getString("KATEGORIE_PREDMETU_KATEGORIE"));
-                seznam.add(list);
+                boolean jeVKolekci = false;
+                for(PrimKlic pk:vymazane){
+                    if (pk.obor.equalsIgnoreCase(rs.getString("ZKRATKA_OBORU")) || pk.predmet.equalsIgnoreCase(rs.getString("ZKRATKA_PREDMETU"))){
+                        jeVKolekci = true;
+                        break;
+                    }
+                }
+                if (!jeVKolekci){
+                    List<String> list = FXCollections.observableArrayList(
+                            rs.getString("ZKRATKA_PREDMETU"), rs.getString("NAZEV_PREDMETU"),
+                            rs.getString("ZKRATKA_OBORU"), rs.getString("NAZEV_OBORU"),
+                            rs.getString("KATEGORIE_PREDMETU_KATEGORIE"));
+                    seznam.add(list);
+                }
             }
         } catch (SQLException ex) {
             DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());

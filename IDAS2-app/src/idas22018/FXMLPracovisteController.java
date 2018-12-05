@@ -7,6 +7,7 @@ import idas22018.dialogy.DialogPridejKatedru;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -46,6 +47,7 @@ public class FXMLPracovisteController implements Initializable {
     private Button odeberButton;
     
     private boolean zmeny = false;
+    private LinkedList<String> vymazane = new LinkedList<>();
     /**
      * Initializes the controller class.
      */
@@ -70,6 +72,7 @@ public class FXMLPracovisteController implements Initializable {
     private void okButtonClick(ActionEvent event) {
         dataLayer.commit();
         zmeny = false;
+        vymazane.clear();
         close(predScena);
     }
 
@@ -77,6 +80,7 @@ public class FXMLPracovisteController implements Initializable {
     private void cancelButtonClick(ActionEvent event) {
         dataLayer.rollback();
         zmeny = false;
+        vymazane.clear();
         close(predScena);
     }
 
@@ -124,6 +128,7 @@ public class FXMLPracovisteController implements Initializable {
         try {
             dataLayer.deleteDepartment(origID);
             zmeny = true;
+            vymazane.add(origID);
             fillTable();
         } catch (SQLException ex) {
             DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -138,10 +143,12 @@ public class FXMLPracovisteController implements Initializable {
             seznam.clear();
 
             while (rs.next()) {
-                List<String> list = FXCollections.observableArrayList(rs.getString("ZKRATKA_KATEDRY"),
-                        rs.getString("NAZEV_KATEDRY"), rs.getString("ZKRATKA_FAKULTY"),
-                        rs.getString("NAZEV_FAKULTY"));
-                seznam.add(list);
+                if(!vymazane.contains(rs.getString("ZKRATKA_KATEDRY"))){
+                    List<String> list = FXCollections.observableArrayList(rs.getString("ZKRATKA_KATEDRY"),
+                            rs.getString("NAZEV_KATEDRY"), rs.getString("ZKRATKA_FAKULTY"),
+                            rs.getString("NAZEV_FAKULTY"));
+                    seznam.add(list);
+                }
             }
         } catch (SQLException ex) {
             DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());
