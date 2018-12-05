@@ -217,7 +217,8 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             seznam.clear();
 
             while (rs.next()) {
-                if(!vymazane.contains(rs.getInt("ID_ROZVRHOVE_AKCE"))){
+                if(!vymazane.contains(rs.getInt("ID_ROZVRHOVE_AKCE")) &&
+                        ((IDAS22018.druhProhlizeni==RezimProhlizeni.ADMINISTRATOR || vlastni)?true:rs.getInt("SCHVALENO")!=0)){
                     String tP = rs.getString("TITUL_PRED") == null ? "" : rs.getString("TITUL_PRED");
                     String tZ = rs.getString("TITUL_ZA") == null ? "" : rs.getString("TITUL_ZA");
 
