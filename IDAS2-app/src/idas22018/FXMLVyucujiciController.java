@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -27,8 +28,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javax.imageio.ImageIO;
 
 public class FXMLVyucujiciController implements Initializable {
 
@@ -303,12 +307,37 @@ public class FXMLVyucujiciController implements Initializable {
 
             try {
                 dataLayer.deletePicture(id);
+                imageView.setImage(null);
             } catch (SQLException ex) {
                 DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());
                 dialog2.showAndWait();
             }
 
             tableView.getSelectionModel().clearSelection();
+        }
+    }
+
+    @FXML
+    private void tableClickItem(MouseEvent event) {
+        if (tableView.getSelectionModel().getSelectedItem() != null) {
+            int id = Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0));
+            Image image = null;
+            try {
+                imageView.setImage(null);
+                InputStream inputStream = dataLayer.selectPictureToTeacher(id);
+                if(inputStream != null){
+                    image = new Image(inputStream);
+                    imageView.setImage(image);
+                }
+                
+                
+                
+                
+            } catch (SQLException ex) {
+                DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());
+                dialog2.showAndWait();
+            }
+
         }
     }
 

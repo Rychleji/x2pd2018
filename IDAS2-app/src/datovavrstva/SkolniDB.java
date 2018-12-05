@@ -1,12 +1,14 @@
 package datovavrstva;
 
 import OracleConnector.OracleConnector;
+import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -447,6 +449,24 @@ public class SkolniDB implements ISkolniDB {
         Statement statement = connect.createStatement();
 
         return statement.executeQuery("select * from ROZVRHOVE_AKCE_EXT_VIEW where ID_ROZVRHOVE_AKCE = " + id);
+    }
+
+    @Override
+    public InputStream selectPictureToTeacher(int id) throws SQLException {
+        
+        PreparedStatement stmt =  connect.prepareStatement("select OBRAZEK FROM DATA WHERE ID_ZAMESTNANEC = " + id);
+        InputStream is = null;
+        ResultSet rset = stmt.executeQuery();
+        while (rset.next()) {
+            Blob blob = connect.createBlob();
+            blob = rset.getBlob("obrazek");
+            if (blob == null) {
+                break;
+            }
+            is = blob.getBinaryStream();
+        }
+
+        return is;
     }
 
     @Override

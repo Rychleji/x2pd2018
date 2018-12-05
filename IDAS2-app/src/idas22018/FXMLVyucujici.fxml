@@ -49,7 +49,7 @@
       </FlowPane>
    </bottom>
    <center>
-      <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tableView" onMouseClicked="#tableClickItem" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="idCol" prefWidth="45.0" text="ID" />
           <TableColumn fx:id="jmenoCol" prefWidth="95.0" text="Jméno" />
