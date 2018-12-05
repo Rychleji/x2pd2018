@@ -136,6 +136,21 @@
 <logicalDatatype>LOGDT019</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
+<Attribute name="DEN" id="C1CF2B3E-C29C-2FE9-C6BC-D36788FAB250">
+<createdBy>Radim</createdBy>
+<createdTime>2018-12-05 15:40:25 UTC</createdTime>
+<generatorID>E16D2257-68A2-1B0C-6198-D2FF4AC7B497</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<referedAttribute>FD572460-F348-48C7-D074-7C41C29DC05A</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
 <identifier id="BE7636AA-FB72-56F0-C068-C309C5206663" name="ROZVRHOVA_AKCE PK">

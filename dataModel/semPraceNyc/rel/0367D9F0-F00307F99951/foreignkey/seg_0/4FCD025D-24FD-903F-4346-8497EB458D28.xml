@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="4FCD025D-24FD-903F-4346-8497EB458D28" containerWithKeyObject="BB6CABA3-89D6-4879-AFA1-B843682CFA07" localFKIndex="9283E25B-F559-DDCD-9E47-8E7B69C28607" name="ROZVRHOVA_AKCE_DNYVTYDNU_FK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-12-05 15:40:57 UTC</createdTime>
+<generatorID>E16D2257-68A2-1B0C-6198-D2FF4AC7B497</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<referredTableLongName>DNYVTYDNU</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>15B3F50D-2253-7238-4758-E5A83A495A6F</referredTableID>
+<keyObject>6BC89BFC-9B5E-D9B9-734F-D44810905114</keyObject>
+<referredKeyID>6BC89BFC-9B5E-D9B9-734F-D44810905114</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>DEN</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

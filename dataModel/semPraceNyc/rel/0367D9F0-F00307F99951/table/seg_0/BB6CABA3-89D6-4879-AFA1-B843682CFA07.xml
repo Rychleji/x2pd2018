@@ -99,7 +99,7 @@
 <colAssociation fkAssociation="A66A1A4A-7541-82DC-5941-D0AEA79705BB" referredColumn="F0C5A356-E8EB-234E-59DB-23300BCFF680"/>
 </associations>
 </Column>
-<Column name="ZAMESTNANEC_id_vyucujiciho" id="0920FCF4-6AAD-288A-1B0A-4740AAA857DF">
+<Column name="ZAMESTNANEC_id_zamestnanec" id="0920FCF4-6AAD-288A-1B0A-4740AAA857DF">
 <createdBy>Radim</createdBy>
 <createdTime>2018-05-07 22:32:19 UTC</createdTime>
 <generatorID>46968C7B-F377-1D49-2883-5EE57694278A</generatorID>
@@ -139,6 +139,22 @@
 <logicalDatatype>LOGDT015</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DNYVTYDNU_DEN" id="9842725E-AD62-5997-16C9-FF65D329C0DA">
+<createdBy>Radim</createdBy>
+<createdTime>2018-12-05 15:40:57 UTC</createdTime>
+<generatorID>C1CF2B3E-C29C-2FE9-C6BC-D36788FAB250</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="4FCD025D-24FD-903F-4346-8497EB458D28" referredColumn="E636E82D-11C4-AF94-E5B0-F0A3501151BA"/>
+</associations>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
@@ -207,6 +223,17 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="117D93F1-0EA3-39A4-5DD3-FE90E6004D88"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="9283E25B-F559-DDCD-9E47-8E7B69C28607" name="ROZVRHOVA_AKCE_DNYVTYDNU_FK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-12-05 15:40:57 UTC</createdTime>
+<generatorID>E16D2257-68A2-1B0C-6198-D2FF4AC7B497</generatorID>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9842725E-AD62-5997-16C9-FF65D329C0DA"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

@@ -43,7 +43,7 @@
 <ownDataTypeParameters>50,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="ZAMESTNANEC_id_vyucujiciho" id="D7558BA2-0872-DEB9-6FCC-3701DBF9B763">
+<Column name="ZAMESTNANEC_id_zamestnanec" id="D7558BA2-0872-DEB9-6FCC-3701DBF9B763">
 <createdBy>David</createdBy>
 <createdTime>2018-11-16 16:07:51 UTC</createdTime>
 <generatorID>BAB2BE57-B764-07FC-FCA3-5A4A2CC89EFD</generatorID>

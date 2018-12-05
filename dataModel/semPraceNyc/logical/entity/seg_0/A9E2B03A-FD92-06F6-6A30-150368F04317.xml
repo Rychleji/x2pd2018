@@ -1,0 +1,59 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="A9E2B03A-FD92-06F6-6A30-150368F04317" name="DNYVTYDNU">
+<createdBy>Radim</createdBy>
+<createdTime>2018-12-05 15:36:35 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="DEN" id="FD572460-F348-48C7-D074-7C41C29DC05A">
+<createdBy>Radim</createdBy>
+<createdTime>2018-12-05 15:38:16 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PRIORITA" id="A8CFCD38-F54E-73F4-C9B8-CF56BA8ECA5B">
+<createdBy>Radim</createdBy>
+<createdTime>2018-12-05 15:38:16 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<ownDataTypeParameters>,1,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="D075E417-C467-F982-39D6-BB1F7085F42E" name="DNYVTYDNU PK">
+<createdBy>Radim</createdBy>
+<createdTime>2018-12-05 15:38:53 UTC</createdTime>
+<ownerDesignName>semPraceNyc</ownerDesignName>
+<engineerTo>
+<item key="0367D9F0-019C-3525-4684-F00307F99951" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>FD572460-F348-48C7-D074-7C41C29DC05A</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
