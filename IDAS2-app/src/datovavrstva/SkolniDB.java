@@ -66,18 +66,23 @@ public class SkolniDB implements ISkolniDB {
 
     @Override
     public void editTeacher(int origId, String name, String lastname, String titles, String titlesAfter, int phone, int mobilePhone, String email, String department, FileInputStream image, int role, int rights, String username, String password) throws SQLException, IOException {
-        PreparedStatement ps=connect.prepareStatement("exec UPRAVZAMESTNANCE(?,?,?)");  
+        CallableStatement stmt = connect.prepareCall("{call VLOZZAMESTNANCE(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+        stmt.setInt(1, origId);
+        stmt.setString(2, name);
+        stmt.setString(3, lastname);
+        stmt.setString(4, titles);
+        stmt.setString(5, titlesAfter);
+        stmt.setString(6, email);
+        stmt.setString(7, department);
+        stmt.setInt(8, rights);
+        stmt.setInt(9, role);
+        stmt.setInt(10, mobilePhone);
+        stmt.setInt(11, phone);
+        stmt.setString(12, "null");
+        stmt.setString(13, username);
+        stmt.setString(14, password);
         
-        ps.setString(1, String.format("%d, %s, %s, %s, %s, %s, %s, %d, %d, %d, %d", origId, name, lastname, titles, titlesAfter, email, department, rights, role, mobilePhone, phone));
-        
-        if(image == null)
-            ps.setString(2, "NULL");
-        else
-            ps.setBinaryStream(2, image, image.available());
-        
-        ps.setString(3, String.format("%s, %s", username, password));
-
-        ps.execute();
+        stmt.executeUpdate();
     }
 
     @Override
@@ -102,136 +107,181 @@ public class SkolniDB implements ISkolniDB {
 
     @Override
     public void addTeacher(String name, String lastname, String titles, String titlesAfter, int phone, int mobilePhone, String email, String department, int role, int rights, String username, String password) throws SQLException, IOException {
-//        CallableStatement stmt = connect.prepareCall("{call VLOZUCEBNU(?,?)}");
-//        stmt.setString(1, name);
-//        stmt.setInt(2, capacity);
-//        
-//        stmt.executeUpdate();
-
-//        PreparedStatement ps=connect.prepareStatement("exec VLOZZAMESTNANCE(?,?,?)");  
-//        
-//        ps.setString(1, String.format("%s, %s, %s, %s, %s, %s, %d, %d, %d, %d",name, lastname, titles, titlesAfter, email, department, rights, role, mobilePhone, phone));
-//        
-//        if(image == null)
-//            ps.setString(2, "NULL");
-//        else
-//            ps.setBinaryStream(2, image, image.available());
-//        
-//        ps.setString(3, String.format("%s, %s", username, password));
-//
-//        ps.execute();
+        CallableStatement stmt = connect.prepareCall("{call VLOZZAMESTNANCE(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+        stmt.setString(1, name);
+        stmt.setString(2, lastname);
+        stmt.setString(3, titles);
+        stmt.setString(4, titlesAfter);
+        stmt.setString(5, email);
+        stmt.setString(6, department);
+        stmt.setInt(7, rights);
+        stmt.setInt(8, role);
+        stmt.setInt(9, mobilePhone);
+        stmt.setInt(10, phone);
+        stmt.setString(11, "null");
+        stmt.setString(12, username);
+        stmt.setString(13, password);
+        
+        stmt.executeUpdate();
     }
 
     @Override
     public void deleteTeacher(int id) throws SQLException {
-        Statement stmt = connect.createStatement();
-
-        stmt.execute("EXEC SMAZZAMESTNANCE(%d)", id);
+        CallableStatement stmt = connect.prepareCall("{call SMAZZAMESTNANCE(?)}");
+        stmt.setInt(1, id);
+        
+        stmt.executeUpdate();
     }
 
     @Override
     public void editDepartment(String origShort, String newShort, String name, String faculty) throws SQLException {
-        Statement stmt = connect.createStatement();
-
-        stmt.execute(String.format("exec UPRAVKATEDRU(%s, %s, %s, %s)", origShort, newShort, name, faculty));
+        CallableStatement stmt = connect.prepareCall("{call UPRAVKATEDRU(?, ?, ?, ?)}");
+        stmt.setString(1, origShort);
+        stmt.setString(2, newShort);
+        stmt.setString(3, name);
+        stmt.setString(4, faculty);
+        
+        stmt.executeUpdate();
     }
 
     @Override
     public void addDepartment(String newShort, String name, String faculty) throws SQLException {
-        Statement stmt = connect.createStatement();
-
-        stmt.execute(String.format("exec VLOZKATEDRU(%s, %s, %s)", newShort, name, faculty));
+        CallableStatement stmt = connect.prepareCall("{call VLOZKATEDRU(?, ?, ?)}");
+        stmt.setString(1, newShort);
+        stmt.setString(2, name);
+        stmt.setString(3, faculty);
+        
+        stmt.executeUpdate();
     }
 
     @Override
     public void deleteDepartment(String shortName) throws SQLException {
-        Statement stmt = connect.createStatement();
-
-        stmt.execute(String.format("exec SMAZKATEDRU(%s)", shortName));
+        CallableStatement stmt = connect.prepareCall("{call SMAZKATEDRU(?)}");
+        stmt.setString(1, shortName);
+        
+        stmt.executeUpdate();
     }
 
     @Override
     public void editFaculty(String origShort, String newShort, String name) throws SQLException {
-        Statement stmt = connect.createStatement();
-
-        stmt.execute(String.format("exec UPRAVFAKULTU(%s, %s, %s)", origShort, newShort, name));
+        CallableStatement stmt = connect.prepareCall("{call UPRAVFAKULTU(?, ?, ?)}");
+        stmt.setString(1, origShort);
+        stmt.setString(2, newShort);
+        stmt.setString(3, name);
+        
+        stmt.executeUpdate();
     }
 
     @Override
     public void addFaculty(String newShort, String name) throws SQLException {
-        Statement stmt = connect.createStatement();
-
-        stmt.execute(String.format("exec VLOZFAKULTU(%s, %s)", newShort, name));
+        CallableStatement stmt = connect.prepareCall("{call VLOZFAKULTU(?, ?)}");
+        stmt.setString(1, newShort);
+        stmt.setString(2, name);
+        
+        stmt.executeUpdate();
     }
 
     @Override
     public void deleteFaculty(String shortname) throws SQLException {
-        Statement stmt = connect.createStatement();
-
-        stmt.execute(String.format("exec SMAZFAKULTU(%s)", shortname));
+        CallableStatement stmt = connect.prepareCall("{call SMAZFAKULTU(?)}");
+        stmt.setString(1, shortname);
+        
+        stmt.executeUpdate();
     }
 
     @Override
     public void editSpecialization(String origShort, String newShort, String name, String faculty) throws SQLException {
-        Statement stmt = connect.createStatement();
-
-        stmt.execute(String.format("exec UPRAVOBOR(%s, %s, %s, %s)", origShort, newShort, name, faculty));
+        CallableStatement stmt = connect.prepareCall("{call UPRAVOBOR(?, ?, ?, ?)}");
+        stmt.setString(1, origShort);
+        stmt.setString(2, newShort);
+        stmt.setString(3, name);
+        stmt.setString(4, faculty);
+        
+        stmt.executeUpdate();
     }
 
     @Override
     public void addSpecialization(String newShort, String name, String faculty) throws SQLException {
-        Statement stmt = connect.createStatement();
-
-        stmt.execute(String.format("exec VLOZOBOR(%s, %s, %s)", newShort, name, faculty));
+        CallableStatement stmt = connect.prepareCall("{call VLOZOBOR(?, ?, ?)}");
+        stmt.setString(1, newShort);
+        stmt.setString(2, name);
+        stmt.setString(3, faculty);
+        
+        stmt.executeUpdate();
     }
 
     @Override
     public void deleteSpecialization(String shortname) throws SQLException {
-        Statement stmt = connect.createStatement();
-
-        stmt.execute(String.format("exec SMAZOBOR(%s)", shortname));
+        CallableStatement stmt = connect.prepareCall("{call SMAZOBOR(?)}");
+        stmt.setString(1, shortname);
+        
+        stmt.executeUpdate();
     }
 
     @Override
     public void editSubject(String origShort, String newShort, String name, int year, int semester, int end, int form) throws SQLException {
-        Statement stmt = connect.createStatement();
-
-        stmt.execute(String.format("exec UPRAVPREDMET(%s, %s, %s, %d, %d, %d, %d)", origShort, newShort, name, year, semester, end, form));
+        CallableStatement stmt = connect.prepareCall("{call UPRAVPREDMET(?, ?, ?, ?, ?, ?, ?)}");
+        stmt.setString(1, origShort);
+        stmt.setString(2, newShort);
+        stmt.setString(3, name);
+        stmt.setInt(4, year);
+        stmt.setInt(5, semester);
+        stmt.setInt(6, end);
+        stmt.setInt(7, form);
+        
+        stmt.executeUpdate();
     }
 
     @Override
     public void addSubject(String newShort, String name, int year, int semester, int end, int form) throws SQLException {
-        Statement stmt = connect.createStatement();
-
-        stmt.execute(String.format("exec VLOZPREDMET(%s, %s, %d, %d, %d, %d)", newShort, name, year, semester, end, form));
+        CallableStatement stmt = connect.prepareCall("{call VLOZPREDMET(?, ?, ?, ?, ?, ?)}");
+        stmt.setString(1, newShort);
+        stmt.setString(2, name);
+        stmt.setInt(3, year);
+        stmt.setInt(4, semester);
+        stmt.setInt(5, end);
+        stmt.setInt(6, form);
+        
+        stmt.executeUpdate();
     }
 
     @Override
     public void deleteSubject(String shortname) throws SQLException {
-        Statement stmt = connect.createStatement();
-
-        stmt.execute(String.format("exec SMAZPREDMET(%s)", shortname));
+        CallableStatement stmt = connect.prepareCall("{call SMAZPREDMET(?)}");
+        stmt.setString(1, shortname);
+        
+        stmt.executeUpdate();
     }
 
     @Override
     public void editSpecializationSubject(String origShortSpec, String origShortSubj, String newShortSpec, String newShortSubj, String category) throws SQLException {
-        Statement stmt = connect.createStatement();
-
-        stmt.execute(String.format("exec UPRAVOBORPREDMET(%s, %s, %s, %s, %s)", origShortSpec, origShortSubj, newShortSpec, newShortSubj, category));
+        CallableStatement stmt = connect.prepareCall("{call UPRAVOBORPREDMET(?, ?, ?, ?, ?)}");
+        stmt.setString(1, origShortSpec);
+        stmt.setString(2, origShortSubj);
+        stmt.setString(3, newShortSpec);
+        stmt.setString(4, newShortSubj);
+        stmt.setString(5, category);
+        
+        stmt.executeUpdate();
     }
 
     @Override
     public void addSpecializationSubject(String shortSpec, String shortSubj, String category) throws SQLException {
-        Statement stmt = connect.createStatement();
-
-        stmt.execute(String.format("exec VLOZOBORPREDMET(%s, %s, %s)", shortSpec, shortSubj, category));
+        CallableStatement stmt = connect.prepareCall("{call VLOZOBORPREDMET(?, ?, ?)}");
+        stmt.setString(1, shortSpec);
+        stmt.setString(2, shortSubj);
+        stmt.setString(3, category);
+        
+        stmt.executeUpdate();
     }
 
     @Override
     public void deleteSpecializationSubject(String shortSpec, String shortSubj) throws SQLException {
-        Statement stmt = connect.createStatement();
-
-        stmt.execute(String.format("exec SMAZOBORPREDMET(%s, %s)", shortSpec, shortSubj));
+        CallableStatement stmt = connect.prepareCall("{call SMAZOBORPREDMET(?, ?)}");
+        stmt.setString(1, shortSpec);
+        stmt.setString(2, shortSubj);
+        
+        stmt.executeUpdate();
     }
 
     @Override
