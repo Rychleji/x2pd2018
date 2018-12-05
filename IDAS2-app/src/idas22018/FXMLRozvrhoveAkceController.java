@@ -140,7 +140,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     @FXML
     private void pridejButtonClick(ActionEvent event) {
         DialogPridejRA dialog2 = new DialogPridejRA(schvalitButton.getParent().getScene().getWindow(), dataLayer.getConnect(),
-                0, subjId, vyucId == null ? 0 : Integer.parseInt(vyucId));
+                0, subjId, vyucId == null ? 0 : Integer.parseInt(vyucId), vlastni);
         dialog2.showAndWait();
 
         if (dialog2.isButtonPressed()) {
@@ -162,7 +162,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     private void upravButtonClick(ActionEvent event) {
         int origID = Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0));
         DialogPridejRA dialog2 = new DialogPridejRA(schvalitButton.getParent().getScene().getWindow(),
-                dataLayer.getConnect(), origID, subjId, vyucId == null ? 0 : Integer.parseInt(vyucId));
+                dataLayer.getConnect(), origID, subjId, vyucId == null ? 0 : Integer.parseInt(vyucId), vlastni);
         dialog2.showAndWait();
 
         if (dialog2.isButtonPressed()) {

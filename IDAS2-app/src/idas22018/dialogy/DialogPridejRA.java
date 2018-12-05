@@ -108,17 +108,17 @@ public class DialogPridejRA extends Stage {
         return den;
     }
 
-    public DialogPridejRA(Window okno, Connection conn, int idRA, String zkratkaPredmetuFiltr, int idVyucFiltr) {
+    public DialogPridejRA(Window okno, Connection conn, int idRA, String zkratkaPredmetuFiltr, int idVyucFiltr, boolean vlastni) {
         setTitle("Rozvrhová akce");
 
         initStyle(StageStyle.UTILITY);
         initModality(Modality.WINDOW_MODAL);
         initOwner(okno);
 
-        setScene(vytvorScenu(conn, idRA, zkratkaPredmetuFiltr, idVyucFiltr));
+        setScene(vytvorScenu(conn, idRA, zkratkaPredmetuFiltr, idVyucFiltr, vlastni));
     }
 
-    private Scene vytvorScenu(Connection conn, int idRA, String zkratkaPredmetu, int idVyucFiltr) {
+    private Scene vytvorScenu(Connection conn, int idRA, String zkratkaPredmetu, int idVyucFiltr, boolean vlastni) {
         VBox box = new VBox();
         box.setAlignment(Pos.CENTER);
         box.setSpacing(20);
@@ -213,6 +213,9 @@ public class DialogPridejRA extends Stage {
         } catch (SQLException ex) {
             Logger.getLogger(DialogPridejRA.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        vyucCb.setDisable(vlastni);
+        
         Spinner<Double> zacinaVSp = new Spinner<>(0.0, 19.0, zacinaV, 0.5);
         Spinner<Integer> pocetStudentuSp = new Spinner<>(1, Integer.MAX_VALUE - 1, pocetStudentu, 1);
         Spinner<Double> maHodinSp = new Spinner<>(0.1, 5.0, maHodin, 0.25);
