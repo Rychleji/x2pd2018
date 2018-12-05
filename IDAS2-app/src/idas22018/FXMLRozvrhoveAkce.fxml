@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1217.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas22018.FXMLRozvrhoveAkceController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1271.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas22018.FXMLRozvrhoveAkceController">
    <top>
       <FlowPane alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -60,7 +60,7 @@
             <TableColumn fx:id="maHodinCol" prefWidth="90.0" text="Má hodin" />
             <TableColumn fx:id="zpusobCol" prefWidth="74.0" text="Způsob" />
             <TableColumn fx:id="ucebnaCol" maxWidth="156.0" minWidth="30.0" prefWidth="61.0" text="Učebna" />
-            <TableColumn fx:id="schvalenoCol" prefWidth="23.0" text="Schváleno" />
+            <TableColumn fx:id="schvalenoCol" prefWidth="74.4000122070313" text="Schváleno" />
          </columns>
       </TableView>
    </center>
