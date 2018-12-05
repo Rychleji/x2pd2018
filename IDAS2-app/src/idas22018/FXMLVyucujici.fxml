@@ -99,8 +99,8 @@
                </font>
             </Label>
             <ImageView fx:id="imageView" fitHeight="204.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <Button mnemonicParsing="false" onAction="#pridejFotoButton" prefHeight="30.0" prefWidth="140.0" text="Nahraj obrázek" />
-            <Button mnemonicParsing="false" onAction="#smazObrazekButton" prefHeight="30.0" prefWidth="140.0" text="Smazat obrázek" />
+            <Button fx:id="nahrajObrazekBtn" mnemonicParsing="false" onAction="#pridejFotoButton" prefHeight="30.0" prefWidth="140.0" text="Nahraj obrázek" />
+            <Button fx:id="smazObrazekBtn" mnemonicParsing="false" onAction="#smazObrazekButton" prefHeight="30.0" prefWidth="140.0" text="Smazat obrázek" />
          </children>
       </VBox>
    </left>

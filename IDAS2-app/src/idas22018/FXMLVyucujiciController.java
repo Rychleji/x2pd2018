@@ -83,6 +83,10 @@ public class FXMLVyucujiciController implements Initializable {
     
     private boolean zmeny = false;
     private LinkedList<Integer> vymazane = new LinkedList<>();
+    @FXML
+    private Button nahrajObrazekBtn;
+    @FXML
+    private Button smazObrazekBtn;
     
     public void setSkrytVeci(boolean skryt) {
         skrytControlsProVyucujici = skryt;
@@ -99,6 +103,8 @@ public class FXMLVyucujiciController implements Initializable {
         pridejButton.setDisable(IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR);
         upravButton.setDisable(IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR);
         odeberButton.setDisable(IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR);
+        nahrajObrazekBtn.setDisable(IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR);
+        smazObrazekBtn.setDisable(IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR);
 
         idCol.setCellValueFactory((CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
         jmenoCol.setCellValueFactory((CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));
