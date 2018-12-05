@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -14,11 +15,19 @@
    <top>
       <FlowPane alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Rozvrhové akce" textFill="#100365">
-               <font>
-                  <Font name="Arial" size="47.0" />
-               </font>
-            </Label>
+            <HBox prefHeight="100.0" prefWidth="1256.0" spacing="70.0">
+               <children>
+                  <Label text="Rozvrhové akce" textFill="#100365">
+                     <font>
+                        <Font name="Arial" size="47.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="zobrazGraficky" mnemonicParsing="false" onAction="#zobrazGrafickyButton" prefHeight="30.0" prefWidth="300.0" text="Zobraz graficky můj rozvrh" />
+               </children>
+               <FlowPane.margin>
+                  <Insets top="20.0" />
+               </FlowPane.margin>
+            </HBox>
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

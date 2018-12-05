@@ -4,6 +4,7 @@ import datovavrstva.ISkolniDB;
 import static idas22018.IDAS22018.*;
 import idas22018.dialogy.DialogChyba;
 import idas22018.dialogy.DialogPridejRA;
+import idas22018.dialogy.DialogZobrazRAGraficky;
 import java.net.URL;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
@@ -67,6 +68,8 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     private boolean vlastni = false;
     private boolean zmeny = false;
     private LinkedList<Integer> vymazane = new LinkedList<>();
+    @FXML
+    private Button zobrazGraficky;
 
     /**
      * Initializes the controller class.
@@ -79,6 +82,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
         pridejButton.setDisable((IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR));
         upravButton.setDisable((IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR));
         odeberButton.setDisable((IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR));
+        zobrazGraficky.setVisible((IDAS22018.druhProhlizeni == RezimProhlizeni.REGISTROVANY));
 
         idCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
         zkratkaCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));
@@ -296,5 +300,12 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             DialogChyba dialog = new DialogChyba(null, ex.getMessage());
             dialog.showAndWait();
         }
+    }
+
+    @FXML
+    private void zobrazGrafickyButton(ActionEvent event) {
+        DialogZobrazRAGraficky dialog = new DialogZobrazRAGraficky(schvalitButton.getParent().getScene().getWindow());
+        dialog.showAndWait();
+        
     }
 }
