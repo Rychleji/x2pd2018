@@ -2,10 +2,11 @@
 -------zamestnanec-------
 create or replace PROCEDURE vlozZamestnance
   (p_jmeno VARCHAR2, p_prijmeni VARCHAR2, p_titulPred VARCHAR2, p_titulZa VARCHAR2, p_email VARCHAR2, 
-   p_zkratkaKatedry VARCHAR2, p_opravneni NUMBER, p_idRole NUMBER, p_mobil NUMBER, p_telefon NUMBER, p_obrazek DATA.OBRAZEK%TYPE,
+   p_zkratkaKatedry VARCHAR2, p_opravneni NUMBER, p_idRole NUMBER, p_mobil NUMBER, p_telefon NUMBER,
    p_uzivJmeno VARCHAR2, p_heslo VARCHAR2)
 IS
     v_id    ZAMESTNANEC.ID_ZAMESTNANEC%TYPE;
+    v_idOpr NUMBER;
     v_pass  VARCHAR2(50);
 BEGIN
 	INSERT INTO ZAMESTNANEC (jmeno, prijmeni,titul_pred,titul_za,
@@ -14,53 +15,46 @@ BEGIN
 
     SELECT ID_ZAMESTNANEC INTO v_id FROM ZAMESTNANEC WHERE JMENO = p_jmeno AND PRIJMENI = p_prijmeni AND EMAIL = p_email;
 
-    if NOT(p_obrazek is null) then
-        INSERT INTO DATA (OBRAZEK, DATUMPRIDANI, DATUMMODIFIKACE, ID_ZAMESTNANEC)
-        VALUES (p_obrazek, SYSDATE, SYSDATE, v_id);
-    end if;
-
-    select standard_hash(p_heslo, 'MD5') into v_pass from dual;
-
-    INSERT INTO UDAJE (UZIVATELSKEJMENO, HESLO, ID_ZAMESTNANEC)
-    VALUES (p_uzivJmeno, v_pass, v_id);
+    IF (NOT(P_HESLO is NULL) AND NOT(P_UZIVJMENO is NULL)) THEN
+        select standard_hash(p_heslo, 'MD5') into v_pass from dual;
+    
+        INSERT INTO UDAJE (UZIVATELSKEJMENO, HESLO, ID_ZAMESTNANEC)
+        VALUES (p_uzivJmeno, v_pass, v_id);
+    ELSE
+        select id_opravneni into v_idOpr from opravneni where opravneni = 'Neregistrovaný';
+    
+        update zamestnanec
+        set id_opravneni = v_idOpr
+        where id_zamestnanec = v_id;
+    END IF;
 END;
 /
 create or replace PROCEDURE upravZamestnance 
   (p_id NUMBER, p_jmeno VARCHAR2, p_prijmeni VARCHAR2, p_titulPred VARCHAR2, p_titulZa VARCHAR2, p_email VARCHAR2, 
-   p_zkratkaKatedry VARCHAR2, p_opravneni NUMBER, p_idRole NUMBER, p_mobil NUMBER, p_telefon NUMBER, p_obrazek DATA.OBRAZEK%TYPE,
+   p_zkratkaKatedry VARCHAR2, p_opravneni NUMBER, p_idRole NUMBER, p_mobil NUMBER, p_telefon NUMBER,
    p_uzivJmeno VARCHAR2, p_heslo VARCHAR2)
 IS
     v_pass      VARCHAR2(50);
-    v_idData    DATA.ID_DATA%TYPE := null;
+    v_idUdaje   NUMBER;
 BEGIN
     UPDATE ZAMESTNANEC
     SET JMENO = p_jmeno, PRIJMENI = p_prijmeni, TITUL_PRED = p_titulPred, TITUL_ZA = p_titulZa, TELEFON = p_telefon, MOBIL = p_mobil,
         EMAIL = p_email, KATEDRA_ZKRATKA_KATEDRY = p_zkratkaKatedry, ID_OPRAVNENI = p_opravneni, ID_ROLE = p_idRole
     WHERE ID_ZAMESTNANEC = p_id;
-           
-    IF NOT(p_obrazek is null) THEN
+
+    IF (NOT(P_HESLO is NULL) AND NOT(P_UZIVJMENO is NULL)) THEN
         begin
-            select ID_DATA into v_idData from DATA where ID_ZAMESTNANEC = p_id;
-            
-            exception 
-                when NO_DATA_FOUND THEN
-                    insert into DATA (OBRAZEK, DATUMPRIDANI, DATUMMODIFIKACE, ID_ZAMESTNANEC)
-                    values (p_obrazek, SYSDATE, SYSDATE, p_id);
-        end; --pokud nemá odpovídající zaměstnanec data vytvoří se
-        
-        IF NOT(v_idData is null) THEN
-            UPDATE DATA
-            SET OBRAZEK = p_obrazek, DATUMMODIFIKACE = SYSDATE
+            select standard_hash(p_heslo, 'MD5') into v_pass from dual;
+            select ID_UDAJE into v_idUdaje from udaje where ID_ZAMESTNANEC = p_id;
+
+            UPDATE UDAJE
+            SET UZIVATELSKEJMENO = p_uzivJmeno, HESLO = v_pass
             WHERE ID_ZAMESTNANEC = p_id;
-        end if;
-    END IF;
-
-    IF NOT((P_HESLO is NULL) AND (P_UZIVJMENO is NULL)) THEN
-        select standard_hash(p_heslo, 'MD5') into v_pass from dual;
-
-        UPDATE UDAJE
-        SET UZIVATELSKEJMENO = p_uzivJmeno, HESLO = v_pass
-        WHERE ID_ZAMESTNANEC = p_id;
+            exception --pokud udaje existují změní je, pokud ne (uživatel byl původně neregistrovaný) přidá je
+                when no_data_found then    
+                    INSERT INTO UDAJE (UZIVATELSKEJMENO, HESLO, ID_ZAMESTNANEC)
+                    VALUES (p_uzivJmeno, v_pass, p_id);
+        end;
     END IF;
 END;
 /

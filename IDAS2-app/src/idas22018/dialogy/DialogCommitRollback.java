@@ -34,7 +34,7 @@ public class DialogCommitRollback extends Stage {
     
     public DialogCommitRollback(Window okno){
         setTitle("Pozor!");
-        setWidth(400);
+        setWidth(500);
         setHeight(200);
 
         initStyle(StageStyle.UTILITY);

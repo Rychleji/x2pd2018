@@ -153,43 +153,47 @@ public class FXMLVyucujiciController implements Initializable {
 
     @FXML
     private void pridejButtonClick(ActionEvent event) {
-        DialogPridejVyucujiciho dialog2 = new DialogPridejVyucujiciho(null);
+        DialogPridejVyucujiciho dialog2 = new DialogPridejVyucujiciho(tableView.getParent().getScene().getWindow(),
+                !skrytControlsProVyucujici, dataLayer.getConnect());
         dialog2.showAndWait();
 
-        /*if (dialog2.isButtonPressed()) {
+        if (dialog2.isButtonPressed()) {
             try {
-                dataLayer.addTeacher(dialog2.getIdV(), dialog2.getJmeno(),
+                dataLayer.addTeacher(dialog2.getJmeno(),
                         dialog2.getPrijmeni(), dialog2.getTitulP(), dialog2.getTitulZ(),
                         dialog2.getTelefon(), dialog2.getMobil(), dialog2.getEmail(),
-                        dialog2.getZkratkaKatedry());
+                        dialog2.getZkratkaKatedry(), dialog2.getRole(), dialog2.getOpravneni(),
+                        dialog2.getuJmeno(), dialog2.getuHeslo());
                 zmeny = true;
                 fillTable();
             } catch (SQLException ex) {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
                 dialog.showAndWait();
             }
-        }*///TODO
+        }
     }
 
     @FXML
     private void upravButtonClick(ActionEvent event) {
         String origID = tableView.getSelectionModel().getSelectedItem().get(0);
-        DialogPridejVyucujiciho dialog2 = new DialogPridejVyucujiciho(null);
+        DialogPridejVyucujiciho dialog2 = new DialogPridejVyucujiciho(tableView.getParent().getScene().getWindow(),
+                !skrytControlsProVyucujici, Integer.parseInt(origID), dataLayer.getConnect(), false);
         dialog2.showAndWait();
 
-        /*if (dialog2.isButtonPressed()) {
+        if (dialog2.isButtonPressed()) {
             try {
-                dataLayer.editTeacher(origID, dialog2.getIdV(), dialog2.getJmeno(),
+                dataLayer.editTeacher(Integer.parseInt(origID), dialog2.getJmeno(),
                         dialog2.getPrijmeni(), dialog2.getTitulP(), dialog2.getTitulZ(),
                         dialog2.getTelefon(), dialog2.getMobil(), dialog2.getEmail(),
-                        dialog2.getZkratkaKatedry());
+                        dialog2.getZkratkaKatedry(), dialog2.getRole(), dialog2.getOpravneni(),
+                        dialog2.getuJmeno(), dialog2.getuHeslo());
                 zmeny = true;
                 fillTable();
             } catch (SQLException ex) {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
                 dialog.showAndWait();
             }
-        }*///TODO
+        }
     }
 
     @FXML

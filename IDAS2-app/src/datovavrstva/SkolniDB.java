@@ -59,8 +59,8 @@ public class SkolniDB implements ISkolniDB {
     }
 
     @Override
-    public void editTeacher(int origId, String name, String lastname, String titles, String titlesAfter, int phone, int mobilePhone, String email, String department, FileInputStream image, int role, int rights, String username, String password) throws SQLException, IOException {
-        CallableStatement stmt = connect.prepareCall("{call VLOZZAMESTNANCE(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+    public void editTeacher(int origId, String name, String lastname, String titles, String titlesAfter, int phone, int mobilePhone, String email, String department, int role, int rights, String username, String password) throws SQLException{
+        CallableStatement stmt = connect.prepareCall("{call UPRAVZAMESTNANCE(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
         stmt.setInt(1, origId);
         stmt.setString(2, name);
         stmt.setString(3, lastname);
@@ -70,11 +70,21 @@ public class SkolniDB implements ISkolniDB {
         stmt.setString(7, department);
         stmt.setInt(8, rights);
         stmt.setInt(9, role);
-        stmt.setInt(10, mobilePhone);
-        stmt.setInt(11, phone);
-        stmt.setString(12, "null");
-        stmt.setString(13, username);
-        stmt.setString(14, password);
+        if(mobilePhone!=0)
+            stmt.setInt(10, mobilePhone);
+        else
+            stmt.setNull(10, java.sql.Types.INTEGER);
+        if(phone!=0)
+            stmt.setInt(11, phone);
+        else
+            stmt.setNull(11, java.sql.Types.INTEGER);
+        if(username.equals("") ||password.equals("")){
+            stmt.setNull(12, java.sql.Types.VARCHAR);
+            stmt.setNull(13, java.sql.Types.VARCHAR);
+        }else{
+            stmt.setString(12, username);
+            stmt.setString(13, password);
+        }
         
         stmt.executeUpdate();
     }
@@ -98,8 +108,8 @@ public class SkolniDB implements ISkolniDB {
     }
     
     @Override
-    public void addTeacher(String name, String lastname, String titles, String titlesAfter, int phone, int mobilePhone, String email, String department, int role, int rights, String username, String password) throws SQLException, IOException {
-        CallableStatement stmt = connect.prepareCall("{call VLOZZAMESTNANCE(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+    public void addTeacher(String name, String lastname, String titles, String titlesAfter, int phone, int mobilePhone, String email, String department, int role, int rights, String username, String password) throws SQLException{
+        CallableStatement stmt = connect.prepareCall("{call VLOZZAMESTNANCE(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
         stmt.setString(1, name);
         stmt.setString(2, lastname);
         stmt.setString(3, titles);
@@ -108,11 +118,21 @@ public class SkolniDB implements ISkolniDB {
         stmt.setString(6, department);
         stmt.setInt(7, rights);
         stmt.setInt(8, role);
-        stmt.setInt(9, mobilePhone);
-        stmt.setInt(10, phone);
-        stmt.setString(11, "null");
-        stmt.setString(12, username);
-        stmt.setString(13, password);
+        if(mobilePhone!=0)
+            stmt.setInt(9, mobilePhone);
+        else
+            stmt.setNull(9, java.sql.Types.INTEGER);
+        if(phone!=0)
+            stmt.setInt(10, phone);
+        else
+            stmt.setNull(10, java.sql.Types.INTEGER);
+        if(username.equals("") ||password.equals("")){
+            stmt.setNull(11, java.sql.Types.VARCHAR);
+            stmt.setNull(12, java.sql.Types.VARCHAR);
+        }else{
+            stmt.setString(11, username);
+            stmt.setString(12, password);
+        }
         
         stmt.executeUpdate();
     }
