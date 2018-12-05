@@ -1,10 +1,6 @@
 package datovavrstva;
 
 import OracleConnector.OracleConnector;
-import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,8 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javafx.scene.image.Image;
-import javax.imageio.ImageIO;
 
 public class SkolniDB implements ISkolniDB {
 
@@ -103,8 +97,6 @@ public class SkolniDB implements ISkolniDB {
         stmt.executeUpdate();
     }
     
-    
-
     @Override
     public void addTeacher(String name, String lastname, String titles, String titlesAfter, int phone, int mobilePhone, String email, String department, int role, int rights, String username, String password) throws SQLException, IOException {
         CallableStatement stmt = connect.prepareCall("{call VLOZZAMESTNANCE(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");

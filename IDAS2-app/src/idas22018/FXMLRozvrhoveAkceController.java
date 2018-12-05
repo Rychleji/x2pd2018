@@ -76,9 +76,9 @@ public class FXMLRozvrhoveAkceController implements Initializable {
         dataLayer = GuiFXMLController.getDataLayer();
 
         schvalitButton.setDisable((IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR));
-        pridejButton.setDisable((IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR) || vlastni);
-        upravButton.setDisable((IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR) || vlastni);
-        odeberButton.setDisable((IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR) || vlastni);
+        pridejButton.setDisable((IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR));
+        upravButton.setDisable((IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR));
+        odeberButton.setDisable((IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR));
 
         idCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
         zkratkaCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));
@@ -197,6 +197,11 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     }
 
     private void fillTable() {
+        if(vlastni){ //pokud vlastní, enabluj, pokud ne, nech dle nastavení opravnění
+            pridejButton.setDisable(false);
+            upravButton.setDisable(false);
+            odeberButton.setDisable(false);
+        }
         try {
             ResultSet rs = null;
 

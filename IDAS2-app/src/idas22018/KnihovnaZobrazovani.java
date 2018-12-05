@@ -252,6 +252,28 @@ public final class KnihovnaZobrazovani {
         }
     }
     
+    /**
+     * 
+     * @param vyucID
+     * @param predchoziScena 
+     */
+    public void zobrazRozvrhoveAkceVlastni(String vyucID, Scene predchoziScena){
+        Parent root;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLRozvrhoveAkce.fxml"));
+            root = fxmlLoader.load();
+            FXMLRozvrhoveAkceController controller = fxmlLoader.<FXMLRozvrhoveAkceController>getController();
+            controller.setVlastni(true);
+            controller.setVyucId(vyucID);
+            Scene scena = new Scene(root);
+            controller.setScenes(predchoziScena, scena);
+            stageP.setScene(scena);
+            stageP.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     /*public void zobrazVazbyOborPredmet(String oborID){
         zobrazVazbyOborPredmet(oborID, null, IDAS22018.mainScene);
     }*/

@@ -281,6 +281,7 @@ public class GuiFXMLController implements Initializable {
 
     @FXML
     private void raButtonAction(ActionEvent event) {
+        getKnihovnaZobrazovani().zobrazRozvrhoveAkceVlastni(String.valueOf(idPrihlasenehoZamestnance), mainScene);
     }
 
     @FXML
@@ -312,24 +313,6 @@ public class GuiFXMLController implements Initializable {
         }
     }
 
-    /*@FXML
-    private void pripojeniButtonClick(ActionEvent event) {
-        DialogPripojeni dialog = new DialogPripojeni(null);
-        dialog = (DialogPripojeni) dialog.getScene().getWindow();
-        dialog.showAndWait();
-        if (dialog.isButtonPressed()) {
-            try {
-                conn = dataLayer.connectToDB("fei-sql1.upceucebny.cz", 1521, "IDAS12", dialog.getJmeno(), dialog.getHeslo());
-            } catch (SQLException ex) {
-                DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());
-                dialog2.showAndWait();
-                conn = null;
-            }
-
-            afterConnect();
-        }
-    }
-     */
     @FXML
     private void exitButtonClick(ActionEvent event) {
         stageP.close();
