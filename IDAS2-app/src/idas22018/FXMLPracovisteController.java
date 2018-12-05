@@ -44,7 +44,8 @@ public class FXMLPracovisteController implements Initializable {
     private Button upravButton;
     @FXML
     private Button odeberButton;
-
+    
+    private boolean zmeny = false;
     /**
      * Initializes the controller class.
      */
@@ -68,12 +69,14 @@ public class FXMLPracovisteController implements Initializable {
     @FXML
     private void okButtonClick(ActionEvent event) {
         dataLayer.commit();
+        zmeny = false;
         close(predScena);
     }
 
     @FXML
     private void cancelButtonClick(ActionEvent event) {
         dataLayer.rollback();
+        zmeny = false;
         close(predScena);
     }
 
@@ -86,6 +89,7 @@ public class FXMLPracovisteController implements Initializable {
             try {
                 dataLayer.addDepartment(dialog2.getZkratka(), dialog2.getNazev(),
                         dialog2.getZkratkaFak());
+                zmeny = true;
                 fillTable();
             } catch (SQLException ex) {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -104,6 +108,7 @@ public class FXMLPracovisteController implements Initializable {
             try {
                 dataLayer.editDepartment(origID, dialog2.getZkratka(), dialog2.getNazev(),
                         dialog2.getZkratkaFak());
+                zmeny = true;
                 fillTable();
             } catch (SQLException ex) {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -118,6 +123,7 @@ public class FXMLPracovisteController implements Initializable {
 
         try {
             dataLayer.deleteDepartment(origID);
+            zmeny = true;
             fillTable();
         } catch (SQLException ex) {
             DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -146,7 +152,10 @@ public class FXMLPracovisteController implements Initializable {
     @FXML
     private void vyucujiciButtonClick(ActionEvent event) {
         if (!(tableView.getItems().isEmpty() || tableView.getSelectionModel().getSelectedItem() == null)) {
-            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu(tableView.getSelectionModel().getSelectedItem().get(0), null, aktScena);
+            if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+                zmeny = false;
+                KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu(tableView.getSelectionModel().getSelectedItem().get(0), null, aktScena);
+            }
         } 
     }
 
@@ -157,16 +166,25 @@ public class FXMLPracovisteController implements Initializable {
 
     @FXML
     private void prehledVyucijiciButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu();
+        }
     }
 
     @FXML
     private void predmetyButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPredmetu();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPredmetu();
+        }
     }
 
     @FXML
     private void oboryButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledOboru();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledOboru();
+        }
     }
 }

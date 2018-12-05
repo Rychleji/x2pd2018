@@ -47,6 +47,8 @@ public class FXMLOborPredmetController implements Initializable {
     private Button upravButton;
     @FXML
     private Button odeberButton;
+    
+    private boolean zmeny = false;
 
     /**
      * Initializes the controller class.
@@ -72,12 +74,14 @@ public class FXMLOborPredmetController implements Initializable {
     @FXML
     private void okButtonClick(ActionEvent event) {
         dataLayer.commit();
+        zmeny = false;
         close(predScena);
     }
 
     @FXML
     private void cancelButtonClick(ActionEvent event) {
         dataLayer.rollback();
+        zmeny = false;
         close(predScena);
     }
 
@@ -90,6 +94,7 @@ public class FXMLOborPredmetController implements Initializable {
             try {
                 dataLayer.addSpecializationSubject(dialog2.getObor(),
                         dialog2.getPredmet(), dialog2.getKategorie());
+                zmeny = true;
                 fillTable();
             } catch (SQLException ex) {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -110,6 +115,7 @@ public class FXMLOborPredmetController implements Initializable {
             try {
                 dataLayer.editSpecializationSubject(origID2, origID, dialog2.getObor(),
                         dialog2.getPredmet(), dialog2.getKategorie());
+                zmeny = true;
                 fillTable();
             } catch (SQLException ex) {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -125,6 +131,7 @@ public class FXMLOborPredmetController implements Initializable {
 
         try {
             dataLayer.deleteSpecializationSubject(origID2, origID);
+            zmeny = true;
             fillTable();
         } catch (SQLException ex) {
             DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -177,21 +184,33 @@ public class FXMLOborPredmetController implements Initializable {
 
     @FXML
     private void vyucujiciButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu();
+        }
     }
 
     @FXML
     private void predmetyButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPredmetu();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPredmetu();
+        }
     }
 
     @FXML
     private void oboryButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledOboru();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledOboru();
+        }
     }
 
     @FXML
     private void pracovisteButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPracovist();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPracovist();
+        }
     }
 }

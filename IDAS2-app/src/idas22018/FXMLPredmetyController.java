@@ -45,6 +45,7 @@ public class FXMLPredmetyController implements Initializable {
     private TableColumn<List<String>, String> pocetStudentuCol;
     private Scene predScena;
     private Scene aktScena;
+    private boolean zmeny = false;
     @FXML
     private Button pridejButton;
     @FXML
@@ -78,12 +79,14 @@ public class FXMLPredmetyController implements Initializable {
     @FXML
     private void okButtonClick(ActionEvent event) {
         dataLayer.commit();
+        zmeny = false;
         close(predScena);
     }
 
     @FXML
     private void cancelButtonClick(ActionEvent event) {
         dataLayer.rollback();
+        zmeny = false;
         close(predScena);
     }
 
@@ -103,6 +106,7 @@ public class FXMLPredmetyController implements Initializable {
                 dataLayer.addSubject(dialog2.getZkratka(), dialog2.getNazev(),
                         dialog2.getRocnik(), dialog2.getSemestr(), dialog2.getZpusobZak(),
                         dialog2.getForma());
+                zmeny = true;
                 fillTable();
             } catch (SQLException ex) {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -122,6 +126,7 @@ public class FXMLPredmetyController implements Initializable {
                 dataLayer.editSubject(origID, dialog2.getZkratka(), dialog2.getNazev(),
                         dialog2.getRocnik(), dialog2.getSemestr(), dialog2.getZpusobZak(),
                         dialog2.getForma());
+                zmeny = true;
                 fillTable();
             } catch (SQLException ex) {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -136,6 +141,7 @@ public class FXMLPredmetyController implements Initializable {
 
         try {
             dataLayer.deleteSubject(origID);
+            zmeny = true;
             fillTable();
         } catch (SQLException ex) {
             DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -169,15 +175,21 @@ public class FXMLPredmetyController implements Initializable {
     private void oboryButtonClick(ActionEvent event) {
         Parent root;
         if (!(tableView.getItems().isEmpty() || tableView.getSelectionModel().getSelectedItem() == null)) {
-            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazVazbyOborPredmet(null, tableView.getSelectionModel().getSelectedItem().get(0), aktScena);
+            if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+                zmeny = false;
+                KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazVazbyOborPredmet(null, tableView.getSelectionModel().getSelectedItem().get(0), aktScena);
+            }
         }
     }
 
     @FXML
     private void raButtonClick(ActionEvent event) {
         if (!(tableView.getItems().isEmpty() || tableView.getSelectionModel().getSelectedItem() == null)) {
-            String origID = tableView.getSelectionModel().getSelectedItem().get(0);
-            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazRozvrhoveAkce(null, origID, null, aktScena);
+            if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+                zmeny = false;
+                String origID = tableView.getSelectionModel().getSelectedItem().get(0);
+                KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazRozvrhoveAkce(null, origID, null, aktScena);
+            }
         }
     }
 
@@ -188,22 +200,34 @@ public class FXMLPredmetyController implements Initializable {
 
     @FXML
     private void vyucujiciButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu();
+        }
     }
 
     @FXML
     private void pracovisteButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPracovist();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPracovist();
+        }
     }
 
     @FXML
     private void zamestnanciButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledZamestnancu();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledZamestnancu();
+        }
     }
 
     @FXML
     private void prehledOboruButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledOboru();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledOboru();
+        }
     }
 
 }

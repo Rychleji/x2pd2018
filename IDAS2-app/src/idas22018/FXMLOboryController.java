@@ -2,6 +2,7 @@ package idas22018;
 
 import datovavrstva.ISkolniDB;
 import static idas22018.IDAS22018.close;
+import static idas22018.IDAS22018.prejdiZOknaBezCommitu;
 import idas22018.dialogy.DialogChyba;
 import idas22018.dialogy.DialogPridejObor;
 import java.net.URL;
@@ -42,6 +43,8 @@ public class FXMLOboryController implements Initializable {
     private Button upravButton;
     @FXML
     private Button odeberButton;
+    
+    private boolean zmeny = false;
 
     /**
      * Initializes the controller class.
@@ -65,13 +68,14 @@ public class FXMLOboryController implements Initializable {
     @FXML
     private void okButtonClick(ActionEvent event) {
         dataLayer.commit();
+        zmeny = false;
         close(predScena);
     }
 
     @FXML
     private void cancelButtonClick(ActionEvent event) {
         dataLayer.rollback();
-        Parent root;
+        zmeny = false;
         close(predScena);
     }
 
@@ -84,6 +88,7 @@ public class FXMLOboryController implements Initializable {
             try {
                 dataLayer.addSpecialization(dialog2.getZkratka(), dialog2.getNazev(),
                         dialog2.getZkratkaFak());
+                zmeny = true;
                 fillTable();
             } catch (SQLException ex) {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -102,6 +107,7 @@ public class FXMLOboryController implements Initializable {
             try {
                 dataLayer.editSpecialization(origID, dialog2.getZkratka(), dialog2.getNazev(),
                         dialog2.getZkratkaFak());
+                zmeny = true;
                 fillTable();
             } catch (SQLException ex) {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -116,6 +122,7 @@ public class FXMLOboryController implements Initializable {
 
         try {
             dataLayer.deleteSpecialization(origID);
+            zmeny = true;
             fillTable();
         } catch (SQLException ex) {
             DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -143,7 +150,10 @@ public class FXMLOboryController implements Initializable {
     private void predmetyButtonClick(ActionEvent event) {
         Parent root;
         if (!(tableView.getItems().isEmpty() || tableView.getSelectionModel().getSelectedItem() == null)) {
-            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazVazbyOborPredmet(tableView.getSelectionModel().getSelectedItem().get(0), null, aktScena);
+            if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+                zmeny = false;
+                KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazVazbyOborPredmet(tableView.getSelectionModel().getSelectedItem().get(0), null, aktScena);
+            }
         }        
     }
 
@@ -154,17 +164,26 @@ public class FXMLOboryController implements Initializable {
 
     @FXML
     private void vyucijiciButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu();
+        }
     }
 
     @FXML
     private void pracovisteButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPracovist();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPracovist();
+        }
     }
 
     @FXML
     private void prehledPredmetuButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPredmetu();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPredmetu();
+        }
     }
 
 }

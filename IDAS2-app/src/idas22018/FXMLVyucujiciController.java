@@ -9,13 +9,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
-import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,7 +29,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
-import javax.imageio.ImageIO;
 
 public class FXMLVyucujiciController implements Initializable {
 
@@ -65,12 +61,6 @@ public class FXMLVyucujiciController implements Initializable {
     private Scene predScena;
     private Scene aktScena;
     private boolean skrytControlsProVyucujici = false;
-
-    public void setSkrytVeci(boolean skryt) {
-        skrytControlsProVyucujici = skryt;
-        fillTable();
-    }
-
     //Vezmu si datovou vrstvu
     private ISkolniDB dataLayer;
     @FXML
@@ -89,7 +79,14 @@ public class FXMLVyucujiciController implements Initializable {
     private Button predmetyFiltrButton;
     @FXML
     private Button zamestnanciButton;
-
+    
+    private boolean zmeny = false;
+    
+    public void setSkrytVeci(boolean skryt) {
+        skrytControlsProVyucujici = skryt;
+        fillTable();
+    }
+    
     /**
      * Initializes the controller class.
      */
@@ -133,12 +130,14 @@ public class FXMLVyucujiciController implements Initializable {
     @FXML
     private void okButtonClick(ActionEvent event) {
         dataLayer.commit();
+        zmeny = false;
         close(predScena);
     }
 
     @FXML
     private void cancelButtonClick(ActionEvent event) {
         dataLayer.rollback();
+        zmeny = false;
         close(predScena);
     }
 
@@ -153,6 +152,7 @@ public class FXMLVyucujiciController implements Initializable {
                         dialog2.getPrijmeni(), dialog2.getTitulP(), dialog2.getTitulZ(),
                         dialog2.getTelefon(), dialog2.getMobil(), dialog2.getEmail(),
                         dialog2.getZkratkaKatedry());
+                zmeny = true;
                 fillTable();
             } catch (SQLException ex) {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -173,6 +173,7 @@ public class FXMLVyucujiciController implements Initializable {
                         dialog2.getPrijmeni(), dialog2.getTitulP(), dialog2.getTitulZ(),
                         dialog2.getTelefon(), dialog2.getMobil(), dialog2.getEmail(),
                         dialog2.getZkratkaKatedry());
+                zmeny = true;
                 fillTable();
             } catch (SQLException ex) {
                 DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -187,6 +188,7 @@ public class FXMLVyucujiciController implements Initializable {
 
         try {
             dataLayer.deleteTeacher(origID);
+            zmeny = true;
             fillTable();
         } catch (SQLException ex) {
             DialogChyba dialog = new DialogChyba(null, ex.getMessage());
@@ -231,17 +233,23 @@ public class FXMLVyucujiciController implements Initializable {
     @FXML
     private void akceButtonClick(ActionEvent event) {
         if ((!tableView.getItems().isEmpty()) && (tableView.getSelectionModel().getSelectedItem() != null)) {
-            String origID = tableView.getSelectionModel().getSelectedItem().get(0);
-            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazRozvrhoveAkce(origID, null, null, aktScena);
+            if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+                zmeny = false;
+                String origID = tableView.getSelectionModel().getSelectedItem().get(0);
+                KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazRozvrhoveAkce(origID, null, null, aktScena);
+            }
         }
     }
 
     @FXML
     private void predmetyButtonClick(ActionEvent event) {
         if (!(tableView.getItems().isEmpty() || tableView.getSelectionModel().getSelectedItem() == null)) {
-            String origID = tableView.getSelectionModel().getSelectedItem().get(0);
+            if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+                zmeny = false;
+                String origID = tableView.getSelectionModel().getSelectedItem().get(0);
 
-            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPredmetu(origID, aktScena);
+                KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPredmetu(origID, aktScena);
+            }
         }
     }
 
@@ -252,27 +260,38 @@ public class FXMLVyucujiciController implements Initializable {
 
     @FXML
     private void pracovisteButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPracovist();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPracovist();
+        }
     }
 
     @FXML
     private void oboryButttonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledOboru();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledOboru();
+        }
     }
 
     @FXML
     private void prehledPredmetuButtonClick(ActionEvent event) {
-        KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPredmetu();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledPredmetu();
+        }
     }
 
     @FXML
     private void prehledZamestnancuButtonClick(ActionEvent event) {
-        if (!skrytControlsProVyucujici) {
-            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledZamestnancu();
-        } else {
-            KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu();
+        if ((zmeny && prejdiZOknaBezCommitu()) || !zmeny) {
+            zmeny = false;
+            if (!skrytControlsProVyucujici) {
+                KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledZamestnancu();
+            } else {
+                KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu();
+            }
         }
-
     }
 
     @FXML
@@ -290,6 +309,7 @@ public class FXMLVyucujiciController implements Initializable {
                 try {
                     InputStream is = new FileInputStream(file);
                     dataLayer.addPicture(is, id);
+                    zmeny = true;
                 } catch (FileNotFoundException | SQLException ex) {
                     DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());
                     dialog2.showAndWait();
@@ -308,6 +328,7 @@ public class FXMLVyucujiciController implements Initializable {
             try {
                 dataLayer.deletePicture(id);
                 imageView.setImage(null);
+                zmeny = true;
             } catch (SQLException ex) {
                 DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());
                 dialog2.showAndWait();
