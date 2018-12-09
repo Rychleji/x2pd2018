@@ -300,7 +300,7 @@ public class SkolniDB implements ISkolniDB {
     public void editSchedule(int id, int numberOfStudents, float startsAt, float span, String subjectShort, int type, String teacherRole, int teacherId, int roomId, String day) throws SQLException {
         //stmt.execute(String.format("exec UPRAVROZVRHOVOUAKCI(%d, %d, %f, %f, %s, %d, %s, %d, %d)", id, numberOfStudents, span, startsAt, subjectShort, type, teacherRole, teacherId, roomId));
         
-        CallableStatement stmt = connect.prepareCall("{call UPRAVROZVRHOVOUAKCI(?,?,?,?,?,?,?,?,?,?)}");
+        CallableStatement stmt = connect.prepareCall("{call UPRAVROZVRHOVOUAKCI(?,?,?,?,?,?,?,?,?,?,?)}");
         stmt.setInt(1, id);
         stmt.setInt(2, numberOfStudents);
         stmt.setFloat(3, span);
@@ -310,7 +310,8 @@ public class SkolniDB implements ISkolniDB {
         stmt.setString(7, teacherRole);
         stmt.setInt(8, teacherId);
         stmt.setInt(9, roomId);
-        stmt.setString(10, day);
+        stmt.setInt(10, 0);
+        stmt.setString(11, day);
         
         stmt.executeUpdate();
     }
