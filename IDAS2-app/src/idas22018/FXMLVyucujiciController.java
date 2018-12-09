@@ -28,7 +28,6 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
 public class FXMLVyucujiciController implements Initializable {
@@ -59,11 +58,10 @@ public class FXMLVyucujiciController implements Initializable {
     private TableColumn<List<String>, String> katedraCol;
     @FXML
     private TableColumn<List<String>, String> fakultaCol;
-    private Scene predScena;
-    private Scene aktScena;
-    private boolean skrytControlsProVyucujici = false;
-    //Vezmu si datovou vrstvu
-    private ISkolniDB dataLayer;
+    @FXML
+    private TableColumn<List<String>, String> roleCol;
+    @FXML
+    private TableColumn<List<String>, String> opravneniCol;
     @FXML
     private ImageView imageView;
     @FXML
@@ -80,13 +78,17 @@ public class FXMLVyucujiciController implements Initializable {
     private Button predmetyFiltrButton;
     @FXML
     private Button zamestnanciButton;
-    
-    private boolean zmeny = false;
-    private LinkedList<Integer> vymazane = new LinkedList<>();
     @FXML
     private Button nahrajObrazekBtn;
     @FXML
     private Button smazObrazekBtn;
+    
+    private Scene predScena;
+    private Scene aktScena;
+    private boolean skrytControlsProVyucujici = false;
+    private ISkolniDB dataLayer;    
+    private boolean zmeny = false;
+    private LinkedList<Integer> vymazane = new LinkedList<>();
     
     public void setSkrytVeci(boolean skryt) {
         skrytControlsProVyucujici = skryt;
@@ -116,6 +118,8 @@ public class FXMLVyucujiciController implements Initializable {
         emailCol.setCellValueFactory((CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(7)));
         katedraCol.setCellValueFactory((CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(8)));
         fakultaCol.setCellValueFactory((CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(9)));
+        roleCol.setCellValueFactory((CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(10)));
+        opravneniCol.setCellValueFactory((CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(11)));
 
         tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             tableClickItem();
@@ -240,7 +244,8 @@ public class FXMLVyucujiciController implements Initializable {
                     List<String> list = FXCollections.observableArrayList(rs.getString(skrytControlsProVyucujici ? "ID_ZAMESTNANEC" : "ID_VYUCUJICIHO"),
                             rs.getString("JMENO"), rs.getString("PRIJMENI"), rs.getString("TITUL_PRED"),
                             rs.getString("TITUL_ZA"), rs.getString("TELEFON"), rs.getString("MOBIL"),
-                            rs.getString("EMAIL"), rs.getString("ZKRATKA_KATEDRY"), rs.getString("ZKRATKA_FAKULTY"));
+                            rs.getString("EMAIL"), rs.getString("ZKRATKA_KATEDRY"), rs.getString("ZKRATKA_FAKULTY"),
+                            skrytControlsProVyucujici?rs.getString("TYPROLE"):"Vyučující", rs.getString("OPRAVNENI"));
                     seznam.add(list);
                 }
             }

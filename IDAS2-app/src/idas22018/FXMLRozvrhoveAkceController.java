@@ -308,8 +308,6 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     private void zobrazGrafickyButton(ActionEvent event) {
         ResultSet rs = null;
         List<String> list = new ArrayList();
-        //try {
-            //rs = dataLayer.selectSchedules_byTeacherId(vyucId);
             for(List<String> ls : seznam){
                 if(!ls.get(9).equalsIgnoreCase("0")){//pokud je předmět schválený
                     list.add(ls.get(1));//zkratka predmetu
@@ -323,20 +321,6 @@ public class FXMLRozvrhoveAkceController implements Initializable {
                     list.add(ls.get(10));//den
                 }
             }
-            /*while (rs.next()) {
-                if (rs.getInt("SCHVALENO") != 0) {
-                    list.add(rs.getString("ZKRATKA_PREDMETU"));
-                    list.add(rs.getString("ZACINAV"));
-                    list.add(rs.getString("MAHODIN"));
-                    list.add(rs.getString("ZPUSOB"));
-                    list.add(rs.getString("NAZEV_UCEBNY"));
-                    list.add(rs.getString("DENVTYDNU"));
-
-                }
-            }*/
-        //} catch (SQLException ex) {
-        //    System.out.println("RAController - zobraz graficky Button click ERROR");
-        //}
         DialogZobrazRAGraficky dialog = new DialogZobrazRAGraficky(schvalitButton.getParent().getScene().getWindow(), list);
         dialog.showAndWait();
     }
