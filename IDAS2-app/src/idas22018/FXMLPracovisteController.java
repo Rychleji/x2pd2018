@@ -4,6 +4,8 @@ import datovavrstva.ISkolniDB;
 import static idas22018.IDAS22018.*;
 import idas22018.dialogy.DialogChyba;
 import idas22018.dialogy.DialogPridejKatedru;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -193,5 +195,11 @@ public class FXMLPracovisteController implements Initializable {
             zmeny = false;
             KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledOboru();
         }
+    }
+
+    @FXML
+    private void importujPracoviste(ActionEvent event) throws FileNotFoundException, UnsupportedEncodingException {
+        CsvReader s = new CsvReader();
+        s.importuj();
     }
 }
