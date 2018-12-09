@@ -117,6 +117,9 @@ public class FXMLVyucujiciController implements Initializable {
         katedraCol.setCellValueFactory((CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(8)));
         fakultaCol.setCellValueFactory((CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(9)));
 
+        tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            tableClickItem();
+        });
         tableView.setItems(seznam);
         fillTable();
     }
@@ -313,15 +316,15 @@ public class FXMLVyucujiciController implements Initializable {
 
     @FXML
     private void pridejFotoButton(ActionEvent event) {
-
         if (tableView.getSelectionModel().getSelectedItem() != null) {
+            List<String> obj = tableView.getSelectionModel().getSelectedItem();
             FileChooser fileChooser = new FileChooser();
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("png files (*.png)", "*.png");
             fileChooser.getExtensionFilters().add(extFilter);
 
             File file = fileChooser.showOpenDialog(null);
 
-            int id = Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0));
+            int id = Integer.parseInt(obj.get(0));
             if (file != null) {
                 try {
                     InputStream is = new FileInputStream(file);
@@ -333,6 +336,7 @@ public class FXMLVyucujiciController implements Initializable {
                 }
             }
             tableView.getSelectionModel().clearSelection();
+            tableView.getSelectionModel().select(obj);
         }
 
     }
@@ -340,7 +344,8 @@ public class FXMLVyucujiciController implements Initializable {
     @FXML
     private void smazObrazekButton(ActionEvent event) {
         if (tableView.getSelectionModel().getSelectedItem() != null) {
-            int id = Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0));
+            List<String> obj = tableView.getSelectionModel().getSelectedItem();
+            int id = Integer.parseInt(obj.get(0));
 
             try {
                 dataLayer.deletePicture(id);
@@ -352,11 +357,12 @@ public class FXMLVyucujiciController implements Initializable {
             }
 
             tableView.getSelectionModel().clearSelection();
+            tableView.getSelectionModel().select(obj);
         }
     }
 
-    @FXML
-    private void tableClickItem(MouseEvent event) {
+    //@FXML
+    private void tableClickItem(/*MouseEvent event*/) {
         if (tableView.getSelectionModel().getSelectedItem() != null) {
             int id = Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0));
             Image image = null;
@@ -367,10 +373,6 @@ public class FXMLVyucujiciController implements Initializable {
                     image = new Image(inputStream);
                     imageView.setImage(image);
                 }
-                
-                
-                
-                
             } catch (SQLException ex) {
                 DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());
                 dialog2.showAndWait();
