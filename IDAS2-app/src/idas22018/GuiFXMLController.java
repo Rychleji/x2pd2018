@@ -10,6 +10,7 @@ import datovavrstva.ISkolniDB;
 import datovavrstva.SkolniDB;
 import static idas22018.IDAS22018.*;
 import idas22018.dialogy.DialogChyba;
+import idas22018.dialogy.DialogPridejVyucujiciho;
 import idas22018.dialogy.DialogPripojeni;
 import java.net.URL;
 import java.sql.Connection;
@@ -58,6 +59,7 @@ public class GuiFXMLController implements Initializable {
     private Label versionLabel;
 
     boolean readyForDialog = false;
+    private boolean vyucujici = false;
 
     public static ISkolniDB getDataLayer() {
         return dataLayer;
@@ -110,7 +112,8 @@ public class GuiFXMLController implements Initializable {
     }
     
     public void controlsProVyucujici(String role){
-        raButton.setDisable(!role.equalsIgnoreCase("Vyučující"));
+        vyucujici = role.equalsIgnoreCase("Vyučující");
+        raButton.setDisable(!vyucujici);
     }
 
     @Override
@@ -277,6 +280,24 @@ public class GuiFXMLController implements Initializable {
 
     @FXML
     private void udajeButtonAction(ActionEvent event) {
+        int origID = idPrihlasenehoZamestnance;
+        DialogPridejVyucujiciho dialog2 = new DialogPridejVyucujiciho(vboxZamestnancu.getParent().getScene().getWindow(),
+                vyucujici, origID, dataLayer.getConnect(), true);
+        dialog2.showAndWait();
+
+        if (dialog2.isButtonPressed()) {
+            try {
+                dataLayer.editTeacher(origID, dialog2.getJmeno(),
+                        dialog2.getPrijmeni(), dialog2.getTitulP(), dialog2.getTitulZ(),
+                        dialog2.getTelefon(), dialog2.getMobil(), dialog2.getEmail(),
+                        dialog2.getZkratkaKatedry(), dialog2.getRole(), dialog2.getOpravneni(),
+                        dialog2.getuJmeno(), dialog2.getuHeslo());
+                dataLayer.commit();
+            } catch (SQLException ex) {
+                DialogChyba dialog = new DialogChyba(null, ex.getMessage());
+                dialog.showAndWait();
+            }
+        }
     }
 
     @FXML
