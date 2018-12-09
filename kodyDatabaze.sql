@@ -65,6 +65,20 @@ BEGIN
     WHERE ID_ZAMESTNANEC = p_id;
 END;
 /
+create or replace PROCEDURE vlozObrazek(p_obrazek DATA.OBRAZEK%TYPE, p_idZamestnanec NUMBER)
+IS
+BEGIN
+INSERT INTO 
+DATA (OBRAZEK, DATUMPRIDANI, DATUMMODIFIKACE, ID_ZAMESTNANEC)
+VALUES (p_obrazek, SYSDATE, SYSDATE, p_idZamestnanec);     
+        
+exception
+    when DUP_VAL_ON_INDEX THEN
+        update DATA
+        set OBRAZEK = p_obrazek, DATUMMODIFIKACE = SYSDATE
+        where ID_ZAMESTNANEC = p_idZamestnanec;
+END;
+/
 create or replace PROCEDURE smazFotku
   (p_id ZAMESTNANEC.ID_ZAMESTNANEC%TYPE)
 IS
