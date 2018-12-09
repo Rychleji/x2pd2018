@@ -9,6 +9,7 @@ import java.net.URL;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -82,7 +83,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
         pridejButton.setDisable((IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR));
         upravButton.setDisable((IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR));
         odeberButton.setDisable((IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR));
-        zobrazGraficky.setVisible((IDAS22018.druhProhlizeni == RezimProhlizeni.REGISTROVANY));
+        //zobrazGraficky.setVisible((IDAS22018.druhProhlizeni == RezimProhlizeni.REGISTROVANY));
 
         idCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
         zkratkaCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));
@@ -206,6 +207,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             upravButton.setDisable(false);
             odeberButton.setDisable(false);
         }
+        zobrazGraficky.setVisible((vlastni||vyucId!=null)||roomId!=null);
         try {
             ResultSet rs = null;
 
@@ -305,12 +307,24 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     @FXML
     private void zobrazGrafickyButton(ActionEvent event) {
         ResultSet rs = null;
-        List<String> list = null;
-        try {
-            rs = dataLayer.selectSchedules_byTeacherId(vyucId);
-            list = FXCollections.observableArrayList();
-            while (rs.next()) {
-                if (rs.getInt("SCHVALENO") == 1) {
+        List<String> list = new ArrayList();
+        //try {
+            //rs = dataLayer.selectSchedules_byTeacherId(vyucId);
+            for(List<String> ls : seznam){
+                if(!ls.get(9).equalsIgnoreCase("0")){//pokud je předmět schválený
+                    list.add(ls.get(1));//zkratka predmetu
+                    list.add(ls.get(5));//zacatek
+                    list.add(ls.get(6));//delka
+                    list.add(ls.get(7));//zpusob
+                    if(vyucId!=null)//pokud filtrujeme podle vyučujícího
+                        list.add(ls.get(8));//ucebna
+                    else if(roomId!=null)//pokud filtrujeme dle učebny
+                        list.add(ls.get(3));//vyučující
+                    list.add(ls.get(10));//den
+                }
+            }
+            /*while (rs.next()) {
+                if (rs.getInt("SCHVALENO") != 0) {
                     list.add(rs.getString("ZKRATKA_PREDMETU"));
                     list.add(rs.getString("ZACINAV"));
                     list.add(rs.getString("MAHODIN"));
@@ -319,12 +333,11 @@ public class FXMLRozvrhoveAkceController implements Initializable {
                     list.add(rs.getString("DENVTYDNU"));
 
                 }
-            }
-        } catch (SQLException ex) {
-            System.out.println("dsad");
-        }
+            }*/
+        //} catch (SQLException ex) {
+        //    System.out.println("RAController - zobraz graficky Button click ERROR");
+        //}
         DialogZobrazRAGraficky dialog = new DialogZobrazRAGraficky(schvalitButton.getParent().getScene().getWindow(), list);
         dialog.showAndWait();
-
     }
 }

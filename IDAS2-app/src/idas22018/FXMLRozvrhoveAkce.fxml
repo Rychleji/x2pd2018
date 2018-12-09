@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1271.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas22018.FXMLRozvrhoveAkceController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1271.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas22018.FXMLRozvrhoveAkceController">
    <top>
       <FlowPane alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -22,7 +22,7 @@
                         <Font name="Arial" size="47.0" />
                      </font>
                   </Label>
-                  <Button fx:id="zobrazGraficky" mnemonicParsing="false" onAction="#zobrazGrafickyButton" prefHeight="30.0" prefWidth="300.0" text="Zobraz graficky můj rozvrh" />
+                  <Button fx:id="zobrazGraficky" mnemonicParsing="false" onAction="#zobrazGrafickyButton" prefHeight="31.0" prefWidth="169.0" text="Zobrazit graficky" />
                </children>
                <FlowPane.margin>
                   <Insets top="20.0" />
