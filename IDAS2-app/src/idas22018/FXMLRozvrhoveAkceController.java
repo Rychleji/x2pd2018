@@ -61,10 +61,10 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     private Button upravButton;
     @FXML
     private Button odeberButton;
-    
+
     private Scene predScena;
     private Scene aktScena;
-    
+
     private boolean vlastni = false;
     private boolean zmeny = false;
     private LinkedList<Integer> vymazane = new LinkedList<>();
@@ -113,7 +113,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
             fillTable();
         }
     }
-    
+
     public void setRoomId(String room) {
         this.roomId = room;
         if (room != null) {
@@ -201,7 +201,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     }
 
     private void fillTable() {
-        if(vlastni){ //pokud vlastní, enabluj, pokud ne, nech dle nastavení opravnění
+        if (vlastni) { //pokud vlastní, enabluj, pokud ne, nech dle nastavení opravnění
             pridejButton.setDisable(false);
             upravButton.setDisable(false);
             odeberButton.setDisable(false);
@@ -213,16 +213,16 @@ public class FXMLRozvrhoveAkceController implements Initializable {
                 rs = dataLayer.selectSchedules_byTeacherId(vyucId);
             } else if (subjId != null) {
                 rs = dataLayer.selectSchedules(subjId);
-            } else if(roomId != null){
+            } else if (roomId != null) {
                 rs = dataLayer.selectSchedules_byClassroom(Integer.parseInt(roomId));
-            }else {
+            } else {
                 rs = dataLayer.selectSchedules();
             }
             seznam.clear();
 
             while (rs.next()) {
-                if(!vymazane.contains(rs.getInt("ID_ROZVRHOVE_AKCE")) &&
-                        ((IDAS22018.druhProhlizeni==RezimProhlizeni.ADMINISTRATOR || vlastni)?true:rs.getInt("SCHVALENO")!=0)){
+                if (!vymazane.contains(rs.getInt("ID_ROZVRHOVE_AKCE"))
+                        && ((IDAS22018.druhProhlizeni == RezimProhlizeni.ADMINISTRATOR || vlastni) ? true : rs.getInt("SCHVALENO") != 0)) {
                     String tP = rs.getString("TITUL_PRED") == null ? "" : rs.getString("TITUL_PRED");
                     String tZ = rs.getString("TITUL_ZA") == null ? "" : rs.getString("TITUL_ZA");
 
@@ -292,7 +292,7 @@ public class FXMLRozvrhoveAkceController implements Initializable {
         try {
             CallableStatement stmt = dataLayer.getConnect().prepareCall("{call schvalAkci(?)}");
             stmt.setInt(1, Integer.parseInt(tableView.getSelectionModel().getSelectedItem().get(0)));
-        
+
             stmt.executeUpdate();
             zmeny = true;
             fillTable();
@@ -304,8 +304,27 @@ public class FXMLRozvrhoveAkceController implements Initializable {
 
     @FXML
     private void zobrazGrafickyButton(ActionEvent event) {
-        DialogZobrazRAGraficky dialog = new DialogZobrazRAGraficky(schvalitButton.getParent().getScene().getWindow());
+        ResultSet rs = null;
+        List<String> list = null;
+        try {
+            rs = dataLayer.selectSchedules_byTeacherId(vyucId);
+            list = FXCollections.observableArrayList();
+            while (rs.next()) {
+                if (rs.getInt("SCHVALENO") == 1) {
+                    list.add(rs.getString("ZKRATKA_PREDMETU"));
+                    list.add(rs.getString("ZACINAV"));
+                    list.add(rs.getString("MAHODIN"));
+                    list.add(rs.getString("ZPUSOB"));
+                    list.add(rs.getString("NAZEV_UCEBNY"));
+                    list.add(rs.getString("DENVTYDNU"));
+
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("dsad");
+        }
+        DialogZobrazRAGraficky dialog = new DialogZobrazRAGraficky(schvalitButton.getParent().getScene().getWindow(), list);
         dialog.showAndWait();
-        
+
     }
 }

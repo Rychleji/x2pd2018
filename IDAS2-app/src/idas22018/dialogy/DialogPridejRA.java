@@ -216,9 +216,9 @@ public class DialogPridejRA extends Stage {
         
         vyucCb.setDisable(vlastni);
         
-        Spinner<Double> zacinaVSp = new Spinner<>(0.0, 19.0, zacinaV, 1); // inkrement po jedne hodine, fakt nehodlam resit graficky znazorneni pulhodin 
+        Spinner<Double> zacinaVSp = new Spinner<>(7.0, 19.0, zacinaV, 1); // inkrement po jedne hodine, fakt nehodlam resit graficky znazorneni pulhodin 
         Spinner<Integer> pocetStudentuSp = new Spinner<>(1, Integer.MAX_VALUE - 1, pocetStudentu, 1);
-        Spinner<Double> maHodinSp = new Spinner<>(0.1, 5.0, maHodin, 1); //to same
+        Spinner<Double> maHodinSp = new Spinner<>(1, 5.0, maHodin, 1); //to same
         ComboBox<String> ucebnaCb = new ComboBox<>();
         try {
             stmt = conn.createStatement();
