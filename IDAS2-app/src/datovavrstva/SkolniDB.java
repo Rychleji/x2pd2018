@@ -1,8 +1,6 @@
 package datovavrstva;
 
 import OracleConnector.OracleConnector;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.CallableStatement;

@@ -102,7 +102,8 @@ public class FXMLPredmetyController implements Initializable {
 
     @FXML
     private void pridejButtonClick(ActionEvent event) {
-        DialogPridejPredmet dialog2 = new DialogPridejPredmet(null);
+        DialogPridejPredmet dialog2 = new DialogPridejPredmet(
+                tableView.getParent().getScene().getWindow(), null, null);
         dialog2.showAndWait();
 
         if (dialog2.isButtonPressed()) {
@@ -122,7 +123,8 @@ public class FXMLPredmetyController implements Initializable {
     @FXML
     private void upravButtonClick(ActionEvent event) {
         String origID = tableView.getSelectionModel().getSelectedItem().get(0);
-        DialogPridejPredmet dialog2 = new DialogPridejPredmet(null);
+        DialogPridejPredmet dialog2 = new DialogPridejPredmet(
+                tableView.getParent().getScene().getWindow(), dataLayer.getConnect(), origID);
         dialog2.showAndWait();
 
         if (dialog2.isButtonPressed()) {
