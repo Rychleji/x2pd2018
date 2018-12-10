@@ -7,6 +7,7 @@ package idas22018;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -18,6 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.stage.FileChooser;
 
 /**
  *
@@ -25,51 +27,31 @@ import javafx.collections.ObservableList;
  */
 public class CsvReader {
 
-    String csvFile = "seznamPracovist.csv";
-    String csvFile2 = "seznamPracovist2.csv";
-    String line = "";
-    String cvsSplitBy = ";";
-    int delka = 0;
+    private String line = "";
+    private String cvsSplitBy = ";";
+    private ObservableList<String[]> list = FXCollections.observableArrayList();
 
-    public void importuj() throws FileNotFoundException, UnsupportedEncodingException {
-        Writer out = new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream(
-                        "seznamPracovist2.csv"), "UTF-8"));
+    public ObservableList<String[]> importuj() throws FileNotFoundException, UnsupportedEncodingException {
 
-///////////////////////////////////////////new InputStreamReader(
-  //  new FileInputStream("DirectionResponse.xml"), "UTF-8")
-        ObservableList<String[]> list = FXCollections.observableArrayList();
-      try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(csvFile),"windows-1250"))){
-        //try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-        
+        FileChooser fileChoicer = new FileChooser();
+        fileChoicer.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("csv", "*.csv"),
+                new FileChooser.ExtensionFilter("xls(x)", ".xlsx", ".xls"),
+                new FileChooser.ExtensionFilter("json", "*.json")
+        );
+        fileChoicer.setTitle("Zvol soubor");
+        File file = fileChoicer.showOpenDialog(null);
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "windows-1250"))) {
 
             while ((line = br.readLine()) != null) {
-                out.write(line);
-                out.write("\n");
+                String[] pracoviste = line.split(cvsSplitBy);
+
+                list.add(pracoviste);
             }
-
-            br.close();
-            out.close();
-
-//            BufferedReader c = new BufferedReader(new FileReader(csvFile2));
-//
-//            while ((line = br.readLine()) != null) {
-////
-//                String[] country = line.split(cvsSplitBy);
-//                delka = country.length;
-//
-//                list.add(country);
-//            }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-//
-        for (String[] s : list) {
-            for (int i = 0; i < delka; i++) {
-                System.out.print(s[i]);
-            }
-            System.out.println("");
-        }
+        return list;
     }
 }

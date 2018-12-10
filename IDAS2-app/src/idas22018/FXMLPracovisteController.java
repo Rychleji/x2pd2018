@@ -47,9 +47,10 @@ public class FXMLPracovisteController implements Initializable {
     private Button upravButton;
     @FXML
     private Button odeberButton;
-    
+
     private boolean zmeny = false;
     private LinkedList<String> vymazane = new LinkedList<>();
+
     /**
      * Initializes the controller class.
      */
@@ -57,10 +58,10 @@ public class FXMLPracovisteController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         dataLayer = GuiFXMLController.getDataLayer();
 
-        pridejButton.setDisable(IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR);
-        upravButton.setDisable(IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR);
-        odeberButton.setDisable(IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR);
-        
+        pridejButton.setDisable(IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR);
+        upravButton.setDisable(IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR);
+        odeberButton.setDisable(IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR);
+
         zkKatedraCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
         katedraCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));
         zkFakultaCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(2)));
@@ -145,7 +146,7 @@ public class FXMLPracovisteController implements Initializable {
             seznam.clear();
 
             while (rs.next()) {
-                if(!vymazane.contains(rs.getString("ZKRATKA_KATEDRY"))){
+                if (!vymazane.contains(rs.getString("ZKRATKA_KATEDRY"))) {
                     List<String> list = FXCollections.observableArrayList(rs.getString("ZKRATKA_KATEDRY"),
                             rs.getString("NAZEV_KATEDRY"), rs.getString("ZKRATKA_FAKULTY"),
                             rs.getString("NAZEV_FAKULTY"));
@@ -165,7 +166,7 @@ public class FXMLPracovisteController implements Initializable {
                 zmeny = false;
                 KnihovnaZobrazovani.getKnihovnaZobrazovani().zobrazPrehledUcitelu(tableView.getSelectionModel().getSelectedItem().get(0), null, aktScena);
             }
-        } 
+        }
     }
 
     public void setScenes(Scene predScena, Scene aktScena) {
@@ -200,6 +201,23 @@ public class FXMLPracovisteController implements Initializable {
     @FXML
     private void importujPracoviste(ActionEvent event) throws FileNotFoundException, UnsupportedEncodingException {
         CsvReader s = new CsvReader();
-        s.importuj();
+        ObservableList<String[]> list = s.importuj();
+
+        list.remove(0);
+        for (String[] pole : list) {
+            String zkratka = pole[2];
+            String nazev = pole[3];
+            String zkratkaFakulty = pole[5];
+            zkratka = zkratka.replace("\"",""); //zbavim se uvozovek v csv
+            nazev = nazev.replace("\"","");
+            zkratkaFakulty = zkratkaFakulty.replace("\"","");
+            try {
+                dataLayer.addDepartment(zkratka, nazev, zkratkaFakulty);
+            } catch (SQLException ex) {
+                DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());
+                dialog2.showAndWait();
+            }
+        }
+
     }
 }
