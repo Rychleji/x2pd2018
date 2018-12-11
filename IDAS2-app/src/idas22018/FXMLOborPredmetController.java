@@ -100,7 +100,8 @@ public class FXMLOborPredmetController implements Initializable {
 
     @FXML
     private void pridejButtonClick(ActionEvent event) {
-        DialogPridejOborPredmet dialog2 = new DialogPridejOborPredmet(null);
+        DialogPridejOborPredmet dialog2 = new DialogPridejOborPredmet(pridejButton.getParent().getScene().getWindow(),
+                dataLayer.getConnect(), idOboru, idPredmetu, idOboru!=null);
         dialog2.showAndWait();
 
         if (dialog2.isButtonPressed()) {
@@ -121,7 +122,8 @@ public class FXMLOborPredmetController implements Initializable {
         String origID = tableView.getSelectionModel().getSelectedItem().get(0);
         String origID2 = tableView.getSelectionModel().getSelectedItem().get(2);
 
-        DialogPridejOborPredmet dialog2 = new DialogPridejOborPredmet(null);
+        DialogPridejOborPredmet dialog2 = new DialogPridejOborPredmet(pridejButton.getParent().getScene().getWindow(),
+                dataLayer.getConnect(), origID2, origID, idOboru!=null);
         dialog2.showAndWait();
 
         if (dialog2.isButtonPressed()) {

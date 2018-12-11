@@ -6,7 +6,14 @@
 package idas22018.dialogy;
 
 import idas22018.IDAS22018;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -30,7 +37,35 @@ public class DialogPridejOborPredmet extends Stage {
 
     private boolean buttonPressed = false;
     
-    private String obor, predmet, kategorie;
+    private String obor="", predmet="", kategorie="";
+    
+    private class Obor{
+        String zkratka, nazev;
+
+        public Obor(String zkratka, String nazev) {
+            this.zkratka = zkratka;
+            this.nazev = nazev;
+        }
+
+        @Override
+        public String toString() {
+            return nazev;
+        }
+    }
+    
+    private class Predmet{
+        String zkratka, nazev;
+
+        public Predmet(String zkratka, String nazev) {
+            this.zkratka = zkratka;
+            this.nazev = nazev;
+        }
+        
+        @Override
+        public String toString() {
+            return nazev;
+        }
+    }
 
     public boolean isButtonPressed() {
         return buttonPressed;
@@ -48,17 +83,17 @@ public class DialogPridejOborPredmet extends Stage {
         return kategorie;
     }
 
-    public DialogPridejOborPredmet(Window okno) {
-        setTitle("");
+    public DialogPridejOborPredmet(Window okno, Connection conn, String zkrObor, String zkrPrdmt, boolean filtrObor) {
+        setTitle("Předmět/obor");
 
         initStyle(StageStyle.UTILITY);
         initModality(Modality.WINDOW_MODAL);
         initOwner(okno);
 
-        setScene(vytvorScenu());
+        setScene(vytvorScenu(conn, zkrObor, zkrPrdmt, filtrObor));
     }
 
-    private Scene vytvorScenu() {
+    private Scene vytvorScenu(Connection conn, String zkrObor, String zkrPrdmt, boolean filtrObor) {
         VBox box = new VBox();
         box.setAlignment(Pos.CENTER);
         box.setSpacing(20);
@@ -74,18 +109,76 @@ public class DialogPridejOborPredmet extends Stage {
         grid2.setPadding(new Insets(10));
 
         // Komponenty
-        TextField zkratkaOTF = new TextField();
-        TextField zkratkaPTF = new TextField();
+        Statement stmt;
+        ResultSet rs;
+        
+        ObservableList<Obor> list1 = FXCollections.observableArrayList();
+        ObservableList<Predmet> list2 = FXCollections.observableArrayList();
+        try{
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("select * from OBOR");
+            while(rs.next()){
+                list1.add(new Obor(rs.getString("ZKRATKA_OBORU"), rs.getString("NAZEV_OBORU")));
+            }
+            
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("select * from PREDMET");
+            while(rs.next()){
+                list2.add(new Predmet(rs.getString("ZKRATKA_PREDMETU"), rs.getString("NAZEV_PREDMETU")));
+            }
+        }catch (SQLException e){}
+        
+        ComboBox<Obor> zkratkaOCb = new ComboBox<>(list1);
+        ComboBox<Predmet> zkratkaPCb = new ComboBox<>(list2);
+        zkratkaOCb.setDisable(filtrObor);
+        zkratkaPCb.setDisable(!zkratkaOCb.isDisabled());
         
         ComboBox<String> kategorieCB = new ComboBox<>(FXCollections.observableArrayList(IDAS22018.mainController.getCiselnikKatPredmetu()));
+        
+        zkratkaOCb.getSelectionModel().selectFirst();
+        zkratkaPCb.getSelectionModel().selectFirst();
+        kategorieCB.getSelectionModel().selectFirst();
+        
+        if(zkrObor!=null && !zkrObor.equals("")){
+            for(Obor o : list1){
+                if(o.zkratka.equals(zkrObor)){
+                    zkratkaOCb.getSelectionModel().select(o);
+                    break;
+                }
+            }
+        }
+        if(zkrPrdmt!=null && !zkrPrdmt.equals("")){
+            for(Predmet p : list2){
+                if(p.zkratka.equals(zkrPrdmt)){
+                    zkratkaPCb.getSelectionModel().select(p);
+                    break;
+                }
+            }
+        }
+        
+        if(zkrObor!=null && !zkrObor.equals("") && zkrPrdmt!=null && !zkrPrdmt.equals("")){
+            try {
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery("select * from OBOR_PREDMET where "
+                        + "OBOR_ZKRATKA_OBORU = '"+ zkrObor +"' and PREDMET_ZKRATKA_PREDMETU = '"+ zkrPrdmt +"'");
+                
+                rs.next();
+                String pom = rs.getString("KATEGORIE_PREDMETU_KATEGORIE");
+                
+                kategorieCB.getSelectionModel().select(pom);
 
-        grid.add(new Label("Zkratka oboru:"), 0, 0);
-        grid.add(zkratkaOTF, 1, 0);
-        grid.add(new Label("Zkratka předmětu:"), 0, 1);
-        grid.add(zkratkaPTF, 1, 1);
+            } catch (SQLException ex) {
+                Logger.getLogger(DialogPridejKatedru.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        grid.add(new Label("Obor:"), 0, 0);
+        grid.add(zkratkaOCb, 1, 0);
+        grid.add(new Label("Předmět:"), 0, 1);
+        grid.add(zkratkaPCb, 1, 1);
         grid.add(new Label("Kategorie:"), 0, 2);
         grid.add(kategorieCB, 1, 2);
-
+        
         // Tlačítko
         Button tlacitko1 = new Button("Vlož");
 
@@ -93,8 +186,8 @@ public class DialogPridejOborPredmet extends Stage {
 
         tlacitko1.setOnAction((ActionEvent e) -> {
             try {
-                obor = zkratkaOTF.getText();
-                predmet = zkratkaPTF.getText();
+                obor = zkratkaOCb.getValue().zkratka;
+                predmet = zkratkaPCb.getValue().zkratka;
                 kategorie = kategorieCB.getValue();
 
                 buttonPressed = true;
