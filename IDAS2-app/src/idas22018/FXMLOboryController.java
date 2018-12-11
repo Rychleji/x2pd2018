@@ -85,7 +85,8 @@ public class FXMLOboryController implements Initializable {
 
     @FXML
     private void pridejButtonClick(ActionEvent event) {
-        DialogPridejObor dialog2 = new DialogPridejObor(null);
+        DialogPridejObor dialog2 = new DialogPridejObor(pridejButton.getParent().getScene().getWindow(),
+                dataLayer.getConnect(), null);
         dialog2.showAndWait();
 
         if (dialog2.isButtonPressed()) {
@@ -104,7 +105,8 @@ public class FXMLOboryController implements Initializable {
     @FXML
     private void upravButtonClick(ActionEvent event) {
         String origID = tableView.getSelectionModel().getSelectedItem().get(0);
-        DialogPridejObor dialog2 = new DialogPridejObor(null);
+        DialogPridejObor dialog2 = new DialogPridejObor(upravButton.getParent().getScene().getWindow(),
+                dataLayer.getConnect(), origID);
         dialog2.showAndWait();
 
         if (dialog2.isButtonPressed()) {

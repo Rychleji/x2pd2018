@@ -5,11 +5,20 @@
  */
 package idas22018.dialogy;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -27,7 +36,21 @@ public class DialogPridejObor extends Stage {
 
     private boolean buttonPressed = false;
 
-    private String zkratka, nazev, zkratkaFak;
+    private String zkratka="", nazev="", zkratkaFak="";
+    
+    private class Fakulta{
+        String zkratka="", nazev="";
+
+        public Fakulta(String z, String n) {
+            this.zkratka = z;
+            this.nazev = n;
+        }
+
+        @Override
+        public String toString() {
+            return nazev;
+        }
+    }
 
     public boolean isButtonPressed() {
         return buttonPressed;
@@ -45,17 +68,17 @@ public class DialogPridejObor extends Stage {
         return zkratkaFak;
     }
 
-    public DialogPridejObor(Window okno) {
-        setTitle("");
+    public DialogPridejObor(Window okno, Connection conn, String zkrOboru) {
+        setTitle("Obor");
 
         initStyle(StageStyle.UTILITY);
         initModality(Modality.WINDOW_MODAL);
         initOwner(okno);
 
-        setScene(vytvorScenu());
+        setScene(vytvorScenu(conn, zkrOboru));
     }
 
-    private Scene vytvorScenu() {
+    private Scene vytvorScenu(Connection conn, String zkrOboru) {
         VBox box = new VBox();
         box.setAlignment(Pos.CENTER);
         box.setSpacing(20);
@@ -71,16 +94,53 @@ public class DialogPridejObor extends Stage {
         grid2.setPadding(new Insets(10));
 
         // Komponenty
-        TextField zkratkaTF = new TextField();
-        TextField nazevTF = new TextField();
-        TextField fakultaTF = new TextField();
+        
+        Statement stmt;
+        ResultSet rs;
+        
+        ObservableList<Fakulta> list1 = FXCollections.observableArrayList();
+        try{
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("select * from FAKULTA");
+            while(rs.next()){
+                list1.add(new Fakulta(rs.getString("ZKRATKA_FAKULTY"), rs.getString("NAZEV_FAKULTY")));
+            }
+        }catch (SQLException e){}
+        
+        if(zkrOboru!=null && !zkrOboru.equals("")){
+            try {
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery("select * from OBOR where ZKRATKA_OBORU = '"+ zkrOboru +"'");
+                
+                rs.next();
+                zkratka = zkrOboru;
+                nazev = rs.getString("NAZEV_OBORU");
+                zkratkaFak = rs.getString("FAKULTA_ZKRATKA_FAKULTY");
+            } catch (SQLException ex) {
+                Logger.getLogger(DialogPridejKatedru.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        TextField zkratkaTF = new TextField(zkratka);
+        TextField nazevTF = new TextField(nazev);
+        ComboBox<Fakulta> fakultaCb = new ComboBox<>(list1);
 
+        fakultaCb.getSelectionModel().selectFirst();
+        if(zkrOboru!=null && !zkrOboru.equals("")){
+            for(Fakulta f : list1){
+                if(f.zkratka.equals(zkratkaFak)){
+                    fakultaCb.getSelectionModel().select(f);
+                    break;
+                }
+            }
+        }
+        
         grid.add(new Label("Zkratka oboru:"), 0, 0);
         grid.add(zkratkaTF, 1, 0);
         grid.add(new Label("Název oboru:"), 0, 1);
         grid.add(nazevTF, 1, 1);
-        grid.add(new Label("Zkratka fakulty:"), 0, 2);
-        grid.add(fakultaTF, 1, 2);
+        grid.add(new Label("Fakulta:"), 0, 2);
+        grid.add(fakultaCb, 1, 2);
 
         // Tlačítko
         Button tlacitko1 = new Button("Vlož");
@@ -91,7 +151,7 @@ public class DialogPridejObor extends Stage {
             try {
                 zkratka = zkratkaTF.getText();
                 nazev = nazevTF.getText();
-                zkratkaFak = fakultaTF.getText();
+                zkratkaFak = fakultaCb.getValue().zkratka;
 
                 buttonPressed = true;
                 hide();

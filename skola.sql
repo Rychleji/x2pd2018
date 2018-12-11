@@ -175,7 +175,7 @@ ALTER TABLE vyucujici
     ADD CONSTRAINT vyucujici_katedra_fk FOREIGN KEY ( katedra_zkratka_katedry )
         REFERENCES katedra ( zkratka_katedry );
         
-INSERT INTO FAKULTA VALUES ('FEI', 'Elektrotechniky a informatiky');
+INSERT INTO FAKULTA VALUES ('FEI', 'Fakulta elektrotechniky a informatiky');
 
 Insert into KATEDRA (ZKRATKA_KATEDRY,NAZEV_KATEDRY,FAKULTA_ZKRATKA_FAKULTY) values ('KE','elektrotechniky','FEI');
 Insert into KATEDRA (ZKRATKA_KATEDRY,NAZEV_KATEDRY,FAKULTA_ZKRATKA_FAKULTY) values ('KIT','informaèních technologií','FEI');
@@ -277,3 +277,11 @@ create or replace view ROZVRHOVE_AKCE_EXT_VIEW as
         
 CREATE OR REPLACE FORCE EDITIONABLE VIEW "C##ST47130"."VYUC_VIEW" ("ID_VYUCUJICIHO", "JMENO", "PRIJMENI", "TITUL_PRED", "TITUL_ZA", "TELEFON", "MOBIL", "EMAIL", "KATEDRA_ZKRATKA_KATEDRY") AS 
   select "ID_VYUCUJICIHO","JMENO","PRIJMENI","TITUL_PRED","TITUL_ZA","TELEFON","MOBIL","EMAIL","KATEDRA_ZKRATKA_KATEDRY" from vyucujici;
+  
+--insert into FAKULTA values ('FEI', 'Fakulta elektrotechniky a informatiky');
+insert into FAKULTA values ('DFJP', 'Dopravní fakulta Jana Pernera');
+insert into FAKULTA values ('FES', 'Fakulta ekonomicko-správní');
+insert into FAKULTA values ('FCHT', 'Fakulta chemicko-technologická');
+insert into FAKULTA values ('FF', 'Fakulta filozofická');
+insert into FAKULTA values ('FR', 'Fakulta restaurování');
+insert into FAKULTA values ('FZS', 'Fakulta zdravotnických studií');

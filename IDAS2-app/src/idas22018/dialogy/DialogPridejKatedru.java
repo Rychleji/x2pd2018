@@ -129,7 +129,7 @@ public class DialogPridejKatedru extends Stage {
         fakultaCb.getSelectionModel().selectFirst();
         if(zkratkaKatedry!=null && !zkratkaKatedry.equals("")){
             for(Fakulta f : list1){
-                if(f.zkratka.equals(zkratkaKatedry)){
+                if(f.zkratka.equals(zkratkaFak)){
                     fakultaCb.getSelectionModel().select(f);
                     break;
                 }
