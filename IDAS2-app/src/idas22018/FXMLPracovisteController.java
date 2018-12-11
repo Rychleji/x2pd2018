@@ -89,7 +89,8 @@ public class FXMLPracovisteController implements Initializable {
 
     @FXML
     private void pridejButtonClick(ActionEvent event) {
-        DialogPridejKatedru dialog2 = new DialogPridejKatedru(null);
+        DialogPridejKatedru dialog2 = new DialogPridejKatedru(pridejButton.getParent().getScene().getWindow(),
+                dataLayer.getConnect(), null);
         dialog2.showAndWait();
 
         if (dialog2.isButtonPressed()) {
@@ -108,7 +109,8 @@ public class FXMLPracovisteController implements Initializable {
     @FXML
     private void upravButtonClick(ActionEvent event) {
         String origID = tableView.getSelectionModel().getSelectedItem().get(0);
-        DialogPridejKatedru dialog2 = new DialogPridejKatedru(null);
+        DialogPridejKatedru dialog2 = new DialogPridejKatedru(upravButton.getParent().getScene().getWindow(),
+                dataLayer.getConnect(), origID);
         dialog2.showAndWait();
 
         if (dialog2.isButtonPressed()) {
