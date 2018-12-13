@@ -1,5 +1,5 @@
 
-package idas22018;
+package datovavrstva;
 
 import java.io.BufferedReader;
 import java.io.File;

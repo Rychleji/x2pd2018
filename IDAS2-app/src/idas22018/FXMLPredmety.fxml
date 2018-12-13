@@ -61,22 +61,30 @@
       </TableView>
    </center>
    <right>
-      <VBox alignment="TOP_CENTER" prefHeight="509.0" prefWidth="196.0" spacing="5.0" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="509.0" prefWidth="196.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="pridejButton" mnemonicParsing="false" onAction="#pridejButtonClick" prefHeight="30.0" prefWidth="140.0" text="Přidej" />
-            <Button fx:id="upravButton" mnemonicParsing="false" onAction="#upravButtonClick" prefHeight="30.0" prefWidth="140.0" text="Uprav" />
-            <Button fx:id="odeberButton" mnemonicParsing="false" onAction="#odeberButtonClick" prefHeight="30.0" prefWidth="140.0" text="Odeber" />
-            <Button mnemonicParsing="false" onAction="#oboryButtonClick" prefHeight="30.0" prefWidth="140.0" text="Obory" />
-            <Button mnemonicParsing="false" onAction="#raButtonClick" prefHeight="30.0" prefWidth="140.0" text="Rozvrhové akce" />
-            <Label text="NAVIGACE" underline="true">
-               <font>
-                  <Font name="System Bold" size="22.0" />
-               </font>
-            </Label>
-            <Button mnemonicParsing="false" onAction="#vyucujiciButtonClick" prefHeight="30.0" prefWidth="140.0" text="Vyučující" />
-            <Button mnemonicParsing="false" onAction="#pracovisteButtonClick" prefHeight="30.0" prefWidth="140.0" text="Pracoviště" />
-            <Button mnemonicParsing="false" onAction="#zamestnanciButtonClick" prefHeight="30.0" prefWidth="140.0" text="Zaměstnanci" />
-            <Button mnemonicParsing="false" onAction="#prehledOboruButtonClick" prefHeight="30.0" prefWidth="140.0" text="Přehled oborů" />
+            <VBox fx:id="controlsVBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+               <children>
+                  <Button fx:id="pridejButton" mnemonicParsing="false" onAction="#pridejButtonClick" prefHeight="30.0" prefWidth="140.0" text="Přidej" />
+                  <Button fx:id="upravButton" mnemonicParsing="false" onAction="#upravButtonClick" prefHeight="30.0" prefWidth="140.0" text="Uprav" />
+                  <Button fx:id="odeberButton" mnemonicParsing="false" onAction="#odeberButtonClick" prefHeight="30.0" prefWidth="140.0" text="Odeber" />
+                  <Button mnemonicParsing="false" onAction="#oboryButtonClick" prefHeight="30.0" prefWidth="140.0" text="Obory" />
+                  <Button mnemonicParsing="false" onAction="#raButtonClick" prefHeight="30.0" prefWidth="140.0" text="Rozvrhové akce" />
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+               <children>
+                  <Label text="NAVIGACE" underline="true">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Button mnemonicParsing="false" onAction="#vyucujiciButtonClick" prefHeight="30.0" prefWidth="140.0" text="Vyučující" />
+                  <Button mnemonicParsing="false" onAction="#pracovisteButtonClick" prefHeight="30.0" prefWidth="140.0" text="Pracoviště" />
+                  <Button mnemonicParsing="false" onAction="#zamestnanciButtonClick" prefHeight="30.0" prefWidth="140.0" text="Zaměstnanci" />
+                  <Button mnemonicParsing="false" onAction="#prehledOboruButtonClick" prefHeight="30.0" prefWidth="140.0" text="Přehled oborů" />
+               </children>
+            </VBox>
          </children>
       </VBox>
    </right>

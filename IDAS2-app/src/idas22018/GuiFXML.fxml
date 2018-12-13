@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="447.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas22018.GuiFXMLController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas22018.GuiFXMLController">
    <top>
       <Label text="Editor databáze" textFill="#100365" BorderPane.alignment="CENTER">
          <font>
@@ -33,11 +33,13 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#udajeButtonAction" prefWidth="150.0" text="Upravit údaje" />
                   <Button fx:id="raButton" mnemonicParsing="false" onAction="#raButtonAction" prefWidth="150.0" text="Mé rozvrhové akce" />
+                  <Button fx:id="importButton" mnemonicParsing="false" onAction="#importButtonClick" prefWidth="150.0" text="Import" />
                </children>
                <VBox.margin>
                   <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
                </VBox.margin>
             </VBox>
+            <Button mnemonicParsing="false" onAction="#zmenitUzivateleButtonClick" prefWidth="150.0" text="Změnit uživatele" />
             <Button cancelButton="true" mnemonicParsing="false" onAction="#exitButtonClick" prefWidth="180.0" text="Odejít z programu" VBox.vgrow="NEVER" />
          </children>
       </VBox>

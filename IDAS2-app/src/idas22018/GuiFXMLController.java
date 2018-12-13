@@ -70,6 +70,8 @@ public class GuiFXMLController implements Initializable {
     private VBox vboxZamestnancu;
     @FXML
     private Button raButton;
+    @FXML
+    private Button importButton;
 
     public List<String> getCiselnikKatPredmetu() {
         return ciselnikKatPredmetu;
@@ -109,6 +111,7 @@ public class GuiFXMLController implements Initializable {
     
     public void panelProRegistrovaneStatus(RezimProhlizeni rp){
         vboxZamestnancu.setDisable(rp==RezimProhlizeni.NEREGISTROVANY);
+        importButton.setDisable(rp != RezimProhlizeni.ADMINISTRATOR);
     }
     
     public void controlsProVyucujici(String role){
@@ -125,6 +128,7 @@ public class GuiFXMLController implements Initializable {
         }
         conn = dataLayer.getConnect();
         disablovatelnyButtonyVBox.setDisable(true);
+        importButton.setDisable(true);
         
         stageP.setOnShown((dd) -> {
             while (!prihlaseno) {
@@ -308,6 +312,16 @@ public class GuiFXMLController implements Initializable {
     @FXML
     private void clickUcebnyButton(ActionEvent event) {
         getKnihovnaZobrazovani().zobrazPrehledUceben();
+    }
+
+    @FXML
+    private void importButtonClick(ActionEvent event) {
+        getKnihovnaZobrazovani().zobrazImport();
+    }
+
+    @FXML
+    private void zmenitUzivateleButtonClick(ActionEvent event) {
+        getKnihovnaZobrazovani().zobrazPrihlaseni();
     }
 
     public class HelpClass {

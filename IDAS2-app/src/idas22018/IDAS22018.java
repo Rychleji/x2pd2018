@@ -1,6 +1,5 @@
 package idas22018;
 
-//import static idas22018.KnihovnaZobrazovani.getKnihovnaZobrazovani;
 import idas22018.dialogy.DialogChyba;
 import idas22018.dialogy.DialogCommitRollback;
 import java.sql.Connection;
@@ -17,7 +16,7 @@ public class IDAS22018 extends Application {
     /**
      *verze programu
      */
-    public static final String VERSION = "1.1.0";
+    public static final String VERSION = "2.0.0";
     public static final String PROGRAMNAME = "Database Editor - v." + VERSION;
     public static Stage stageP;
     public static Scene mainScene;
@@ -29,7 +28,7 @@ public class IDAS22018 extends Application {
     
     public static boolean prejdiZOknaBezCommitu(){
         boolean ukoncit = true;
-        Connection conn = mainController.getDataLayer().getConnect();
+        Connection conn = GuiFXMLController.getDataLayer().getConnect();
         
         DialogCommitRollback dialog = new DialogCommitRollback(null);
         dialog.showAndWait();

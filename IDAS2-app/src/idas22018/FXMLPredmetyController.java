@@ -1,9 +1,12 @@
 package idas22018;
 
 import datovavrstva.ISkolniDB;
+import datovavrstva.XMLLoader;
 import static idas22018.IDAS22018.*;
 import idas22018.dialogy.DialogChyba;
 import idas22018.dialogy.DialogPridejPredmet;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +24,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javax.xml.bind.JAXBException;
 
 public class FXMLPredmetyController implements Initializable {
 
@@ -54,6 +60,8 @@ public class FXMLPredmetyController implements Initializable {
     private Button upravButton;
     @FXML
     private Button odeberButton;
+    @FXML
+    private VBox controlsVBox;
 
     /**
      * Initializes the controller class.
@@ -65,6 +73,29 @@ public class FXMLPredmetyController implements Initializable {
         pridejButton.setDisable(IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR);
         upravButton.setDisable(IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR);
         odeberButton.setDisable(IDAS22018.druhProhlizeni!=RezimProhlizeni.ADMINISTRATOR);
+        if(IDAS22018.druhProhlizeni == RezimProhlizeni.ADMINISTRATOR){
+            Button butt = new Button("Import");
+            butt.setPrefWidth(odeberButton.getPrefWidth());
+            butt.setOnAction((event) -> {
+                FileChooser fileChoicer = new FileChooser();
+                fileChoicer.getExtensionFilters().addAll(
+                        new FileChooser.ExtensionFilter("XML", "*.xml")
+                );
+                fileChoicer.setTitle("Zvol soubor");
+                File file = fileChoicer.showOpenDialog(odeberButton.getParent().getScene().getWindow());
+
+                try {
+                    XMLLoader.importPredmetu(file.getAbsolutePath());
+                } catch (JAXBException | FileNotFoundException ex) {
+                    DialogChyba dialog = new DialogChyba(null, ex.getMessage());
+                    dialog.showAndWait();
+                    //Logger.getLogger(FXMLPredmetyController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                fillTable();
+            });
+            
+            controlsVBox.getChildren().add(butt);
+        }
         
         zkratkaCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
         nazevCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));

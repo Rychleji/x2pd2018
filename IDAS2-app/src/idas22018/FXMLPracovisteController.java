@@ -1,5 +1,6 @@
 package idas22018;
 
+import datovavrstva.CsvReader;
 import datovavrstva.ISkolniDB;
 import static idas22018.IDAS22018.*;
 import idas22018.dialogy.DialogChyba;
@@ -12,6 +13,8 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.VBox;
 
 public class FXMLPracovisteController implements Initializable {
 
@@ -50,6 +54,8 @@ public class FXMLPracovisteController implements Initializable {
 
     private boolean zmeny = false;
     private LinkedList<String> vymazane = new LinkedList<>();
+    @FXML
+    private VBox controlsVBox;
 
     /**
      * Initializes the controller class.
@@ -61,6 +67,16 @@ public class FXMLPracovisteController implements Initializable {
         pridejButton.setDisable(IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR);
         upravButton.setDisable(IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR);
         odeberButton.setDisable(IDAS22018.druhProhlizeni != RezimProhlizeni.ADMINISTRATOR);
+        
+        if(IDAS22018.druhProhlizeni == RezimProhlizeni.ADMINISTRATOR){
+            Button butt = new Button("Import");
+            butt.setPrefWidth(odeberButton.getPrefWidth());
+            butt.setOnAction((event) -> {
+                importujPracoviste(new ActionEvent(butt, null));
+            });
+            
+            controlsVBox.getChildren().add(butt);
+        }
 
         zkKatedraCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(0)));
         katedraCol.setCellValueFactory((TableColumn.CellDataFeatures<List<String>, String> data) -> new ReadOnlyStringWrapper(data.getValue().get(1)));
@@ -200,26 +216,32 @@ public class FXMLPracovisteController implements Initializable {
         }
     }
 
-    @FXML
-    private void importujPracoviste(ActionEvent event) throws FileNotFoundException, UnsupportedEncodingException {
+    private void importujPracoviste(ActionEvent event) {
         CsvReader s = new CsvReader();
-        ObservableList<String[]> list = s.importuj();
+        ObservableList<String[]> list = null;
+        try {
+            list = s.importuj();
+        } catch (UnsupportedEncodingException | FileNotFoundException ex) {
+            DialogChyba dialog = new DialogChyba(null, ex.getMessage());
+            Logger.getLogger(FXMLPracovisteController.class.getName()).log(Level.SEVERE, null, ex);
+            dialog.showAndWait();
+            return;
+        }
 
         list.remove(0);
         for (String[] pole : list) {
             String zkratka = pole[2];
             String nazev = pole[3];
             String zkratkaFakulty = pole[5];
-            zkratka = zkratka.replace("\"",""); //zbavim se uvozovek v csv
-            nazev = nazev.replace("\"","");
-            zkratkaFakulty = zkratkaFakulty.replace("\"","");
+            zkratka = zkratka.replace("\"", ""); //zbavim se uvozovek v csv
+            nazev = nazev.replace("\"", "");
+            zkratkaFakulty = zkratkaFakulty.replace("\"", "");
             try {
                 dataLayer.addDepartment(zkratka, nazev, zkratkaFakulty);
             } catch (SQLException ex) {
-                DialogChyba dialog2 = new DialogChyba(null, ex.getMessage());
-                dialog2.showAndWait();
+                Logger.getLogger(FXMLPracovisteController.class.getName()).log(Level.SEVERE, null, ex);//dialog v cyklu není zrvna nej
+                return;
             }
         }
-
     }
 }

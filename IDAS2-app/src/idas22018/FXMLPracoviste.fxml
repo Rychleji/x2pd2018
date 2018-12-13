@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1217.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas22018.FXMLPracovisteController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1217.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="idas22018.FXMLPracovisteController">
    <top>
       <FlowPane alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -60,19 +60,26 @@
    <right>
       <VBox alignment="TOP_CENTER" prefHeight="509.0" prefWidth="196.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="pridejButton" mnemonicParsing="false" onAction="#pridejButtonClick" prefHeight="30.0" prefWidth="140.0" text="Přidej" />
-            <Button fx:id="upravButton" mnemonicParsing="false" onAction="#upravButtonClick" prefHeight="30.0" prefWidth="140.0" text="Uprav" />
-            <Button fx:id="odeberButton" mnemonicParsing="false" onAction="#odeberButtonClick" prefHeight="30.0" prefWidth="140.0" text="Odeber" />
-            <Button mnemonicParsing="false" onAction="#vyucujiciButtonClick" prefHeight="30.0" prefWidth="140.0" text="Vyučující katedry" />
-            <Button mnemonicParsing="false" onAction="#importujPracoviste" text="Button" />
-            <Label text="NAVIGACE" underline="true">
-               <font>
-                  <Font name="System Bold" size="22.0" />
-               </font>
-            </Label>
-            <Button mnemonicParsing="false" onAction="#prehledVyucijiciButtonClick" prefHeight="30.0" prefWidth="140.0" text="Vyučující" />
-            <Button mnemonicParsing="false" onAction="#predmetyButtonClick" prefHeight="30.0" prefWidth="140.0" text="Předměty" />
-            <Button mnemonicParsing="false" onAction="#oboryButtonClick" prefHeight="30.0" prefWidth="140.0" text="Obory" />
+            <VBox fx:id="controlsVBox" alignment="TOP_CENTER" spacing="5.0" VBox.vgrow="NEVER">
+               <children>
+                  <Button fx:id="pridejButton" mnemonicParsing="false" onAction="#pridejButtonClick" prefHeight="30.0" prefWidth="140.0" text="Přidej" />
+                  <Button fx:id="upravButton" mnemonicParsing="false" onAction="#upravButtonClick" prefHeight="30.0" prefWidth="140.0" text="Uprav" />
+                  <Button fx:id="odeberButton" mnemonicParsing="false" onAction="#odeberButtonClick" prefHeight="30.0" prefWidth="140.0" text="Odeber" />
+                  <Button mnemonicParsing="false" onAction="#vyucujiciButtonClick" prefHeight="30.0" prefWidth="140.0" text="Vyučující katedry" />
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label text="NAVIGACE" underline="true">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Button mnemonicParsing="false" onAction="#prehledVyucijiciButtonClick" prefHeight="30.0" prefWidth="140.0" text="Vyučující" />
+                  <Button mnemonicParsing="false" onAction="#predmetyButtonClick" prefHeight="30.0" prefWidth="140.0" text="Předměty" />
+                  <Button mnemonicParsing="false" onAction="#oboryButtonClick" prefHeight="30.0" prefWidth="140.0" text="Obory" />
+               </children>
+            </VBox>
          </children>
       </VBox>
    </right>
