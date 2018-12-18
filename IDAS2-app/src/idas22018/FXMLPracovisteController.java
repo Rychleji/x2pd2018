@@ -218,7 +218,7 @@ public class FXMLPracovisteController implements Initializable {
 
     private void importujPracoviste(ActionEvent event) {
         CsvReader s = new CsvReader();
-        ObservableList<String[]> list = null;
+        List<String[]> list = null;
         try {
             list = s.importuj();
         } catch (UnsupportedEncodingException | FileNotFoundException ex) {

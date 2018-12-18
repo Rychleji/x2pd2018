@@ -371,8 +371,8 @@ public class SkolniDB implements ISkolniDB {
     public ResultSet selectTeachers(String department) throws SQLException {
         Statement statement = connect.createStatement();
 
-        return statement.executeQuery("select * from VYUC_VIEW"
-                + " left join KATEDRA on VYUC_VIEW.KATEDRA_ZKRATKA_KATEDRY = KATEDRA.ZKRATKA_KATEDRY"
+        return statement.executeQuery("select * from ZAM_VIEW"
+                + " left join KATEDRA on ZAM_VIEW.KATEDRA_ZKRATKA_KATEDRY = KATEDRA.ZKRATKA_KATEDRY"
                 + " left join FAKULTA on KATEDRA.FAKULTA_ZKRATKA_FAKULTY = FAKULTA.ZKRATKA_FAKULTY"
                 + " where KATEDRA_ZKRATKA_KATEDRY = '" + department + "'");
     }

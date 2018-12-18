@@ -1,4 +1,3 @@
-
 package datovavrstva;
 
 import java.io.BufferedReader;
@@ -8,8 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.LinkedList;
+import java.util.List;
 import javafx.stage.FileChooser;
 
 /**
@@ -20,9 +19,9 @@ public class CsvReader {
 
     private String line = "";
     private String cvsSplitBy = ";";
-    private ObservableList<String[]> list = FXCollections.observableArrayList();
+    private List<String[]> list = new LinkedList<>();
 
-    public ObservableList<String[]> importuj() throws FileNotFoundException, UnsupportedEncodingException {
+    public List<String[]> importuj() throws FileNotFoundException, UnsupportedEncodingException {
 
         FileChooser fileChoicer = new FileChooser();
         fileChoicer.getExtensionFilters().addAll(

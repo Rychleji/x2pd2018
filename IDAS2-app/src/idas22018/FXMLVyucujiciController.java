@@ -219,16 +219,13 @@ public class FXMLVyucujiciController implements Initializable {
     }
 
     private void fillTable() {
-        nadpisLabel.setText(skrytControlsProVyucujici ? "Zaměstnanci" : "Vyučující");
-        akceFiltrButton.setVisible(!skrytControlsProVyucujici);
-        predmetyFiltrButton.setVisible(!skrytControlsProVyucujici);
-        zamestnanciButton.setText(skrytControlsProVyucujici ? "Vyučující" : "Zaměstnanci");
         try {
             ResultSet rs = null;
             if (!skrytControlsProVyucujici) {
                 if (predmetFiltr != null) {
                     rs = dataLayer.selectTeachers("", "", predmetFiltr);
                 } else if (katedraFiltr != null) {
+                    skrytControlsProVyucujici = true;
                     rs = dataLayer.selectTeachers(katedraFiltr);
                 } else {
                     rs = dataLayer.selectTeachers();
@@ -236,6 +233,11 @@ public class FXMLVyucujiciController implements Initializable {
             } else {
                 rs = dataLayer.selectEmployees();
             }
+            
+            nadpisLabel.setText(skrytControlsProVyucujici ? "Zaměstnanci" : "Vyučující");
+            akceFiltrButton.setVisible(!skrytControlsProVyucujici);
+            predmetyFiltrButton.setVisible(!skrytControlsProVyucujici);
+            zamestnanciButton.setText(skrytControlsProVyucujici ? "Vyučující" : "Zaměstnanci");
 
             seznam.clear();
 

@@ -214,24 +214,25 @@ begin
     --vyučující
     select id_opravneni into v_opravneni from opravneni where opravneni = 'Registrovaný';
     select id_role into v_role from role where typrole = 'Vyučující';
-    VLOZZAMESTNANCE('Jan','Fikejz','Ing.',null,'jan.fikejz@upce.cz','KST',v_opravneni,v_role,null,null,null,'fiky1','fiky1');
-    VLOZZAMESTNANCE('Filip','Majerik','Ing.',null,'st40429@student.upce.cz','KST',v_opravneni,v_role,null,null,null,'reg','reg');
-    VLOZZAMESTNANCE('Lubomír','Andrle','Ing.',null,'lubomir.andrle@upce.cz','KIT',v_opravneni,v_role,null,null,null,'andrle','lubomir');
-    VLOZZAMESTNANCE('Paul Charles','Hooper',null,null,'paul.hooper@upce.cz','FEI',v_opravneni,v_role,466036710,null,null,'hooper','looper');
-    VLOZZAMESTNANCE('Michal','Horáček','Ing.',null,'michal.horacek.czech@gmail.com','KE',v_opravneni,v_role,null,null,null,'horacek','prezident');
-    VLOZZAMESTNANCE('Pavel','Horák','JUDr.',null,'pavel.horak@upce.cz','KIT',v_opravneni,v_role,null,null,null,'horak.pavel','zubr');
-    VLOZZAMESTNANCE('Josef','Horálek','Mgr.','Ph.D.','josef.horalek@upce.cz','KIT',v_opravneni,v_role,466036488,null,null,'josef.horalek','Sierra');
-    VLOZZAMESTNANCE('Klára','Hrůzová','Mgr.','Ph.D.','Klara.Hruzova@upce.cz','KMF',v_opravneni,v_role,null,null,null,'hruzova','Hotel');
-    VLOZZAMESTNANCE('Jan','Hřídel','Ing.',null,'jan.hridel@upce.cz','KST',v_opravneni,v_role,null,null,null,'jan.hridel','India');
-    VLOZZAMESTNANCE('Tomáš','Hudec','Mgr.',null,'tomas.hudec@upce.cz','KIT',v_opravneni,v_role,null,null,null,'tomas.hudec','Echo');
-    VLOZZAMESTNANCE('Veronika','Hurtová','Ing.',null,'veronika.hurtova@student.upce.cz','KIT',v_opravneni,v_role,null,null,null,'veronika.h','Lima');
-    VLOZZAMESTNANCE('Pavel','Chmelař','Ing.',null,'st19544@student.upce.cz','KE',v_opravneni,v_role,null,null,null,'st19544','Delta');
-    VLOZZAMESTNANCE('Dana','Jablonská',null,null,'dana.jablonska@upce.cz','KIT',v_opravneni,v_role,null,null,null,'jablonska','SHIELD');
-    VLOZZAMESTNANCE('Jiří','Lebduška',null,null,'jiri.lebduska@student.upce.cz','KIT',v_opravneni,v_role,null,null,null,'lebduska','heslo');
+    VLOZZAMESTNANCE('Jan','Fikejz','Ing.',null,'jan.fikejz@upce.cz','KST',v_opravneni,v_role,null,null,'fiky1','fiky1');
+    VLOZZAMESTNANCE('Filip','Majerik','Ing.',null,'st40429@student.upce.cz','KST',v_opravneni,v_role,null,null,'reg','reg');
+    VLOZZAMESTNANCE('Lubomír','Andrle','Ing.',null,'lubomir.andrle@upce.cz','KIT',v_opravneni,v_role,null,null,'andrle','lubomir');
+    VLOZZAMESTNANCE('Paul Charles','Hooper',null,null,'paul.hooper@upce.cz','FEI',v_opravneni,v_role,466036710,null,'hooper','looper');
+    VLOZZAMESTNANCE('Michal','Horáček','Ing.',null,'michal.horacek.czech@gmail.com','KE',v_opravneni,v_role,null,null,'horacek','prezident');
+    VLOZZAMESTNANCE('Pavel','Horák','JUDr.',null,'pavel.horak@upce.cz','KIT',v_opravneni,v_role,null,null,'horak.pavel','zubr');
+    VLOZZAMESTNANCE('Josef','Horálek','Mgr.','Ph.D.','josef.horalek@upce.cz','KIT',v_opravneni,v_role,466036488,null,'josef.horalek','Sierra');
+    VLOZZAMESTNANCE('Klára','Hrůzová','Mgr.','Ph.D.','Klara.Hruzova@upce.cz','KMF',v_opravneni,v_role,null,null,'hruzova','Hotel');
+    VLOZZAMESTNANCE('Jan','Hřídel','Ing.',null,'jan.hridel@upce.cz','KST',v_opravneni,v_role,null,null,'jan.hridel','India');
+    VLOZZAMESTNANCE('Tomáš','Hudec','Mgr.',null,'tomas.hudec@upce.cz','KIT',v_opravneni,v_role,null,null,'tomas.hudec','Echo');
+    VLOZZAMESTNANCE('Veronika','Hurtová','Ing.',null,'veronika.hurtova@student.upce.cz','KIT',v_opravneni,v_role,null,null,'veronika.h','Lima');
+    VLOZZAMESTNANCE('Pavel','Chmelař','Ing.',null,'st19544@student.upce.cz','KE',v_opravneni,v_role,null,null,'st19544','Delta');
+    VLOZZAMESTNANCE('Dana','Jablonská',null,null,'dana.jablonska@upce.cz','KIT',v_opravneni,v_role,null,null,'jablonska','SHIELD');
+    VLOZZAMESTNANCE('Jiří','Lebduška',null,null,'jiri.lebduska@student.upce.cz','KIT',v_opravneni,v_role,null,null,'lebduska','heslo');
+    VLOZZAMESTNANCE('Jiří','Kysela','Ing.','Ph.D.','jiri.kysela@upce.cz','KIT',v_opravneni,v_role,null,null,null,null);
     --zamestnanci
     select id_opravneni into v_opravneni from opravneni where opravneni = 'Administrátor';
     select id_role into v_role from role where typrole = 'Správce systému';
-    VLOZZAMESTNANCE('Jiří','Zůstavec',null,null,'zustavec.jiri@upce.cz','FEI',v_opravneni,v_role,null,null,null,'admin','admin');
+    VLOZZAMESTNANCE('Jiří','Zůstavec',null,null,'zustavec.jiri@upce.cz','FEI',v_opravneni,v_role,null,null,'admin','admin');
 end;
 
 CREATE OR REPLACE VIEW VYUC_VIEW AS 
@@ -286,3 +287,5 @@ create or replace view ROZVRHOVE_AKCE_EXT_VIEW as
 		left join ZAMESTNANEC z on r.ID_ZAMESTNANEC = z.ID_ZAMESTNANEC
 		left join UCEBNA u on r.ID_UCEBNA = u.ID_UCEBNA;
 		
+ALTER TABLE zamestnanec
+ADD CONSTRAINT zamestnanecemail_unique UNIQUE (email); --musí být jedinečné

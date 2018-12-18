@@ -65,7 +65,7 @@
                   <Button fx:id="pridejButton" mnemonicParsing="false" onAction="#pridejButtonClick" prefHeight="30.0" prefWidth="140.0" text="Přidej" />
                   <Button fx:id="upravButton" mnemonicParsing="false" onAction="#upravButtonClick" prefHeight="30.0" prefWidth="140.0" text="Uprav" />
                   <Button fx:id="odeberButton" mnemonicParsing="false" onAction="#odeberButtonClick" prefHeight="30.0" prefWidth="140.0" text="Odeber" />
-                  <Button mnemonicParsing="false" onAction="#vyucujiciButtonClick" prefHeight="30.0" prefWidth="140.0" text="Vyučující katedry" />
+                  <Button mnemonicParsing="false" onAction="#vyucujiciButtonClick" prefHeight="30.0" prefWidth="140.0" text="Zaměstnanci katedry" />
                </children>
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" VBox.vgrow="ALWAYS">

@@ -15,11 +15,11 @@ import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -84,7 +84,7 @@ public class FXMLImportController implements Initializable {
     private void souborButtonClick(ActionEvent event) {
         if (priponaCB.getValue().equalsIgnoreCase("CSV")) {
             CsvReader s = new CsvReader();
-            ObservableList<String[]> list = null;
+            List<String[]> list = null;
             try {
                 list = s.importuj();
             } catch (UnsupportedEncodingException | FileNotFoundException ex) {
