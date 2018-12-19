@@ -231,7 +231,7 @@ IS
     v_semestr   SEMESTR.SEM%TYPE;       
 BEGIN
     select SEM into v_semestr from PREDMET_EXT_VIEW where ZKRATKA_PREDMETU = p_predmet;
-    IF ((MAVOLNO(p_idVyucujiciho, p_zacinaV, p_maHodin, v_semestr, p_den, p_idUcebna, 0)) AND (DOSTACUJEMISTO(p_pocetStudentu, p_idUcebna))) THEN
+    IF ((MAVOLNO(p_idVyucujiciho, p_zacinaV, p_maHodin, p_den, v_semestr, p_idUcebna, 0)) AND (DOSTACUJEMISTO(p_pocetStudentu, p_idUcebna))) THEN
         INSERT INTO ROZVRHOVA_AKCE (POCET_STUDENTU, MAHODIN, ZACINAV, PREDMET_ZKRATKA_PREDMETU, ZPUSOB_VYUKY_ID_ZV,
             ROLE_VYUCUJICIHO_ROLE, ID_ZAMESTNANEC, ID_UCEBNA, DENVTYDNU)
         values (p_pocetStudentu, p_maHodin, p_zacinaV, p_predmet, p_zpusobVyuky, p_roleVyucujiciho, p_idVyucujiciho, p_idUcebna, p_den);
