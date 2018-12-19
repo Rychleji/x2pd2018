@@ -456,24 +456,37 @@ END;
 /
 create or replace FUNCTION maVolno 
     (p_idZam ZAMESTNANEC.ID_ZAMESTNANEC%TYPE, p_zacatek ROZVRHOVA_AKCE.ZACINAV%TYPE, p_delka ROZVRHOVA_AKCE.MAHODIN%TYPE, p_den ROZVRHOVA_AKCE.DENVTYDNU%TYPE,
-    p_idUcebny UCEBNA.ID_UCEBNA%TYPE, p_idRA ROZVRHOVA_AKCE.ID_RA%TYPE)
+    p_semestr SEMESTR.SEM%TYPE, p_idUcebny UCEBNA.ID_UCEBNA%TYPE, p_idRA ROZVRHOVA_AKCE.ID_RA%TYPE)
 RETURN BOOLEAN IS
     v_jeVolno           BOOLEAN := true;
     v_zacatekDruhe      ROZVRHOVA_AKCE.ZACINAV%TYPE;
     v_delkaDruhe        ROZVRHOVA_AKCE.MAHODIN%TYPE;
     v_denDruha          ROZVRHOVA_AKCE.DENVTYDNU%TYPE;
+    v_semestrDruha      Semestr.sem%TYPE;
+    v_jedenVObou        BOOLEAN := false;
 
     CURSOR c1 (p_iz in NUMBER, p_iu in NUMBER, p_ira in NUMBER)
-        IS SELECT ZACINAV, MAHODIN, DENVTYDNU FROM ROZVRHOVA_AKCE WHERE (ID_ZAMESTNANEC = p_iz OR ID_UCEBNA = p_iu) AND NOT(ID_RA=p_ira);
+        IS SELECT ZACINAV, MAHODIN, DENVTYDNU, SEM FROM ROZVRHOVE_AKCE_EXT_VIEW WHERE (ID_VYUCUJICIHO = p_iz OR ID_UCEBNY = p_iu) AND NOT(ID_ROZVRHOVE_AKCE=p_ira);
 BEGIN
    open c1 (p_idZam, p_idUcebny, p_idRA);
    LOOP
-        FETCH c1 INTO v_delkaDruhe, v_zacatekDruhe, v_denDruha;
+        FETCH c1 INTO v_delkaDruhe, v_zacatekDruhe, v_denDruha, v_semestrDruha;
         EXIT WHEN c1%NOTFOUND;
+        if((p_semestr = 'Oba') or (v_semestrDruha = 'Oba')) then
+            v_jedenVObou := true;
+        else
+            v_jedenVObou := false;
+        end if;
         if (p_den = v_denDruha) then
             if ((p_zacatek BETWEEN v_zacatekDruhe AND (v_zacatekDruhe + v_delkaDruhe - 0.017)) or
                     ((p_zacatek+p_delka - 0.017) BETWEEN v_zacatekDruhe AND (v_zacatekDruhe+v_delkaDruhe - 0.017))) then
-                v_jeVolno := false;
+                if(v_jedenVObou)then
+                    v_jeVolno := false;
+                elsif(p_semestr = v_semestrDruha)then
+                    v_jeVolno := false;
+                else
+                    v_jeVolno := true;
+                end if;
             end if;
         end if;
     END LOOP;
