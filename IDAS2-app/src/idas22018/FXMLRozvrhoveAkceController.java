@@ -9,10 +9,13 @@ import java.net.URL;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -307,21 +310,52 @@ public class FXMLRozvrhoveAkceController implements Initializable {
     @FXML
     private void zobrazGrafickyButton(ActionEvent event) {
         ResultSet rs = null;
-        List<String> list = new ArrayList();
-            for(List<String> ls : seznam){
-                if(!ls.get(9).equalsIgnoreCase("0")){//pokud je předmět schválený
-                    list.add(ls.get(1));//zkratka predmetu
-                    list.add(ls.get(5));//zacatek
-                    list.add(ls.get(6));//delka
-                    list.add(ls.get(7));//zpusob
+        List<String> listZ = new ArrayList();
+        List<String> listL = new ArrayList();
+        for(List<String> ls : seznam){
+            List<String> list = null;
+            boolean oba = false;
+            try {
+                Statement stmt = dataLayer.getConnect().createStatement();
+                rs = stmt.executeQuery("select SEM from ROZVRHOVE_AKCE_EXT_VIEW where ID_ROZVRHOVE_AKCE = "+ls.get(0));
+                rs.next();
+                if (rs.getString("SEM").equals("Zimní")){
+                    list=listZ;
+                }else{
+                    list=listL;
+                    if (rs.getString("SEM").equals("Oba")){
+                        oba = true;
+                    }
+                }                    
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLRozvrhoveAkceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            if(!ls.get(9).equalsIgnoreCase("0")){//pokud je předmět schválený
+                list.add(ls.get(1));//zkratka predmetu
+                list.add(ls.get(5));//zacatek
+                list.add(ls.get(6));//delka
+                list.add(ls.get(7));//zpusob
+                if(vyucId!=null)//pokud filtrujeme podle vyučujícího
+                    list.add(ls.get(8));//ucebna
+                else if(roomId!=null)//pokud filtrujeme dle učebny
+                    list.add(ls.get(3));//vyučující
+                list.add(ls.get(10));//den
+                
+                if(oba){
+                    listZ.add(ls.get(1));//zkratka predmetu
+                    listZ.add(ls.get(5));//zacatek
+                    listZ.add(ls.get(6));//delka
+                    listZ.add(ls.get(7));//zpusob
                     if(vyucId!=null)//pokud filtrujeme podle vyučujícího
-                        list.add(ls.get(8));//ucebna
+                        listZ.add(ls.get(8));//ucebna
                     else if(roomId!=null)//pokud filtrujeme dle učebny
-                        list.add(ls.get(3));//vyučující
-                    list.add(ls.get(10));//den
+                        listZ.add(ls.get(3));//vyučující
+                    listZ.add(ls.get(10));//den
                 }
             }
-        DialogZobrazRAGraficky dialog = new DialogZobrazRAGraficky(schvalitButton.getParent().getScene().getWindow(), list);
+        }
+        DialogZobrazRAGraficky dialog = new DialogZobrazRAGraficky(schvalitButton.getParent().getScene().getWindow(), listZ, listL);
         dialog.showAndWait();
     }
 }

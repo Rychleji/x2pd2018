@@ -227,9 +227,11 @@ create or replace PROCEDURE vlozRozvrhovouAkci
     (p_pocetStudentu NUMBER, p_maHodin NUMBER, p_zacinaV NUMBER, p_predmet VARCHAR2, p_zpusobVyuky NUMBER, 
         p_roleVyucujiciho VARCHAR2, p_idVyucujiciho NUMBER, p_idUcebna NUMBER, p_den VARCHAR2)
 IS
-    ex_kryti EXCEPTION;
+    ex_kryti    EXCEPTION;
+    v_semestr   SEMESTR.SEM%TYPE;       
 BEGIN
-    IF ((MAVOLNO(p_idVyucujiciho, p_zacinaV, p_maHodin, p_den, p_idUcebna, 0)) AND (DOSTACUJEMISTO(p_pocetStudentu, p_idUcebna))) THEN
+    select SEM into v_semestr from PREDMET_EXT_VIEW where ZKRATKA_PREDMETU = p_predmet;
+    IF ((MAVOLNO(p_idVyucujiciho, p_zacinaV, p_maHodin, v_semestr, p_den, p_idUcebna, 0)) AND (DOSTACUJEMISTO(p_pocetStudentu, p_idUcebna))) THEN
         INSERT INTO ROZVRHOVA_AKCE (POCET_STUDENTU, MAHODIN, ZACINAV, PREDMET_ZKRATKA_PREDMETU, ZPUSOB_VYUKY_ID_ZV,
             ROLE_VYUCUJICIHO_ROLE, ID_ZAMESTNANEC, ID_UCEBNA, DENVTYDNU)
         values (p_pocetStudentu, p_maHodin, p_zacinaV, p_predmet, p_zpusobVyuky, p_roleVyucujiciho, p_idVyucujiciho, p_idUcebna, p_den);
@@ -246,9 +248,11 @@ create or replace PROCEDURE upravRozvrhovouAkci
     (p_id Number, p_pocetStudentu NUMBER, p_maHodin NUMBER, p_zacinaV NUMBER, p_predmet VARCHAR2, p_zpusobVyuky NUMBER, 
         p_roleVyucujiciho VARCHAR2, p_idVyucujiciho NUMBER, p_idUcebna NUMBER, p_schvaleno NUMBER, p_den VARCHAR2)
 IS
-    ex_kryti EXCEPTION;
+    ex_kryti    EXCEPTION;
+    v_semestr   SEMESTR.SEM%TYPE;       
 BEGIN
-    IF ((MAVOLNO(p_idVyucujiciho, p_zacinaV, p_maHodin, p_den, p_idUcebna, p_id)) AND (DOSTACUJEMISTO(p_pocetStudentu, p_idUcebna))) THEN
+    select SEM into v_semestr from PREDMET_EXT_VIEW where ZKRATKA_PREDMETU = p_predmet;
+    IF ((MAVOLNO(p_idVyucujiciho, p_zacinaV, p_maHodin, p_den, v_semestr, p_idUcebna, p_id)) AND (DOSTACUJEMISTO(p_pocetStudentu, p_idUcebna))) THEN
         UPDATE ROZVRHOVA_AKCE 
         SET POCET_STUDENTU = p_pocetStudentu, MAHODIN = p_maHodin, ZACINAV = p_zacinaV, PREDMET_ZKRATKA_PREDMETU = p_predmet, 
         ZPUSOB_VYUKY_ID_ZV = p_zpusobVyuky, ROLE_VYUCUJICIHO_ROLE = p_roleVyucujiciho, ID_ZAMESTNANEC = p_idVyucujiciho, ID_UCEBNA = p_idUcebna,
