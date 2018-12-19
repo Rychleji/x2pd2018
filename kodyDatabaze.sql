@@ -537,3 +537,21 @@ BEGIN
             raise_application_error(-20002, 'Takové přihlašovací jméno neexistuje');
 END;
 /
+
+create or replace PROCEDURE vlozZObrazek(p_obrazek DATA.OBRAZEK%TYPE)
+IS
+BEGIN
+
+INSERT INTO DATA (OBRAZEK, DATUMPRIDANI, DATUMMODIFIKACE, ID_ZAMESTNANEC)
+        VALUES (p_obrazek, SYSDATE, SYSDATE, 22);
+        
+END;
+/
+
+create or replace PROCEDURE smazFotku
+  (p_id ZAMESTNANEC.ID_ZAMESTNANEC%TYPE)
+IS
+BEGIN
+    delete from DATA WHERE ID_ZAMESTNANEC = p_id;
+END;
+/
